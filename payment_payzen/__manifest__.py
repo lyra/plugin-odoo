@@ -7,13 +7,13 @@
     'version': '0.9',
     'description': """
         Payzen Payment Acquirer
-        
+
         """,
     'author': 'Sudokeys',
     'depends': ['payment'],
     'data': [
         'views/payzen.xml',
-        'views/payment_acquirer.xml',
+        'views/payment_views.xml',
         'data/payzen.xml',
     ],
     'installable': True,

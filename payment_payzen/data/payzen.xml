@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data noupdate="1">
-
-        <record id="payment_acquirer_payzen" model="payment.acquirer">
+        <record id="payment.payment_acquirer_payzen" model="payment.acquirer">
             <field name="name">Payzen</field>
+            <field name="image" type="base64" file="payment_payzen/static/src/img/payzen_icon.png"/>
             <field name="provider">payzen</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="view_template_id" ref="payzen_acquirer_button"/>
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[
-<p>You will be redirected to the Payzen website after cliking on the payment button.</p>]]></field>
+                <p>You will be redirected to the Payzen website after cliking on the payment button.</p>]]></field>
             <field name="payzen_websitekey">123456</field>
             <field name="payzen_secretkey">1234567890</field>
         </record>
-
     </data>
-</openerp>
+</odoo>
