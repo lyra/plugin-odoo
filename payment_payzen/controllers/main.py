@@ -20,10 +20,6 @@ class PayzenController(http.Controller):
 
     @http.route(['/payment/payzen/return', ], type='http', auth='none')
     def payzen_return(self, **post):
+        _logger.info('Payzen: entering form_feedback with post data %s', pprint.pformat(post))  # debug
         request.env['payment.transaction'].sudo().form_feedback(post, 'payzen')
-        return_url = post.pop('return_url', '')
-        if not return_url:
-            data = '' + post.pop('ADD_RETURNDATA', '{}').replace("'", "\"")
-            custom = json.loads(data)
-            return_url = custom.pop('return_url', '/')
-        return werkzeug.utils.redirect(return_url)
+        return werkzeug.utils.redirect(post.pop('return_url', '/'))
