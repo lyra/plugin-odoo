@@ -7,6 +7,8 @@ import urlparse
 from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.addons.payment_payzen.controllers.main import PayzenController
 from odoo import models, api, fields, _
+from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
+from odoo.tools.float_utils import float_compare, float_repr
 from datetime import datetime
 
 
@@ -42,10 +44,13 @@ class AcquirerPayzen(models.Model):
     def _payzen_generate_digital_sign(self, acquirer, vads_values):
         signature = ''
         for key in sorted(vads_values.iterkeys()):
-            if key.find('payzen_vads_') == 0:
+            if key.startswith('vads_'):
                 signature += str(vads_values[key]).decode('utf-8') + '+'
-        signature += acquirer.payzen_secretkey
+
+        signature += self.payzen_secretkey
+        print signature
         shasign = sha1(signature.encode('utf-8')).hexdigest()
+        print shasign
         return shasign
 
     @api.multi
@@ -63,36 +68,37 @@ class AcquirerPayzen(models.Model):
 
         payzen_tx_values = dict(values)
         payzen_tx_values.update({
-            'payzen_vads_site_id': self.payzen_websitekey,
-            'payzen_vads_amount': int(values['amount'] * 100),
-            'payzen_vads_currency': currency_code.get(
+            'vads_site_id': self.payzen_websitekey,
+            'vads_amount': int(values['amount'] * 100) and values['currency'].decimal_places == 2 or int(values['amount']),
+            'vads_currency': currency_code.get(
                 values['currency'].name, 0),
-            'payzen_vads_trans_date': datetime.utcnow().strftime(
+            'vads_trans_date': datetime.utcnow().strftime(
                 "%Y%m%d%H%M%S"),
-            'payzen_vads_trans_id': trans_id,
-            'payzen_vads_ctx_mode': mode,
-            'payzen_vads_page_action': 'PAYMENT',
-            'payzen_vads_action_mode': 'INTERACTIVE',
-            'payzen_vads_payment_config': 'SINGLE',
-            'payzen_vads_version': 'V2',
-            'payzen_vads_url_return': urlparse.urljoin(
+            'vads_trans_id': trans_id,
+            'vads_ctx_mode': mode,
+            'vads_page_action': 'PAYMENT',
+            'vads_action_mode': 'INTERACTIVE',
+            'vads_payment_config': 'SINGLE',
+            'vads_version': 'V2',
+            'vads_url_return': urlparse.urljoin(
                 base_url, PayzenController._return_url),
-            'payzen_vads_return_mode': 'GET',
-            'payzen_vads_order_id': values.get('reference'),
+            'vads_return_mode': 'GET',
+            'vads_order_id': values.get('reference'),
             # customer info
-            'payzen_vads_cust_name': values.get('partner_name') and values.get('partner_name')[0:126].encode('utf-8') or '',
-            'payzen_vads_cust_first_name': values.get('partner_first_name') and values.get('partner_first_name')[0:62].encode('utf-8') or '',
-            'payzen_vads_cust_last_name': values.get('partner_last_name') and values.get('partner_last_name')[0:62].encode('utf-8') or '',
-            'payzen_vads_cust_address': values.get('partner_address') and values.get('partner_address')[0:254].encode('utf-8'),
-            'payzen_vads_cust_zip': values.get('partner_zip') and values.get('partner_zip')[0:62].encode('utf-8') or '',
-            'payzen_vads_cust_city': values.get('partner_city') and values.get('partner_city')[0:62].encode('utf-8') or '',
-            'payzen_vads_cust_state': values.get('partner_state') and values.get('partner_state').name[0:62].encode('utf-8') or '',
-            'payzen_vads_cust_country': values.get('partner_country').code and values.get('partner_country').code.upper() or '',
-            'payzen_vads_cust_email': values.get('partner_email') and values.get('partner_email')[0:126].encode('utf-8') or '',
-            'payzen_vads_cust_phone': values.get('partner_phone') and values.get('partner_phone')[0:31].encode('utf-8') or '',
+            'vads_cust_name': values.get('partner_name') and values.get('partner_name')[0:126].encode('utf-8') or '',
+            'vads_cust_first_name': values.get('partner_first_name') and values.get('partner_first_name')[0:62].encode('utf-8') or '',
+            'vads_cust_last_name': values.get('partner_last_name') and values.get('partner_last_name')[0:62].encode('utf-8') or '',
+            'vads_cust_address': values.get('partner_address') and values.get('partner_address')[0:254].encode('utf-8'),
+            'vads_cust_zip': values.get('partner_zip') and values.get('partner_zip')[0:62].encode('utf-8') or '',
+            'vads_cust_city': values.get('partner_city') and values.get('partner_city')[0:62].encode('utf-8') or '',
+            'vads_cust_state': values.get('partner_state') and values.get('partner_state').name[0:62].encode('utf-8') or '',
+            'vads_cust_country': values.get('partner_country').code and values.get('partner_country').code.upper() or '',
+            'vads_cust_email': values.get('partner_email') and values.get('partner_email')[0:126].encode('utf-8') or '',
+            'vads_cust_phone': values.get('partner_phone') and values.get('partner_phone')[0:31].encode('utf-8') or '',
         })
 
         payzen_tx_values['payzen_signature'] = self._payzen_generate_digital_sign(self, payzen_tx_values)
+        print payzen_tx_values
         return payzen_tx_values
 
     @api.multi
@@ -191,6 +197,13 @@ class TxPayzen(models.Model):
 
     def _payzen_form_get_invalid_parameters(self, data):
         invalid_parameters = []
+
+        # check what is bought
+        if float_compare(float(data.get('amount', '0.0')), self.amount, 2) != 0:
+            invalid_parameters.append(('amount', data.get('amount'), '%.2f' % self.amount))
+
+        if data.get('currency') != self.currency_id.name:
+            invalid_parameters.append(('currency', data.get('currency'), self.currency_id.name))
 
         return invalid_parameters
 
