@@ -48,9 +48,8 @@ class AcquirerPayzen(models.Model):
                 signature += str(vads_values[key]).decode('utf-8') + '+'
 
         signature += self.payzen_secretkey
-        print signature
         shasign = sha1(signature.encode('utf-8')).hexdigest()
-        print shasign
+
         return shasign
 
     @api.multi
@@ -98,7 +97,6 @@ class AcquirerPayzen(models.Model):
         })
 
         payzen_tx_values['payzen_signature'] = self._payzen_generate_digital_sign(self, payzen_tx_values)
-        print payzen_tx_values
         return payzen_tx_values
 
     @api.multi
