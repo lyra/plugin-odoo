@@ -17,6 +17,7 @@ currency_code = {
     'EUR': 978,
     'USD': 840,
     'CAD': 124,
+    'XPF': 953,
 }
 
 
