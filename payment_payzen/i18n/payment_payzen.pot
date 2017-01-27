@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* payment_payzen
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-27 05:00+0000\n"
+"PO-Revision-Date: 2017-01-27 05:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_payzen
+#: model:ir.model,name:payment_payzen.model_payment_acquirer
+msgid "Payment Acquirer"
+msgstr ""
+
+#. module: payment_payzen
+#: model:ir.model,name:payment_payzen.model_payment_transaction
+msgid "Payment Transaction"
+msgstr ""
+
+#. module: payment_payzen
+#: code:addons/payment_payzen/models/payzen.py:190
+#, python-format
+msgid "Payzen: invalid shasign, received %s, computed %s, for data %s"
+msgstr ""
+
+#. module: payment_payzen
+#: model:ir.model.fields,field_description:payment_payzen.field_payment_acquirer_payzen_secretkey
+msgid "SecretKey"
+msgstr ""
+
+#. module: payment_payzen
+#: model:ir.model.fields,field_description:payment_payzen.field_payment_transaction_authresult_message
+msgid "Transaction error"
+msgstr ""
+
+#. module: payment_payzen
+#: model:ir.model.fields,field_description:payment_payzen.field_payment_acquirer_payzen_websitekey
+msgid "Website ID"
+msgstr ""
+
