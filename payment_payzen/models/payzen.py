@@ -1,20 +1,20 @@
 # -*- coding: utf-'8' "-*-"
+
 from hashlib import sha1
 import logging
 import urlparse
-
+import math
 
 from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.addons.payment_payzen.controllers.main import PayzenController
-from odoo import models, api, fields, _
+from odoo import models, api, release, fields, _
 from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.float_utils import float_compare, float_repr
 from datetime import datetime
 
-
 _logger = logging.getLogger(__name__)
 
-currency_code = {
+payzen_currencies = {
     'EUR': 978,
     'USD': 840,
     'CAD': 124,
@@ -26,16 +26,11 @@ class AcquirerPayzen(models.Model):
     _inherit = 'payment.acquirer'
 
     def _get_payzen_urls(self, environment):
-        if environment == 'prod':
-            return {
-                'payzen_form_url': 'https://demo.payzen.eu/vads-payment/',
-            }
-        else:
-            return {
-                'payzen_form_url': 'https://demo.payzen.eu/vads-payment/',
-            }
+        return {
+           'payzen_form_url': 'https://secure.payzen.eu/vads-payment/', #'https://demo.payzen.eu/vads-payment/',
+        }
 
-    provider = fields.Selection(selection_add=[('payzen', 'Payzen')])
+    provider = fields.Selection(selection_add=[('payzen', 'PayZen')])
     payzen_websitekey = fields.Char(string='Website ID',
                                     required_if_provider='payzen')
     payzen_secretkey = fields.Char(string='SecretKey',
@@ -56,9 +51,18 @@ class AcquirerPayzen(models.Model):
     def payzen_form_generate_values(self, values):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
 
+        """
+        # such trans_id generation does not allow
         self.env.cr.execute("select MAX(id) FROM sale_order")
         x = self.env.cr.fetchall()
         trans_id = str(x[0][0]).rjust(6, '0')
+        """
+        
+        # trans id is number of 1/10 seconds from midnight
+        now = datetime.now()
+        midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        delta = int((now - midnight).total_seconds() * 10)
+        trans_id = str(delta).rjust(6, '0')
 
         if self.environment == 'test':
             mode = 'TEST'
@@ -68,21 +72,19 @@ class AcquirerPayzen(models.Model):
         payzen_tx_values = dict(values)
         payzen_tx_values.update({
             'vads_site_id': self.payzen_websitekey,
-            'vads_amount': int(values['amount'] * 100) and values['currency'].decimal_places == 2 or int(values['amount']),
-            'vads_currency': currency_code.get(
-                values['currency'].name, 0),
-            'vads_trans_date': datetime.utcnow().strftime(
-                "%Y%m%d%H%M%S"),
+            'vads_amount': int(values['amount'] * math.pow(10, int(values['currency'].decimal_places))),
+            'vads_currency': payzen_currencies.get(values['currency'].name, 0),
+            'vads_trans_date': datetime.utcnow().strftime("%Y%m%d%H%M%S"),
             'vads_trans_id': trans_id,
             'vads_ctx_mode': mode,
             'vads_page_action': 'PAYMENT',
             'vads_action_mode': 'INTERACTIVE',
             'vads_payment_config': 'SINGLE',
             'vads_version': 'V2',
-            'vads_url_return': urlparse.urljoin(
-                base_url, PayzenController._return_url),
+            'vads_url_return': urlparse.urljoin(base_url, PayzenController._return_url),
             'vads_return_mode': 'GET',
             'vads_order_id': values.get('reference'),
+            'vads_contrib': 'Odoo10_0.9.1/' + release.version,
             # customer info
             'vads_cust_name': values.get('partner_name') and values.get('partner_name')[0:126].encode('utf-8') or '',
             'vads_cust_first_name': values.get('partner_first_name') and values.get('partner_first_name')[0:62].encode('utf-8') or '',
@@ -105,16 +107,16 @@ class AcquirerPayzen(models.Model):
 
 
 _AUTH_RESULT = {
-    "00": u"transaction approuvée ou traitée avec succès",
-    "02": u"contacter l’émetteur de carte",
-    "03": u"accepteur invalide",
-    "04": u"conserver la carte",
-    "05": u"ne pas honorer",
-    "07": u"conserver la carte, conditions spéciales",
-    "08": u"approuver après identification",
-    "12": u"transaction invalide",
-    "13": u"montant invalide",
-    "14": u"numéro de porteur invalide",
+    "00": u"Transaction approuvée ou traitée avec succès",
+    "02": u"Contacter l’émetteur de carte",
+    "03": u"Accepteur invalide",
+    "04": u"Conserver la carte",
+    "05": u"Ne pas honorer",
+    "07": u"Conserver la carte, conditions spéciales",
+    "08": u"Approuver après identification",
+    "12": u"Transaction invalide",
+    "13": u"Montant invalide",
+    "14": u"Numéro de porteur invalide",
     "15": u"Emetteur de carte inconnu",
     "17": u"Annulation client",
     "19": u"Répéter la transaction ultérieurement",
@@ -125,33 +127,33 @@ _AUTH_RESULT = {
     "27": u"Erreur en « edit » sur champ de lise à jour fichier",
     "28": u"Accès interdit au fichier",
     "29": u"Mise à jour impossible",
-    "30": u"erreur de format",
-    "31": u"identifiant de l’organisme acquéreur inconnu",
-    "33": u"date de validité de la carte dépassée",
-    "34": u"suspicion de fraude",
+    "30": u"Erreur de format",
+    "31": u"Identifiant de l’organisme acquéreur inconnu",
+    "33": u"Date de validité de la carte dépassée",
+    "34": u"Suspicion de fraude",
     "38": u"Date de validité de la carte dépassée",
-    "41": u"carte perdue",
-    "43": u"carte volée",
-    "51": u"provision insuffisante ou crédit dépassé",
-    "54": u"date de validité de la carte dépassée",
+    "41": u"Carte perdue",
+    "43": u"Carte volée",
+    "51": u"Provision insuffisante ou crédit dépassé",
+    "54": u"Date de validité de la carte dépassée",
     "55": u"Code confidentiel erroné",
-    "56": u"carte absente du fichier",
-    "57": u"transaction non permise à ce porteur",
-    "58": u"transaction interdite au terminal",
-    "59": u"suspicion de fraude",
-    "60": u"l’accepteur de carte doit contacter l’acquéreur",
-    "61": u"montant de retrait hors limite",
-    "63": u"règles de sécurité non respectées",
-    "68": u"réponse non parvenue ou reçue trop tard",
+    "56": u"Carte absente du fichier",
+    "57": u"Transaction non permise à ce porteur",
+    "58": u"Transaction interdite au terminal",
+    "59": u"Suspicion de fraude",
+    "60": u"L’accepteur de carte doit contacter l’acquéreur",
+    "61": u"Montant de retrait hors limite",
+    "63": u"Règles de sécurité non respectées",
+    "68": u"Réponse non parvenue ou reçue trop tard",
     "75": u"Nombre d’essais code confidentiel dépassé",
     "76": u"Porteur déjà en opposition, ancien enregistrement conservé",
-    "90": u"arrêt momentané du système",
-    "91": u"émetteur de cartes inaccessible",
-    "94": u"transaction dupliquée",
-    "96": u"mauvais fonctionnement du système",
-    "97": u"échéance de la temporisation de surveillance globale",
-    "98": u"serveur indisponible routage réseau demandé à nouveau",
-    "99": u"incident domaine initiateur",
+    "90": u"Arrêt momentané du système",
+    "91": u"Emetteur de cartes inaccessible",
+    "94": u"Transaction dupliquée",
+    "96": u"Mauvais fonctionnement du système",
+    "97": u"Echéance de la temporisation de surveillance globale",
+    "98": u"Serveur indisponible routage réseau demandé à nouveau",
+    "99": u"Incident domaine initiateur",
 }
 
 
@@ -168,15 +170,15 @@ class TxPayzen(models.Model):
     @api.model
     def _payzen_form_get_tx_from_data(self, data):
 
-        shasign, result, reference = data.get('signature'), data.get('vads_result'), data.get('vads_order_id')
-        if not reference or not shasign or not result:
-            error_msg = 'Payzen : received bad data %s' % (data)
+        shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
+        if not reference or not shasign or not status:
+            error_msg = 'PayZen : received bad data %s' % (data)
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
         tx = self.search([('reference', '=', reference)])
         if not tx or len(tx) > 1:
-            error_msg = 'Payzen: received data for reference %s' % (reference)
+            error_msg = 'PayZen: received data for reference %s' % (reference)
             if not tx:
                 error_msg += '; no order found'
             else:
@@ -187,7 +189,7 @@ class TxPayzen(models.Model):
         # verify shasign
         shasign_check = tx.acquirer_id._payzen_generate_digital_sign('out', data)
         if shasign_check.upper() != shasign.upper():
-            error_msg = _('Payzen: invalid shasign, received %s, computed %s, for data %s') % (shasign, shasign_check, data)
+            error_msg = _('PayZen: invalid shasign, received %s, computed %s, for data %s') % (shasign, shasign_check, data)
             _logger.info(error_msg)
             raise ValidationError(error_msg)
 
@@ -197,40 +199,67 @@ class TxPayzen(models.Model):
         invalid_parameters = []
 
         # check what is bought
-        if float_compare(float(data.get('amount', '0.0')), self.amount, 2) != 0:
-            invalid_parameters.append(('amount', data.get('amount'), '%.2f' % self.amount))
+        amount = float(int(data.get('vads_amount', 0)) / math.pow(10, int(self.currency_id.decimal_places)))
+        
+        if float_compare(amount, self.amount, int(self.currency_id.decimal_places)) != 0:
+            invalid_parameters.append(('amount', amount, '%.2f' % self.amount))
 
-        if data.get('currency') != self.currency_id.name:
-            invalid_parameters.append(('currency', data.get('currency'), self.currency_id.name))
+        currency_code = payzen_currencies.get(self.currency_id.name, 0)
+        if int(data.get('vads_currency')) != currency_code:
+            invalid_parameters.append(('currency', data.get('vads_currency'), currency_code))
 
         return invalid_parameters
 
     def _payzen_form_validate(self, data):
-        payzen_status = {'valide': ['00'],
-                         'cancel': ['17', ''],
-                         }
-        status_code = data.get('vads_auth_result')
-        if status_code in payzen_status['valide']:
+        payzen_statuses = {'success': ['AUTHORISED', 'AUTHORISED_TO_VALIDATE', 'CAPTURED', 'CAPTURE_FAILED'],
+                         'pending': ['WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION'],
+                         'cancel': ['NOT_CREATED', 'ABANDONED']
+                        }
+
+        html_3ds = '3-DS authentication : '
+        if data.get('vads_threeds_status') == 'Y':
+            html_3ds += 'YES'
+            html_3ds += '<br />3-DS certificate : ' + data.get('vads_threeds_cavv')
+        else:
+            html_3ds += 'NO'
+
+        status = data.get('vads_trans_status')
+        if status in payzen_statuses['success']:
             self.write({
+                'acquirer_reference': data.get('vads_trans_id'),
                 'state': 'done',
                 'state_message': '%s' % (data),
+                'html_3ds': html_3ds
             })
             return True
-        elif status_code in payzen_status['cancel']:
+        elif status in payzen_statuses['pending']:
+            self.write({
+                'acquirer_reference': data.get('vads_trans_id'),
+                'state': 'pending',
+                'state_message': '%s' % (data),
+                'html_3ds': html_3ds
+            })
+            return True
+        elif status in payzen_statuses['cancel']:
             self.write({
                 'state': 'cancel',
-                'state_message': '%s' % (data),
+                'state_message': '%s' % (data)
             })
-            return True
+            return False
         else:
-            authresult_message = ''
-            if status_code in _AUTH_RESULT:
-                authresult_message = _AUTH_RESULT[status_code]
-            error = 'Payzen error'
-            _logger.info(error)
+            auth_result = data.get('vads_auth_result')
+            auth_message = ''
+            if auth_result in _AUTH_RESULT:
+                auth_message = _AUTH_RESULT[auth_result]
+
+            error_msg = 'PayZen payment error, message %s, code %s' % (auth_message, auth_result)
+            _logger.info(error_msg)
+
             self.write({
+                'acquirer_reference': data.get('vads_trans_id'),
                 'state': 'error',
                 'state_message': '%s' % (data),
-                'authresult_message': authresult_message,
+                'authresult_message': auth_message,
+                'html_3ds': html_3ds
             })
             return False
