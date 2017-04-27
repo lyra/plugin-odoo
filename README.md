@@ -31,4 +31,3 @@ For more information about PayZen, see https://payzen.eu/.
 
 If you have multiple Odoo's databases on your server, don't forget to set `dbfilter` parameter in odoo.conf. _You must launch one database only per url_ because Payzen have to send payment notification on the right database. Or it will failed with a 404 error.
 
-As pointed in Odoo's documentation, there is two ways to handle payments.
