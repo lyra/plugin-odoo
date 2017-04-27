@@ -268,6 +268,7 @@ class TxPayzen(models.Model):
         status = data.get('vads_trans_status')
         if status in payzen_statuses['success']:
             self.write({
+                'date_validate': fields.Datetime.now(),
                 'acquirer_reference': data.get('vads_trans_id'),
                 'state': 'done',
                 'state_message': '%s' % (data),
@@ -276,6 +277,7 @@ class TxPayzen(models.Model):
             return True
         elif status in payzen_statuses['pending']:
             self.write({
+                'date_validate': fields.Datetime.now(),
                 'acquirer_reference': data.get('vads_trans_id'),
                 'state': 'pending',
                 'state_message': '%s' % (data),
@@ -284,6 +286,7 @@ class TxPayzen(models.Model):
             return True
         elif status in payzen_statuses['cancel']:
             self.write({
+                'date_validate': fields.Datetime.now(),
                 'state': 'cancel',
                 'state_message': '%s' % (data)
             })
@@ -298,6 +301,7 @@ class TxPayzen(models.Model):
             _logger.info(error_msg)
 
             self.write({
+                'date_validate': fields.Datetime.now(),
                 'acquirer_reference': data.get('vads_trans_id'),
                 'state': 'error',
                 'state_message': '%s' % (data),
