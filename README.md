@@ -9,8 +9,10 @@ For more information about PayZen, see https://payzen.eu/.
 - Delete payment_payzen folder from [ODOO_ROOT_FOLDER]/server/odoo/addons directory if already installed.
 - Download module archive from releases tab or in https://payzen.io/fr-FR/module-de-paiement-gratuit/#odoo.
 - Unzip archive to odoo_x.y.z folder.
-- Copy payment_payzen directory to [ODOO_ROOT_FOLDER]/server/odoo/addons directory.
-- Retsart Odoo server with *sudo service odoo restart* on Linux systems or by restarting Windows Odoo service.
+- Copy payment_payzen directory to /var/lib/odoo/addons/[#version]/ directory on Linux and [ODOO_ROOT_FOLDER]/server/odoo/addons directory on Windows.
+- Then either :
+  1. In your Odoo administrator interface, browse to "Configuration" tab. Here in, activate the developper mode. Then browse to "Applications" tab and click on "Update applications list"
+  2. Restart Odoo server with *sudo systemctl restart odoo* on Linux systems or by restarting Windows Odoo service. Odoo will update the applications list on startup.
 - In your Odoo administrator interface, browse to "Applications" tab.
 - Delete "Applications" filter from search field and search for "payzen" keyword.
 - Click "Install" (or "Upgrade") button of the "PayZen Payment Acquirer" module.
