@@ -1,48 +1,33 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-#	* payment_payzen
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: PayZen Payment Module for Odoo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-27 05:00+0000\n"
+"POT-Creation-Date: 2017-04-27 17:14+0200\n"
 "PO-Revision-Date: 2017-01-27 05:00+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: \n"
+"Language-Team: Lyra Network\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: ;Char\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#. module: payment_payzen
-#: model:ir.model,name:payment_payzen.model_payment_acquirer
-msgid "Payment Acquirer"
+#: models/payment.py:68
+msgid "Shop ID"
 msgstr ""
 
-#. module: payment_payzen
-#: model:ir.model,name:payment_payzen.model_payment_transaction
-msgid "Payment Transaction"
+#: models/payment.py:69
+msgid "Certificate"
 msgstr ""
 
-#. module: payment_payzen
-#: code:addons/payment_payzen/models/payzen.py:190
-#, python-format
-msgid "Payzen: invalid shasign, received %s, computed %s, for data %s"
+#: models/payment.py:204
+msgid "Transaction log"
 msgstr ""
 
-#. module: payment_payzen
-#: model:ir.model.fields,field_description:payment_payzen.field_payment_acquirer_payzen_secretkey
-msgid "SecretKey"
-msgstr ""
-
-#. module: payment_payzen
-#: model:ir.model.fields,field_description:payment_payzen.field_payment_transaction_authresult_message
+#: models/payment.py:205
 msgid "Transaction error"
 msgstr ""
-
-#. module: payment_payzen
-#: model:ir.model.fields,field_description:payment_payzen.field_payment_acquirer_payzen_websitekey
-msgid "Website ID"
-msgstr ""
-

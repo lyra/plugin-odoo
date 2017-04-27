@@ -65,8 +65,8 @@ class AcquirerPayzen(models.Model):
     payzen_form_url = 'https://secure.payzen.eu/vads-payment/'
 
     provider = fields.Selection(selection_add=[('payzen', 'PayZen')])
-    payzen_websitekey = fields.Char(string='Website ID', required_if_provider='payzen')
-    payzen_secretkey = fields.Char(string='SecretKey', required_if_provider='payzen')
+    payzen_websitekey = fields.Char(string='Shop ID', required_if_provider='payzen')
+    payzen_secretkey = fields.Char(string='Certificate', required_if_provider='payzen')
 
     def _payzen_generate_digital_sign(self, acquirer, values):
         sign = ''
@@ -201,7 +201,7 @@ _AUTH_RESULT = {
 class TxPayzen(models.Model):
     _inherit = 'payment.transaction'
 
-    state_message = fields.Text(string='Transaction log')
+    state_message = fields.Char(string='Transaction log')
     authresult_message = fields.Char(string='Transaction error')
 
     # --------------------------------------------------
@@ -231,7 +231,7 @@ class TxPayzen(models.Model):
         # verify shasign
         shasign_check = tx.acquirer_id._payzen_generate_digital_sign('out', data)
         if shasign_check.upper() != shasign.upper():
-            error_msg = _('PayZen: invalid shasign, received %s, computed %s, for data %s') % (shasign, shasign_check, data)
+            error_msg = 'PayZen: invalid shasign, received %s, computed %s, for data %s' % (shasign, shasign_check, data)
             _logger.info(error_msg)
             raise ValidationError(error_msg)
 
