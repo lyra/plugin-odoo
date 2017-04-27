@@ -4,14 +4,16 @@ PayZen Odoo is an open source payment module that links Odoo based e-commerce we
 
 For more information about PayZen, see https://payzen.eu/.
 
-# Installation 
+# Installation & Upgrade
 
+- Delete payment_payzen folder from [ODOO_ROOT_FOLDER]/server/odoo/addons directory if already installed.
 - Download module archive from releases tab or in https://payzen.io/fr-FR/module-de-paiement-gratuit/#odoo.
 - Unzip archive to odoo_x.y.z folder.
-- Copy payment_payzen folder to [ODOO_ROOT_FOLDER]/server/odoo/addons directory.
+- Copy payment_payzen directory to [ODOO_ROOT_FOLDER]/server/odoo/addons directory.
+- Retsart Odoo server with *sudo service odoo restart* on Linux systems or by restarting Windows Odoo service.
 - In your Odoo administrator interface, browse to "Applications" tab.
-- Delete "Applications" filter from search field and search for payzen keyword.
-- Click "Install" button of the "PayZen Payment Acquirer" module.
+- Delete "Applications" filter from search field and search for "payzen" keyword.
+- Click "Install" (or "Update") button of the "PayZen Payment Acquirer" module.
 
 # Configuration
 

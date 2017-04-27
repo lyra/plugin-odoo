@@ -19,7 +19,7 @@
             <input type="hidden" name="signature" t-att-value="payzen_signature" />
 
             <!-- customer info -->
-            <input type="hidden" name="vads_cust_name" t-att-value="vads_cust_name" />
+            <input type="hidden" name="vads_cust_id" t-att-value="vads_cust_id" />
             <input type="hidden" name="vads_cust_first_name" t-att-value="vads_cust_first_name" />
             <input type="hidden" name="vads_cust_last_name" t-att-value="vads_cust_last_name" />
             <input type="hidden" name="vads_cust_address" t-att-value="vads_cust_address" />
@@ -30,14 +30,15 @@
             <input type="hidden" name="vads_cust_email" t-att-value="vads_cust_email" />
             <input type="hidden" name="vads_cust_phone" t-att-value="vads_cust_phone" />
 
-            <!-- shipping info
-            <input type="hidden" name="vads_ship_to_name" t-att-value="vads_ship_to_name" />
+            <!-- shipping info -->
+            <input type="hidden" name="vads_ship_to_first_name" t-att-value="vads_ship_to_first_name" />
+            <input type="hidden" name="vads_ship_to_last_name" t-att-value="vads_ship_to_last_name" />
             <input type="hidden" name="vads_ship_to_street" t-att-value="vads_ship_to_street" />
             <input type="hidden" name="vads_ship_to_city" t-att-value="vads_ship_to_city" />
             <input type="hidden" name="vads_ship_to_zip" t-att-value="vads_ship_to_zip" />
             <input type="hidden" name="vads_ship_to_state" t-att-value="vads_ship_to_state" />
+            <input type="hidden" name="vads_ship_to_country" t-att-value="vads_ship_to_country" />
             <input type="hidden" name="vads_ship_to_phone_num" t-att-value="vads_ship_to_phone_num" />
-            -->
 
             <!-- URLs --> 
             <input type="hidden" name="vads_url_return" t-att-value="vads_url_return" />
