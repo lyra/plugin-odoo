@@ -8,11 +8,6 @@
     'name': 'PayZen Payment Acquirer',
     'version': '1.0.0',
     'summary': 'Payment Acquirer: PayZen Implementation',
-    'description': """
-    PayZen Payment Acquirer
-
-    This module allows you to link your Odoo e-commerce website with PayZen secure payment platform.
-    """,
     'category': 'Payment Acquirer',
     'author': 'Lyra Network',
     'website': 'https://www.lyra-network.com/',
