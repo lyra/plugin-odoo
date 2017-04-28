@@ -14,8 +14,8 @@ For more information about PayZen, see https://payzen.eu/.
   - `addons_path` defined in odoo.conf
 - Now copy the new payment_payzen folder to Odoo addons directory
 - Then you can :
-  1. In your Odoo administrator interface, browse to "Configuration" tab. Here in, activate the developper mode. Then browse to "Applications" tab and click on "Update applications list".
-  2. Or restart Odoo server with *sudo systemctl restart odoo* on Linux systems or by restarting Windows Odoo service. Odoo will update the applications list on startup.
+  - In your Odoo administrator interface, browse to "Configuration" tab. Here in, activate the developper mode. Then browse to "Applications" tab and click on "Update applications list".
+  - Or restart Odoo server with *sudo systemctl restart odoo* on Linux systems or by restarting Windows Odoo service. Odoo will update the applications list on startup.
 - In your Odoo administrator interface, browse to "Applications" tab.
 - Delete "Applications" filter from search field and search for "payzen" keyword.
 - Click "Install" (or "Upgrade") button of the "PayZen Payment Acquirer" module.
@@ -29,5 +29,5 @@ For more information about PayZen, see https://payzen.eu/.
 
 # Testing
 
-If you have multiple Odoo's databases on your server, don't forget to set `dbfilter` parameter in odoo.conf. _You must launch one database only per url_ because PayZen have to send payment notification on the right database. Or it will failed with a 404 error.
+If you have multiple Odoo's databases on your server, don't forget to set `dbfilter` parameter in odoo.conf. _You must launch one database only per url_ because PayZen have to send back payment notification on the right database. Or it will failed with a 404 error.
 
