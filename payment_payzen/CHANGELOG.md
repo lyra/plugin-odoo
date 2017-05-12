@@ -12,6 +12,6 @@
 - Bug fix: relative to generating transaction IDs.
 - Process return to shop and IPN calls.
 
-0.9.0, 2017-01-22:
+0.9.0, 2017-01-22
 =============
 - Initial PayZen payment module for Odoo 9 by Sudokeys.
