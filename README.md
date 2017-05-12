@@ -32,4 +32,4 @@ In your Odoo administrator interface, browse to "Applications" tab, delete "Appl
 
 # Usage
 
-If you have multiple Odoo's databases on your server, don't forget to set `dbfilter` parameter in odoo.conf. _You must launch one database only per URL_ because PayZen have to send back payment notification on the right database. Otherwise it will failed with a 404 error.
+If you have multiple Odoo databases on your server, do not forget to set `dbfilter` parameter in odoo.conf. _You must launch one database only per URL_ because PayZen have to send back payment notification on the right database. Otherwise it will failed with a 404 error.

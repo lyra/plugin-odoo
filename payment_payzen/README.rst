@@ -27,11 +27,10 @@ find already installed addons in either :
 
 Now unzip downloaded archive and copy the new payment_payzen folder to Odoo addons directory. Then you can :
 
-* In your Odoo administrator interface, browse to "Configuration" tab. Here in,
-activate the developper mode. Then browse to "Applications" tab and click on
-"Update applications list".
-* Or restart Odoo server with *sudo systemctl restart odoo* on Linux or by
-restarting Windows Odoo service. Odoo will update the applications list on startup.
+* In your Odoo administrator interface, browse to "Configuration" tab. Here in, activate the developper mode.
+  Then browse to "Applications" tab and click on "Update applications list".
+* Or restart Odoo server with *sudo systemctl restart odoo* on Linux or by restarting Windows Odoo service.
+  Odoo will update the applications list on startup.
 
 In your Odoo administrator interface, browse to "Applications" tab, delete
 "Applications" filter from search field and search for "payzen" keyword. Click
