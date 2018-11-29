@@ -92,6 +92,7 @@ class AcquirerPayzen(models.Model):
             'vads_ship_to_state': values.get('partner_state').code and values.get('partner_state').code[0:62] or '',
             'vads_ship_to_country': values.get('partner_country').code and values.get('partner_country').code.upper() or '',
             'vads_ship_to_phone_num': values.get('partner_phone') and values.get('partner_phone')[0:31] or '',
+            'vads_redirect_success_timeout': "0",
         })
 
         payzen_tx_values = dict() # values encoded in utf-8
