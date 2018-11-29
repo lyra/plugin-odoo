@@ -39,6 +39,8 @@
             <input type="hidden" name="vads_ship_to_state" t-att-value="vads_ship_to_state" />
             <input type="hidden" name="vads_ship_to_country" t-att-value="vads_ship_to_country" />
             <input type="hidden" name="vads_ship_to_phone_num" t-att-value="vads_ship_to_phone_num" />
+            
+            <input type="hidden" name="vads_redirect_success_timeout" t-att-value="vads_redirect_success_timeout" />
 
             <!-- URLs --> 
             <input type="hidden" name="vads_url_return" t-att-value="vads_url_return" />
