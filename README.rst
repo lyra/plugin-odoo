@@ -3,29 +3,26 @@
    :alt: License: AGPL v3
 
 ===================================================
-Odoo PayZen Payment
+Lyra for Odoo
 ===================================================
 
-Odoo PayZen Payment is an open source plugin that links Odoo based
-e-commerce websites to PayZen secured payment gateway developped by
+Lyra for Odoo is an open source plugin that links Odoo based
+e-commerce websites to Lyra secure payment gateway developed by
 `Lyra Network <https://www.lyra-network.com/>`_.
-
-For more information about PayZen, see https://payzen.eu/.
 
 Installation & Upgrade
 ======================
 
-Download module archive from `PayZen Github <https://github.com/payzen/plugin-odoo>`_ 
-releases tab or get it from https://payzen.io (menu E-commerce > Free payment plugins).
+Download module archive from https://lyra.com (menu E-commerce > Free payment plugins).
 
-If already installed, you must delete the old payment_payzen folder. You will
+If already installed, you must delete the old payment_lyra folder. You will
 find already installed addons in either :
 
 * [ODOO_ROOT_FOLDER]/server/odoo/addons/
 * /var/lib/odoo/addons/[#version]/ (Linux only)
 * `addons_path` defined in odoo.conf
 
-Now unzip downloaded archive and copy the new payment_payzen folder to Odoo addons directory. Then you can :
+Now unzip downloaded archive and copy the new payment_lyra folder to Odoo addons directory. Then you can :
 
 * In your Odoo administrator interface, browse to "Configuration" tab. Here in, activate the developper mode.
   Then browse to "Applications" tab and click on "Update applications list".
@@ -33,29 +30,24 @@ Now unzip downloaded archive and copy the new payment_payzen folder to Odoo addo
   Odoo will update the applications list on startup.
 
 In your Odoo administrator interface, browse to "Applications" tab, delete
-"Applications" filter from search field and search for "payzen" keyword. Click
-"Install" (or "Upgrade") button of the "PayZen Payment Acquirer" module.
+"Applications" filter from search field and search for "lyra" keyword. Click
+"Install" (or "Upgrade") button of the "Lyra Payment Acquirer" module.
 
 Configuration
 =============
 
 * Go to "Website Admin" tab.
 * In "Configuration" section, expand "eCommerce" menu than click on "Payment Acquirers" entry.
-* Click on button "Configure" of PayZen module.
-* You can now enter PayZen credentials.
+* Click on button "Configure" of Lyra module.
+* You can now enter Lyra credentials.
 
-Usage
-=====
+Notice
+------
 
 If you have multiple Odoo databases on your server, do not forget to set dbfilter
-parameter in odoo.conf. *You must launch one database only per URL* because PayZen
+parameter in odoo.conf. *You must launch one database only per URL* because Lyra
 have to send back payment notification on the right database. Otherwise it will 
 failed with a 404 error.
-
-Bug Tracker
-===========
-
-Bugs are tracked on `GitHub Issues <https://github.com/payzen/plugin-odoo/issues>`_.
 
 Credits
 =======
@@ -64,3 +56,12 @@ Contributors
 ------------
 
 * Lyra Network
+
+License
+=======
+
+Each Lyra payment module source file included in this distribution is licensed under
+the Affero General Public License (AGPL 3.0).
+
+Please see LICENSE.txt for the full text of the AGPL 3.0 license. 
+It is also available through the world-wide-web at this URL: http://www.gnu.org/licenses/agpl.html.

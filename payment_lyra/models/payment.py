@@ -1,8 +1,11 @@
 # coding: utf-8
 #
-# This file is part of Odoo PayZen Payment.
-# Copyright (C) Lyra Network. All rights reserved.
-# See COPYING.txt for license details.
+# Copyright © Lyra Network.
+# This file is part of Lyra for Odoo. See COPYING.md for license details.
+#
+# Author:    Lyra Network <https://www.lyra-network.com>
+# Copyright: Copyright © Lyra Network
+# License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
 from hashlib import sha1
 import logging
@@ -10,8 +13,8 @@ import urlparse
 import math
 
 from odoo.addons.payment.models.payment_acquirer import ValidationError
-from odoo.addons.payment_payzen.controllers.main import PayzenController
-from odoo.addons.payment_payzen.helpers import constants
+from odoo.addons.payment_lyra.controllers.main import LyraController
+from odoo.addons.payment_lyra.helpers import constants
 from odoo import models, api, release, fields, _
 from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.float_utils import float_compare, float_repr
@@ -19,28 +22,28 @@ from datetime import datetime
 
 _logger = logging.getLogger(__name__)
 
-class AcquirerPayzen(models.Model):
+class AcquirerLyra(models.Model):
     _inherit = 'payment.acquirer'
 
-    payzen_form_url = 'https://secure.payzen.eu/vads-payment/'
+    lyra_form_url = 'https://secure.lyra.com/vads-payment/'
 
-    provider = fields.Selection(selection_add=[('payzen', 'PayZen')])
-    payzen_websitekey = fields.Char(string='Shop ID', required_if_provider='payzen')
-    payzen_secretkey = fields.Char(string='Certificate', required_if_provider='payzen')
+    provider = fields.Selection(selection_add=[('lyra', 'Lyra')])
+    lyra_websitekey = fields.Char(string='Shop ID', required_if_provider='lyra')
+    lyra_secretkey = fields.Char(string='Certificate', required_if_provider='lyra')
 
-    def _payzen_generate_digital_sign(self, acquirer, values):
+    def _lyra_generate_digital_sign(self, acquirer, values):
         sign = ''
         for key in sorted(values.iterkeys()):
             if key.startswith('vads_'):
                 sign += values[key] + '+'
 
-        sign += self.payzen_secretkey
+        sign += self.lyra_secretkey
         shasign = sha1(sign.encode('utf-8')).hexdigest()
 
         return shasign
 
     @api.multi
-    def payzen_form_generate_values(self, values):
+    def lyra_form_generate_values(self, values):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
 
         # trans id is number of 1/10 seconds from midnight
@@ -56,9 +59,9 @@ class AcquirerPayzen(models.Model):
 
         tx_values = dict() # values to sign in unicode
         tx_values.update({
-            'vads_site_id': self.payzen_websitekey,
+            'vads_site_id': self.lyra_websitekey,
             'vads_amount': unicode(amount),
-            'vads_currency': constants.PAYZEN_CURRENCIES.get(values['currency'].name),
+            'vads_currency': constants.LYRA_CURRENCIES.get(values['currency'].name),
             'vads_trans_date': unicode(datetime.utcnow().strftime("%Y%m%d%H%M%S")),
             'vads_trans_id': unicode(trans_id),
             'vads_ctx_mode': mode,
@@ -66,7 +69,7 @@ class AcquirerPayzen(models.Model):
             'vads_action_mode': u'INTERACTIVE',
             'vads_payment_config': u'SINGLE',
             'vads_version': u'V2',
-            'vads_url_return': urlparse.urljoin(base_url, PayzenController._return_url),
+            'vads_url_return': urlparse.urljoin(base_url, LyraController._return_url),
             'vads_return_mode': u'GET',
             'vads_order_id': unicode(values.get('reference')),
             'vads_contrib': u'Odoo10_0.9.1/' + release.version,
@@ -94,20 +97,20 @@ class AcquirerPayzen(models.Model):
             'vads_ship_to_phone_num': values.get('partner_phone') and values.get('partner_phone')[0:31] or '',
         })
 
-        payzen_tx_values = dict() # values encoded in utf-8
+        lyra_tx_values = dict() # values encoded in utf-8
 
         for key in tx_values.iterkeys():
-            payzen_tx_values[key] = tx_values[key].encode('utf-8')
+            lyra_tx_values[key] = tx_values[key].encode('utf-8')
 
-        payzen_tx_values['payzen_signature'] = self._payzen_generate_digital_sign(self, tx_values)
-        return payzen_tx_values
+        lyra_tx_values['lyra_signature'] = self._lyra_generate_digital_sign(self, tx_values)
+        return lyra_tx_values
 
     @api.multi
-    def payzen_get_form_action_url(self):
-        return self.payzen_form_url
+    def lyra_get_form_action_url(self):
+        return self.lyra_form_url
 
 
-class TxPayzen(models.Model):
+class TxLyra(models.Model):
     _inherit = 'payment.transaction'
 
     state_message = fields.Char(string='Transaction log')
@@ -118,17 +121,17 @@ class TxPayzen(models.Model):
     # --------------------------------------------------
 
     @api.model
-    def _payzen_form_get_tx_from_data(self, data):
+    def _lyra_form_get_tx_from_data(self, data):
         shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
 
         if not reference or not shasign or not status:
-            error_msg = 'PayZen : received bad data %s' % (data)
+            error_msg = 'Lyra : received bad data %s' % (data)
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
         tx = self.search([('reference', '=', reference)])
         if not tx or len(tx) > 1:
-            error_msg = 'PayZen: received data for reference %s' % (reference)
+            error_msg = 'Lyra: received data for reference %s' % (reference)
             if not tx:
                 error_msg += '; no order found'
             else:
@@ -138,15 +141,15 @@ class TxPayzen(models.Model):
             raise ValidationError(error_msg)
 
         # verify shasign
-        shasign_check = tx.acquirer_id._payzen_generate_digital_sign('out', data)
+        shasign_check = tx.acquirer_id._lyra_generate_digital_sign('out', data)
         if shasign_check.upper() != shasign.upper():
-            error_msg = 'PayZen: invalid shasign, received %s, computed %s, for data %s' % (shasign, shasign_check, data)
+            error_msg = 'Lyra: invalid shasign, received %s, computed %s, for data %s' % (shasign, shasign_check, data)
             _logger.info(error_msg)
             raise ValidationError(error_msg)
 
         return tx
 
-    def _payzen_form_get_invalid_parameters(self, data):
+    def _lyra_form_get_invalid_parameters(self, data):
         invalid_parameters = []
 
         # check what is bought
@@ -155,14 +158,14 @@ class TxPayzen(models.Model):
         if float_compare(amount, self.amount, int(self.currency_id.decimal_places)) != 0:
             invalid_parameters.append(('amount', amount, '%.2f' % self.amount))
 
-        currency_code = constants.PAYZEN_CURRENCIES.get(self.currency_id.name, 0)
+        currency_code = constants.LYRA_CURRENCIES.get(self.currency_id.name, 0)
         if int(data.get('vads_currency')) != int(currency_code):
             invalid_parameters.append(('currency', data.get('vads_currency'), currency_code))
 
         return invalid_parameters
 
-    def _payzen_form_validate(self, data):
-        payzen_statuses = {'success': ['AUTHORISED', 'CAPTURED', 'CAPTURE_FAILED'],
+    def _lyra_form_validate(self, data):
+        lyra_statuses = {'success': ['AUTHORISED', 'CAPTURED', 'CAPTURE_FAILED'],
                          'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION'],
                          'cancel': ['NOT_CREATED', 'ABANDONED']
                         }
@@ -175,7 +178,7 @@ class TxPayzen(models.Model):
             html_3ds += 'NO'
 
         status = data.get('vads_trans_status')
-        if status in payzen_statuses['success']:
+        if status in lyra_statuses['success']:
             self.write({
                 'date_validate': fields.Datetime.now(),
                 'acquirer_reference': data.get('vads_trans_id'),
@@ -184,7 +187,7 @@ class TxPayzen(models.Model):
                 'html_3ds': html_3ds
             })
             return True
-        elif status in payzen_statuses['pending']:
+        elif status in lyra_statuses['pending']:
             self.write({
                 'date_validate': fields.Datetime.now(),
                 'acquirer_reference': data.get('vads_trans_id'),
@@ -193,7 +196,7 @@ class TxPayzen(models.Model):
                 'html_3ds': html_3ds
             })
             return True
-        elif status in payzen_statuses['cancel']:
+        elif status in lyra_statuses['cancel']:
             self.write({
                 'date_validate': fields.Datetime.now(),
                 'state': 'cancel',
@@ -203,10 +206,10 @@ class TxPayzen(models.Model):
         else:
             auth_result = data.get('vads_auth_result')
             auth_message = ''
-            if auth_result in constants.PAYZEN_AUTH_RESULT:
-                auth_message = constants.PAYZEN_AUTH_RESULT[auth_result]
+            if auth_result in constants.LYRA_AUTH_RESULT:
+                auth_message = constants.LYRA_AUTH_RESULT[auth_result]
 
-            error_msg = 'PayZen payment error, message %s, code %s' % (auth_message, auth_result)
+            error_msg = 'Lyra payment error, message %s, code %s' % (auth_message, auth_result)
             _logger.info(error_msg)
 
             self.write({

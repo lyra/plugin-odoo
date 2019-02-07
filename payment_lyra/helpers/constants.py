@@ -1,50 +1,25 @@
 # coding: utf-8
 #
-# This file is part of Odoo PayZen Payment.
-# Copyright (C) Lyra Network. All rights reserved.
-# See COPYING.txt for license details.
+# Copyright © Lyra Network.
+# This file is part of Lyra for Odoo. See COPYING.md for license details.
+#
+# Author:    Lyra Network <https://www.lyra-network.com>
+# Copyright: Copyright © Lyra Network
+# License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
-PAYZEN_CURRENCIES = {
-    'ARS': u'032',
-    'AUD': u'036',
-    'KHR': u'116',
+LYRA_CURRENCIES = {
     'CAD': u'124',
     'CNY': u'156',
-    'HRK': u'191',
-    'CZK': u'203',
     'DKK': u'208',
-    'EKK': u'233',
-    'HKD': u'344',
-    'HUF': u'348',
-    'ISK': u'352',
-    'IDR': u'360',
-    'JPY': u'392',
-    'KRW': u'410',
-    'LVL': u'428',
-    'LTL': u'440',
-    'MYR': u'458',
-    'MXN': u'484',
-    'NZD': u'554',
     'NOK': u'578',
-    'PHP': u'608',
-    'RUB': u'643',
-    'SGD': u'702',
-    'ZAR': u'710',
-    'SEK': u'752',
     'CHF': u'756',
-    'THB': u'764',
     'GBP': u'826',
     'USD': u'840',
-    'TWD': u'901',
-    'RON': u'946',
-    'TRY': u'949',
-    'XOF': u'952',
     'BGN': u'975',
     'EUR': u'978',
-    'XPF': u'953',
 }
 
-PAYZEN_AUTH_RESULT = {
+LYRA_AUTH_RESULT = {
     "00": u"Transaction approuvée ou traitée avec succès",
     "02": u"Contacter l’émetteur de carte",
     "03": u"Accepteur invalide",

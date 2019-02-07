@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="payzen_acquirer_button">
-        <form t-if="acquirer.payzen_websitekey" t-att-action="tx_url" method="post" target="_self">
+    <template id="lyra_acquirer_button">
+        <form t-if="acquirer.lyra_websitekey" t-att-action="tx_url" method="post" target="_self">
             <input type="hidden" name="vads_site_id" t-att-value="vads_site_id" />
             <input type="hidden" name="vads_amount" t-att-value="vads_amount" />
             <input type="hidden" name="vads_currency" t-att-value="vads_currency" />
@@ -16,7 +16,7 @@
             <input type="hidden" name="vads_return_mode" t-att-value="vads_return_mode" />
             <input type="hidden" name="vads_order_id" t-att-value="vads_order_id" />
             <input type="hidden" name="vads_contrib" t-att-value="vads_contrib" />
-            <input type="hidden" name="signature" t-att-value="payzen_signature" />
+            <input type="hidden" name="signature" t-att-value="lyra_signature" />
 
             <!-- customer info -->
             <input type="hidden" name="vads_cust_id" t-att-value="vads_cust_id" />
@@ -45,7 +45,7 @@
 
             <!-- submit -->
             <button type="submit" width="100px" t-att-class="submit_class">
-                <img t-if="not submit_txt" src="/payment_payzen/static/src/img/payzen.png" />
+                <img t-if="not submit_txt" src="/payment_lyra/static/src/img/lyra.png" />
                 <span t-if="submit_txt"><t t-esc="submit_txt" /> <span class="fa fa-long-arrow-right" /></span>
             </button>
         </form>
