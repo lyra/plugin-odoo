@@ -3,35 +3,35 @@
    :alt: License: AGPL v3
 
 ===================================================
-Lyra for Odoo
+Lyra plugin for Odoo
 ===================================================
 
-Lyra for Odoo is an open source plugin that links Odoo based
-e-commerce websites to Lyra secure payment gateway developed by
-`Lyra Network <https://www.lyra-network.com/>`_.
+Lyra plugin for Odoo is an open source plugin that links Odoo based e-commerce websites to Lyra
+secure payment gateway developed by `Lyra Network <https://www.lyra-network.com/>`_.
 
 Installation & Upgrade
 ======================
 
-Download module archive from https://lyra.com (menu E-commerce > Free payment plugins).
+Download the module archive from gateway resources website (menu E-commerce > Free payment plugins).
 
-If already installed, you must delete the old payment_lyra folder. You will
-find already installed addons in either :
+If already installed, you must delete the old payment_lyra folder. You will find already installed
+addons in either:
 
 * [ODOO_ROOT_FOLDER]/server/odoo/addons/
-* /var/lib/odoo/addons/[#version]/ (Linux only)
+* /var/lib/odoo/addons/[VERSION]/ (Linux only)
 * `addons_path` defined in odoo.conf
 
-Now unzip downloaded archive and copy the new payment_lyra folder to Odoo addons directory. Then you can :
+Now unzip the downloaded archive and copy the new payment_lyra folder to Odoo addons directory. Then, you
+can choose one of these instructions:
 
-* In your Odoo administrator interface, browse to "Configuration" tab. Here in, activate the developper mode.
+* In your Odoo administrator interface, browse to "Configuration" tab. Here in, activate the developer mode.
   Then browse to "Applications" tab and click on "Update applications list".
 * Or restart Odoo server with *sudo systemctl restart odoo* on Linux or by restarting Windows Odoo service.
   Odoo will update the applications list on startup.
 
-In your Odoo administrator interface, browse to "Applications" tab, delete
-"Applications" filter from search field and search for "lyra" keyword. Click
-"Install" (or "Upgrade") button of the "Lyra Payment Acquirer" module.
+In your Odoo administrator interface, browse to "Applications" tab, delete "Applications" filter from
+search field and search for "lyra" keyword. Click "Install" (or "Upgrade") button of the "Lyra
+Payment Acquirer" module.
 
 Configuration
 =============
@@ -39,7 +39,7 @@ Configuration
 * Go to "Website Admin" tab.
 * In "Configuration" section, expand "eCommerce" menu than click on "Payment Acquirers" entry.
 * Click on button "Configure" of Lyra module.
-* You can now enter Lyra credentials.
+* You can now enter your Lyra credentials.
 
 Notice
 ------
@@ -49,18 +49,15 @@ parameter in odoo.conf. *You must launch one database only per URL* because Lyra
 have to send back payment notification on the right database. Otherwise it will 
 failed with a 404 error.
 
-Credits
+Author
 =======
 
-Contributors
-------------
-
-* Lyra Network
+* Lyra Network (https://www.lyra-network.com/)
 
 License
 =======
 
-Each Lyra payment module source file included in this distribution is licensed under
+Each Lyra plugin source file included in this distribution is licensed under
 the Affero General Public License (AGPL 3.0).
 
 Please see LICENSE.txt for the full text of the AGPL 3.0 license. 
