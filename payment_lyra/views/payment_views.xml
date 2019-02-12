@@ -6,10 +6,34 @@
         <field name="inherit_id" ref="payment.acquirer_form" />
         <field name="arch" type="xml">
             <xpath expr='//group[@name="acquirer"]' position='after'>
-                <group attrs="{'invisible': [('provider', '!=', 'lyra')]}">
-                    <field name="lyra_websitekey" />
-                    <field name="lyra_secretkey" />
-                </group>
+                <div attrs="{'invisible': [('provider', '!=', 'lyra')]}">
+                    <group string="GATEWAY ACCESS">
+                        <field name="lyra_site_id" />
+                        <field name="lyra_key_test" />
+                        <field name="lyra_key_prod" />
+                        <field name="lyra_sign_algo" />
+                        <field name="lyra_check_url" />
+                        <field name="lyra_platform_url" />
+                    </group>
+                    <group string="PAYMENT PAGE">
+                        <field name="lyra_language" />
+                        <field name="lyra_available_languages" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="lyra_capture_delay" />
+                        <field name="lyra_validation_mode" />
+                        <field name="lyra_payment_cards" />
+                    </group>
+                    <group string="SELECTIVE 3DS">
+                        <field name="lyra_threeds_min_amount" />
+                    </group>
+                    <group string="RETURN TO SHOP">
+                        <field name="lyra_redirect_enabled" />
+                        <field name="lyra_redirect_success_timeout" />
+                        <field name="lyra_redirect_success_message" />
+                        <field name="lyra_redirect_error_timeout" />
+                        <field name="lyra_redirect_error_message" />
+                        <field name="lyra_return_mode" />
+                    </group>
+                </div>
             </xpath>
         </field>
     </record>

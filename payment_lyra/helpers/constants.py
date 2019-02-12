@@ -7,6 +7,63 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
+LYRA_DEFAULT = {
+    'GATEWAY_CODE': u'Lyra',
+    'GATEWAY_NAME': u'Lyra',
+    'GATEWAY_URL': u'https://secure.lyra.com/vads-payment/',
+    'SITE_ID': u'12345678',
+    'KEY_TEST': u'1111111111111111',
+    'KEY_PROD': u'2222222222222222',
+    'SIGN_ALGO': u'SHA-256',
+    'LANGUAGE': u'en',
+    'GATEWAY_VERSION': u'V2',
+    'PLUGIN_VERSION': u'1.0.0',
+    'CMS_IDENTIFIER': u'Odoo_10.x',
+}
+
+LYRA_LANGUAGES = {
+    'cn': u'Chinese',
+    'de': u'German',
+    'es': u'Spanish',
+    'en': u'English',
+    'fr': u'French',
+    'it': u'Italian',
+    'jp': u'Japanese',
+    'nl': u'Dutch',
+    'pl': u'Polish',
+    'pt': u'Portuguese',
+    'ru': u'Russian',
+    'sv': u'Swedish',
+    'tr': u'Turkish'
+}
+
+LYRA_CARDS = {
+    'CB': u'CB',
+    'E-CARTEBLEUE': u'E-CARTEBLEUE',
+    'MAESTRo': u'Maestro',
+    'MASTERCARD': u'Mastercard',
+    'VISA': u'Visa',
+    'VISA_ELECTRON': u'Visa Electron',
+    'VPAY': u'V PAY',
+    'AMEX': u'American Express',
+    'CONECS': u'Titre-Restaurant Dématérialisé Conecs',
+    'CONECS_APETIZ': u'Titre-Restaurant Dématérialisé Apetiz',
+    'CONECS_SODEXO': u'Titre-Restaurant Dématérialisé Sodexo',
+    'CONECS_EDENRED': u'Ticket Restaurant',
+    'PAYPAL': u'PayPal',
+    'PAYPAL_SB': u'PayPal - Sandbox',
+    'ALIPAY': u'Alipay',
+    'BANCONTACT': u'Bancontact Mistercash',
+    'GIROPAY': u'Giropay',
+    'IDEAL': u'iDEAL',
+    'MULTIBANCO': u'Multibanco',
+    'MYBANK': u'MyBank',
+    'PRZELEWY24': u'Przelewy24',
+    'SOFORT_BANKING': u'Sofort',
+    'UNION_PAY': u'UnionPay',
+    'WECHAT': u'WeChat Pay',
+}
+
 LYRA_CURRENCIES = {
     'CAD': u'124',
     'CNY': u'156',

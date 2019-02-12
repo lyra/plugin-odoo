@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Lyra Payment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-27 17:17+0200\n"
-"PO-Revision-Date: 2019-02-06 13:33+0100\n"
+"POT-Creation-Date: 2019-02-12 09:02+0100\n"
+"PO-Revision-Date: 2019-02-12 09:03+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: Lyra Network\n"
 "Language: fr\n"
@@ -13,22 +13,104 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: Char\n"
+"X-Poedit-KeywordsList: Char;Selection\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: models/payment.py:68
+#: models/payment.py:31
 msgid "Shop ID"
 msgstr "Identifiant boutique"
 
-#: models/payment.py:69
-msgid "Certificate"
-msgstr "Certificat"
+#: models/payment.py:32
+msgid "Key in test mode"
+msgstr "Clé en mode test"
 
-#: models/payment.py:204
+#: models/payment.py:33
+msgid "Key in production mode"
+msgstr "Clé en mode production"
+
+#: models/payment.py:34
+msgid "Signature algorithm"
+msgstr "Algorithme de signature"
+
+#: models/payment.py:35
+msgid "Instant Payment Notification URL"
+msgstr "URL de notification"
+
+#: models/payment.py:36
+msgid "Payment page URL"
+msgstr "URL de la page de paiement"
+
+#: models/payment.py:37
+msgid "Default language"
+msgstr "Langue par défaut"
+
+#: models/payment.py:38
+msgid "Available languages"
+msgstr "Langues disponibles"
+
+#: models/payment.py:39
+msgid "Capture delay"
+msgstr "Délai avant remise en banque"
+
+#: models/payment.py:40
+msgid "Validation mode"
+msgstr "Mode de validation"
+
+#: models/payment.py:41
+msgid "Card types"
+msgstr "Types de carte"
+
+#: models/payment.py:42
+msgid "Disable 3DS"
+msgstr "Désactiver 3DS"
+
+#: models/payment.py:45
+msgid "Redirection enabled"
+msgstr "Redirection activée"
+
+#: models/payment.py:46
+msgid "Redirection timeout on success"
+msgstr "Temps avant redirection (succès)"
+
+#: models/payment.py:47
+msgid "Redirection message on success"
+msgstr "Message avant redirection (succès)"
+
+#: models/payment.py:48
+msgid "Redirection timeout on failure"
+msgstr "Temps avant redirection (échec)"
+
+#: models/payment.py:49
+msgid "Redirection message on failure"
+msgstr "Message avant redirection (échec)"
+
+#: models/payment.py:50
+msgid "Return mode"
+msgstr "Mode de retour"
+
+#: models/payment.py:138
 msgid "Transaction log"
 msgstr "Log de transaction"
 
-#: models/payment.py:205
+#: models/payment.py:139
 msgid "Transaction error"
 msgstr "Erreur de transaction"
+
+#~ msgid "Back Office Configuration"
+#~ msgstr "Configuration Back Office"
+
+#~ msgid "Automatic"
+#~ msgstr "Automatique"
+
+#~ msgid "Manual"
+#~ msgstr "Manuel"
+
+#~ msgid "DISABLED"
+#~ msgstr "Désactivée"
+
+#~ msgid "ENABLED"
+#~ msgstr "Activée"
+
+#~ msgid "Certificate"
+#~ msgstr "Certificat"

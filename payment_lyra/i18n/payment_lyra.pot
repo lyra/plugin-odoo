@@ -1,8 +1,9 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Lyra Payment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-27 17:14+0200\n"
+"POT-Creation-Date: 2019-02-12 09:04+0100\n"
 "PO-Revision-Date: 2017-01-27 05:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Lyra Network\n"
@@ -10,24 +11,88 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: ;Char\n"
+"X-Poedit-KeywordsList: Char;Selection\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: models/payment.py:68
+#: models/payment.py:31
 msgid "Shop ID"
 msgstr ""
 
-#: models/payment.py:69
-msgid "Certificate"
+#: models/payment.py:32
+msgid "Key in test mode"
 msgstr ""
 
-#: models/payment.py:204
+#: models/payment.py:33
+msgid "Key in production mode"
+msgstr ""
+
+#: models/payment.py:34
+msgid "Signature algorithm"
+msgstr ""
+
+#: models/payment.py:35
+msgid "Instant Payment Notification URL"
+msgstr ""
+
+#: models/payment.py:36
+msgid "Payment page URL"
+msgstr ""
+
+#: models/payment.py:37
+msgid "Default language"
+msgstr ""
+
+#: models/payment.py:38
+msgid "Available languages"
+msgstr ""
+
+#: models/payment.py:39
+msgid "Capture delay"
+msgstr ""
+
+#: models/payment.py:40
+msgid "Validation mode"
+msgstr ""
+
+#: models/payment.py:41
+msgid "Card types"
+msgstr ""
+
+#: models/payment.py:42
+msgid "Disable 3DS"
+msgstr ""
+
+#: models/payment.py:45
+msgid "Redirection enabled"
+msgstr ""
+
+#: models/payment.py:46
+msgid "Redirection timeout on success"
+msgstr ""
+
+#: models/payment.py:47
+msgid "Redirection message on success"
+msgstr ""
+
+#: models/payment.py:48
+msgid "Redirection timeout on failure"
+msgstr ""
+
+#: models/payment.py:49
+msgid "Redirection message on failure"
+msgstr ""
+
+#: models/payment.py:50
+msgid "Return mode"
+msgstr ""
+
+#: models/payment.py:138
 msgid "Transaction log"
 msgstr ""
 
-#: models/payment.py:205
+#: models/payment.py:139
 msgid "Transaction error"
 msgstr ""

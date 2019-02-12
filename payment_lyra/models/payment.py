@@ -15,22 +15,68 @@ import math
 from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.addons.payment_lyra.controllers.main import LyraController
 from odoo.addons.payment_lyra.helpers import constants
-from odoo import models, api, release, fields, _
+from odoo import models, api, release, fields
 from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.float_utils import float_compare, float_repr
 from datetime import datetime
 
 _logger = logging.getLogger(__name__)
 
+class LyraLanguage(models.Model):
+    _name = "lyra.language"
+    _description = "Lyra language"
+
+    name = fields.Char(string='Account Type', required=True, translate=True)
+    include_initial_balance = fields.Boolean(string="Bring Accounts Balance Forward", help="Used in reports to know if we should consider journal items from the beginning of time instead of from the fiscal year only. Account types that should be reset to zero at each new fiscal year (like expenses, revenue..) should not have this option set.")
+    type = fields.Selection([
+        ('other', 'Regular'),
+        ('receivable', 'Receivable'),
+        ('payable', 'Payable'),
+        ('liquidity', 'Liquidity'),
+    ], required=True, default='other',
+        help="The 'Internal Type' is used for features available on "\
+        "different types of accounts: liquidity type is for cash or bank accounts"\
+        ", payable/receivable is for vendor/customer accounts.")
+    note = fields.Text(string='Description')
+
 class AcquirerLyra(models.Model):
     _inherit = 'payment.acquirer'
 
     lyra_form_url = 'https://secure.lyra.com/vads-payment/'
 
+    @api.model
+    def _load_default(self):
+        result = []
+        values = {'name': 'test', 'xx_price': 550, 'xx_seats_left': 50, 'xx_attending': True}
+        result.append((0, 0, values))
+        return result
+    
     provider = fields.Selection(selection_add=[('lyra', 'Lyra')])
-    lyra_websitekey = fields.Char(string='Shop ID', required_if_provider='lyra')
-    lyra_secretkey = fields.Char(string='Certificate', required_if_provider='lyra')
+    lyra_site_id = fields.Char(string='Shop ID', required_if_provider='lyra')
+    lyra_key_test = fields.Char(string='Key in test mode', required_if_provider='lyra')
+    lyra_key_prod = fields.Char(string='Key in production mode', required_if_provider='lyra')
+    lyra_sign_algo = fields.Selection(string='Signature algorithm',selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], required_if_provider='lyra')
+    lyra_check_url = fields.Char(string='Instant Payment Notification URL', readonly=True)
+    lyra_platform_url = fields.Char(string='Payment page URL', required_if_provider='lyra')
+    lyra_language = fields.Selection(string='Default language', selection='_get_languages')
+    lyra_available_languages = fields.Many2many('lyra.language', string='Available languages')
+    lyra_capture_delay = fields.Char(string='Capture delay')
+    lyra_validation_mode = fields.Selection(string='Validation mode', selection=[(' ', 'Back Office Configuration'),('0', 'Automatic'), ('1', 'Manual')])
+    lyra_payment_cards = fields.Char(string='Card types')
+    lyra_threeds_min_amount = fields.Char(string='Disable 3DS')
+    #lyra_minimum_amount = fields.Char(string='Minimum amount')
+    #lyra_maximum_amount = fields.Char(string='Maximum amount')
+    lyra_redirect_enabled = fields.Selection(string='Redirection enabled', selection=[('0', 'DISABLED'), ('1', 'ENABLED')])
+    lyra_redirect_success_timeout = fields.Char(string='Redirection timeout on success')
+    lyra_redirect_success_message = fields.Char(string='Redirection message on success')
+    lyra_redirect_error_timeout = fields.Char(string='Redirection timeout on failure')
+    lyra_redirect_error_message = fields.Char(string='Redirection message on failure')
+    lyra_return_mode = fields.Selection(string='Return mode', selection=[('GET', 'GET'), ('POST', 'POST')])
 
+    def _get_languages(self):
+        languages = constants.LYRA_LANGUAGES
+        return list(languages.items())
+  
     def _lyra_generate_digital_sign(self, acquirer, values):
         sign = ''
         for key in sorted(values.iterkeys()):
