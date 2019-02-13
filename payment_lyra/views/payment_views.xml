@@ -12,8 +12,8 @@
                         <field name="lyra_key_test" />
                         <field name="lyra_key_prod" />
                         <field name="lyra_sign_algo" />
-                        <field name="lyra_check_url" />
-                        <field name="lyra_platform_url" />
+                        <field name="lyra_notify_url" />
+                        <field name="lyra_gateway_url" />
                     </group>
                     <group string="PAYMENT PAGE">
                         <field name="lyra_language" />

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Lyra Payment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-12 09:02+0100\n"
-"PO-Revision-Date: 2019-02-12 09:03+0100\n"
+"POT-Creation-Date: 2019-02-13 08:26+0100\n"
+"PO-Revision-Date: 2019-02-13 09:14+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: Lyra Network\n"
 "Language: fr\n"
@@ -13,98 +13,180 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: Char;Selection\n"
+"X-Poedit-KeywordsList: Char;Selection;_\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: models/payment.py:31
+#: views/payment_views.xml:10
+msgid "GATEWAY ACCESS"
+msgstr "ACCÈS À LA PLATEFORME"
+
+#: views/payment_views.xml:18
+msgid "PAYMENT PAGE"
+msgstr "PAGE DE PAIEMENT"
+
+#: views/payment_views.xml:25
+msgid "SELECTIVE 3DS"
+msgstr "3DS SÉLECTIF"
+
+#: views/payment_views.xml:28
+msgid "RETURN TO SHOP"
+msgstr "RETOUR À LA BOUTIQUE"
+
+#: helpers/constants.py:27
+msgid "Chinese"
+msgstr "Chinois"
+
+#: helpers/constants.py:28
+msgid "German"
+msgstr "Allemand"
+
+#: helpers/constants.py:29
+msgid "Spanish"
+msgstr "Espagnol"
+
+#: helpers/constants.py:30
+msgid "English"
+msgstr "Anglais"
+
+#: helpers/constants.py:31
+msgid "French"
+msgstr "Français"
+
+#: helpers/constants.py:32
+msgid "Italian"
+msgstr "Italien"
+
+#: helpers/constants.py:33
+msgid "Japanese"
+msgstr "Japonais"
+
+#: helpers/constants.py:34
+msgid "Dutch"
+msgstr "Néerlandais"
+
+#: helpers/constants.py:35
+msgid "Polish"
+msgstr "Polonais"
+
+#: helpers/constants.py:36
+msgid "Portuguese"
+msgstr "Portugais"
+
+#: helpers/constants.py:37
+msgid "Russian"
+msgstr "Russe"
+
+#: helpers/constants.py:38
+msgid "Swedish"
+msgstr "Suédois"
+
+#: helpers/constants.py:39
+msgid "Turkish"
+msgstr "Turc"
+
+#: models/payment.py:29
+msgid "Account Type"
+msgstr ""
+
+#: models/payment.py:48
 msgid "Shop ID"
 msgstr "Identifiant boutique"
 
-#: models/payment.py:32
+#: models/payment.py:49
 msgid "Key in test mode"
 msgstr "Clé en mode test"
 
-#: models/payment.py:33
+#: models/payment.py:50
 msgid "Key in production mode"
 msgstr "Clé en mode production"
 
-#: models/payment.py:34
+#: models/payment.py:51
 msgid "Signature algorithm"
 msgstr "Algorithme de signature"
 
-#: models/payment.py:35
+#: models/payment.py:52
 msgid "Instant Payment Notification URL"
 msgstr "URL de notification"
 
-#: models/payment.py:36
+#: models/payment.py:53
 msgid "Payment page URL"
 msgstr "URL de la page de paiement"
 
-#: models/payment.py:37
+#: models/payment.py:54
 msgid "Default language"
 msgstr "Langue par défaut"
 
-#: models/payment.py:38
-msgid "Available languages"
-msgstr "Langues disponibles"
-
-#: models/payment.py:39
+#: models/payment.py:56
 msgid "Capture delay"
 msgstr "Délai avant remise en banque"
 
-#: models/payment.py:40
+#: models/payment.py:57
+msgid "Back Office Configuration"
+msgstr "Configuration Back Office"
+
+#: models/payment.py:57
+msgid "Automatic"
+msgstr "Automatique"
+
+#: models/payment.py:57
+msgid "Manual"
+msgstr "Manuel"
+
+#: models/payment.py:57
 msgid "Validation mode"
 msgstr "Mode de validation"
 
-#: models/payment.py:41
+#: models/payment.py:58
 msgid "Card types"
 msgstr "Types de carte"
 
-#: models/payment.py:42
+#: models/payment.py:59
 msgid "Disable 3DS"
 msgstr "Désactiver 3DS"
 
-#: models/payment.py:45
+#: models/payment.py:62
+msgid "Disabled"
+msgstr "Désactivée"
+
+#: models/payment.py:62
+msgid "Enabled"
+msgstr "Activée"
+
+#: models/payment.py:62
 msgid "Redirection enabled"
 msgstr "Redirection activée"
 
-#: models/payment.py:46
+#: models/payment.py:63
 msgid "Redirection timeout on success"
 msgstr "Temps avant redirection (succès)"
 
-#: models/payment.py:47
+#: models/payment.py:64
 msgid "Redirection message on success"
 msgstr "Message avant redirection (succès)"
 
-#: models/payment.py:48
+#: models/payment.py:65
 msgid "Redirection timeout on failure"
 msgstr "Temps avant redirection (échec)"
 
-#: models/payment.py:49
+#: models/payment.py:66
 msgid "Redirection message on failure"
 msgstr "Message avant redirection (échec)"
 
-#: models/payment.py:50
+#: models/payment.py:67
 msgid "Return mode"
 msgstr "Mode de retour"
 
-#: models/payment.py:138
+#: models/payment.py:155
 msgid "Transaction log"
 msgstr "Log de transaction"
 
-#: models/payment.py:139
+#: models/payment.py:156
 msgid "Transaction error"
 msgstr "Erreur de transaction"
 
-#~ msgid "Back Office Configuration"
-#~ msgstr "Configuration Back Office"
-
-#~ msgid "Automatic"
-#~ msgstr "Automatique"
-
-#~ msgid "Manual"
-#~ msgstr "Manuel"
+#~ msgid "Available languages"
+#~ msgstr "Langues disponibles"
 
 #~ msgid "DISABLED"
 #~ msgstr "Désactivée"

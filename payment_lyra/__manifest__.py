@@ -20,6 +20,7 @@
         'views/payment_views.xml',
         'views/payment_lyra_templates.xml',
         'data/payment_acquirer_data.xml',
+        'data/lyra_language_data.xml',
     ],
     'installable': True,
 }

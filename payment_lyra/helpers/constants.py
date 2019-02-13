@@ -7,6 +7,8 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
+from odoo import  _
+
 LYRA_DEFAULT = {
     'GATEWAY_CODE': u'Lyra',
     'GATEWAY_NAME': u'Lyra',
@@ -22,19 +24,19 @@ LYRA_DEFAULT = {
 }
 
 LYRA_LANGUAGES = {
-    'cn': u'Chinese',
-    'de': u'German',
-    'es': u'Spanish',
-    'en': u'English',
-    'fr': u'French',
-    'it': u'Italian',
-    'jp': u'Japanese',
-    'nl': u'Dutch',
-    'pl': u'Polish',
-    'pt': u'Portuguese',
-    'ru': u'Russian',
-    'sv': u'Swedish',
-    'tr': u'Turkish'
+    'cn': _('Chinese'),
+    'de': _('German'),
+    'es': _('Spanish'),
+    'en': _('English'),
+    'fr': _('French'),
+    'it': _('Italian'),
+    'jp': _('Japanese'),
+    'nl': _('Dutch'),
+    'pl': _('Polish'),
+    'pt': _('Portuguese'),
+    'ru': _('Russian'),
+    'sv': _('Swedish'),
+    'tr': _('Turkish'),
 }
 
 LYRA_CARDS = {

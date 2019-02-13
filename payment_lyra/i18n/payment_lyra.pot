@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Lyra Payment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-12 09:04+0100\n"
+"POT-Creation-Date: 2019-02-13 08:26+0100\n"
 "PO-Revision-Date: 2017-01-27 05:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Lyra Network\n"
@@ -13,86 +13,174 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: Char;Selection\n"
+"X-Poedit-KeywordsList: Char;Selection;_\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: models/payment.py:31
-msgid "Shop ID"
+#: views/payment_views.xml:10
+msgid "GATEWAY ACCESS"
 msgstr ""
 
-#: models/payment.py:32
-msgid "Key in test mode"
+#: views/payment_views.xml:18
+msgid "PAYMENT PAGE"
 msgstr ""
 
-#: models/payment.py:33
-msgid "Key in production mode"
+#: views/payment_views.xml:25
+msgid "SELECTIVE 3DS"
 msgstr ""
 
-#: models/payment.py:34
-msgid "Signature algorithm"
+#: views/payment_views.xml:28
+msgid "RETURN TO SHOP"
 msgstr ""
 
-#: models/payment.py:35
-msgid "Instant Payment Notification URL"
+#: helpers/constants.py:27
+msgid "Chinese"
 msgstr ""
 
-#: models/payment.py:36
-msgid "Payment page URL"
+#: helpers/constants.py:28
+msgid "German"
 msgstr ""
 
-#: models/payment.py:37
-msgid "Default language"
+#: helpers/constants.py:29
+msgid "Spanish"
 msgstr ""
 
-#: models/payment.py:38
-msgid "Available languages"
+#: helpers/constants.py:30
+msgid "English"
 msgstr ""
 
-#: models/payment.py:39
-msgid "Capture delay"
+#: helpers/constants.py:31
+msgid "French"
 msgstr ""
 
-#: models/payment.py:40
-msgid "Validation mode"
+#: helpers/constants.py:32
+msgid "Italian"
 msgstr ""
 
-#: models/payment.py:41
-msgid "Card types"
+#: helpers/constants.py:33
+msgid "Japanese"
 msgstr ""
 
-#: models/payment.py:42
-msgid "Disable 3DS"
+#: helpers/constants.py:34
+msgid "Dutch"
 msgstr ""
 
-#: models/payment.py:45
-msgid "Redirection enabled"
+#: helpers/constants.py:35
+msgid "Polish"
 msgstr ""
 
-#: models/payment.py:46
-msgid "Redirection timeout on success"
+#: helpers/constants.py:36
+msgid "Portuguese"
 msgstr ""
 
-#: models/payment.py:47
-msgid "Redirection message on success"
+#: helpers/constants.py:37
+msgid "Russian"
+msgstr ""
+
+#: helpers/constants.py:38
+msgid "Swedish"
+msgstr ""
+
+#: helpers/constants.py:39
+msgid "Turkish"
+msgstr ""
+
+#: models/payment.py:29
+msgid "Account Type"
 msgstr ""
 
 #: models/payment.py:48
-msgid "Redirection timeout on failure"
+msgid "Shop ID"
 msgstr ""
 
 #: models/payment.py:49
-msgid "Redirection message on failure"
+msgid "Key in test mode"
 msgstr ""
 
 #: models/payment.py:50
+msgid "Key in production mode"
+msgstr ""
+
+#: models/payment.py:51
+msgid "Signature algorithm"
+msgstr ""
+
+#: models/payment.py:52
+msgid "Instant Payment Notification URL"
+msgstr ""
+
+#: models/payment.py:53
+msgid "Payment page URL"
+msgstr ""
+
+#: models/payment.py:54
+msgid "Default language"
+msgstr ""
+
+#: models/payment.py:56
+msgid "Capture delay"
+msgstr ""
+
+#: models/payment.py:57
+msgid "Back Office Configuration"
+msgstr ""
+
+#: models/payment.py:57
+msgid "Automatic"
+msgstr ""
+
+#: models/payment.py:57
+msgid "Manual"
+msgstr ""
+
+#: models/payment.py:57
+msgid "Validation mode"
+msgstr ""
+
+#: models/payment.py:58
+msgid "Card types"
+msgstr ""
+
+#: models/payment.py:59
+msgid "Disable 3DS"
+msgstr ""
+
+#: models/payment.py:62
+msgid "Disabled"
+msgstr ""
+
+#: models/payment.py:62
+msgid "Enabled"
+msgstr ""
+
+#: models/payment.py:62
+msgid "Redirection enabled"
+msgstr ""
+
+#: models/payment.py:63
+msgid "Redirection timeout on success"
+msgstr ""
+
+#: models/payment.py:64
+msgid "Redirection message on success"
+msgstr ""
+
+#: models/payment.py:65
+msgid "Redirection timeout on failure"
+msgstr ""
+
+#: models/payment.py:66
+msgid "Redirection message on failure"
+msgstr ""
+
+#: models/payment.py:67
 msgid "Return mode"
 msgstr ""
 
-#: models/payment.py:138
+#: models/payment.py:155
 msgid "Transaction log"
 msgstr ""
 
-#: models/payment.py:139
+#: models/payment.py:156
 msgid "Transaction error"
 msgstr ""

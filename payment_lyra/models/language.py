@@ -7,4 +7,12 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
-import payment
+from odoo import models, fields
+
+class LyraLanguage(models.Model):
+    _name = "lyra.language"
+    _description = "Lyra language"
+    _rec_name = "label"
+
+    code = fields.Char()
+    label = fields.Char(translate=True)
