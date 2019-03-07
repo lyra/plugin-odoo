@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="acquirer_form_lyra" model="ir.ui.view">
-        <field name="name">acquirer.form.lyra</field>
-        <field name="model">payment.acquirer</field>
-        <field name="inherit_id" ref="payment.acquirer_form" />
-        <field name="arch" type="xml">
-            <xpath expr='//group[@name="acquirer"]' position='after'>
-                <div attrs="{'invisible': [('provider', '!=', 'lyra')]}">
-                    <group string="GATEWAY ACCESS">
-                        <field name="lyra_site_id" />
-                        <field name="lyra_key_test" />
-                        <field name="lyra_key_prod" />
-                        <field name="lyra_sign_algo" />
-                        <field name="lyra_notify_url" />
-                        <field name="lyra_gateway_url" />
-                    </group>
-                    <group string="PAYMENT PAGE">
-                        <field name="lyra_language" />
-                        <field name="lyra_available_languages" widget="many2many_tags" options="{'no_create': True}"/>
-                        <field name="lyra_capture_delay" />
-                        <field name="lyra_validation_mode" />
-                        <field name="lyra_payment_cards" />
-                    </group>
-                    <group string="SELECTIVE 3DS">
-                        <field name="lyra_threeds_min_amount" />
-                    </group>
-                    <group string="RETURN TO SHOP">
-                        <field name="lyra_redirect_enabled" />
-                        <field name="lyra_redirect_success_timeout" />
-                        <field name="lyra_redirect_success_message" />
-                        <field name="lyra_redirect_error_timeout" />
-                        <field name="lyra_redirect_error_message" />
-                        <field name="lyra_return_mode" />
-                    </group>
-                </div>
-            </xpath>
-        </field>
-    </record>
-    <record id="transaction_form_lyra" model="ir.ui.view">
-        <field name="name">acquirer.transaction.form.lyra</field>
-        <field name="model">payment.transaction</field>
-        <field name="inherit_id" ref="payment.transaction_form" />
-        <field name="arch" type="xml">
-            <field name="state" position="after">
-                <field name="authresult_message" />
+    <data>
+        <record id="acquirer_form_lyra" model="ir.ui.view">
+            <field name="name">acquirer.form.lyra</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form" />
+            <field name="arch" type="xml">
+                <xpath expr='//group[@name="acquirer"]' position='after'>
+                    <div attrs="{'invisible': [('provider', '!=', 'lyra')]}">
+                        <group string="GATEWAY ACCESS">
+                            <field name="lyra_site_id" />
+                            <field name="lyra_key_test" />
+                            <field name="lyra_key_prod" />
+                            <field name="lyra_sign_algo" />
+                            <field name="lyra_notify_url" />
+                            <field name="lyra_gateway_url" />
+                        </group>
+                        <group string="PAYMENT PAGE">
+                            <field name="lyra_language" />
+                            <field name="lyra_available_languages" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="lyra_capture_delay" />
+                            <field name="lyra_validation_mode" />
+                            <field name="lyra_payment_cards" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                        <group string="SELECTIVE 3DS">
+                            <field name="lyra_threeds_min_amount" />
+                        </group>
+                        <group string="RETURN TO SHOP">
+                            <field name="lyra_redirect_enabled" />
+                            <field name="lyra_redirect_success_timeout" />
+                            <field name="lyra_redirect_success_message" />
+                            <field name="lyra_redirect_error_timeout" />
+                            <field name="lyra_redirect_error_message" />
+                            <field name="lyra_return_mode" />
+                        </group>
+                    </div>
+                </xpath>
             </field>
-        </field>
-    </record>
+        </record>
+        <record id="transaction_form_lyra" model="ir.ui.view">
+            <field name="name">acquirer.transaction.form.lyra</field>
+            <field name="model">payment.transaction</field>
+            <field name="inherit_id" ref="payment.transaction_form" />
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="authresult_message" />
+                </field>
+            </field>
+        </record>
+    </data>
 </odoo>

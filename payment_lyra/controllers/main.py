@@ -27,7 +27,7 @@ class LyraController(http.Controller):
 
         return return_url
 
-    @http.route('/payment/lyra/return', type='http', auth='none', methods=['POST', 'GET'])
+    @http.route('/payment/lyra/return', type='http', auth='none', methods=['POST', 'GET'], csrf=False)
     def lyra_return(self, **post):
         _logger.info('Lyra: entering form_feedback with post data %s', pprint.pformat(post))
 

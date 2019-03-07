@@ -1,3 +1,11 @@
+1.1.0, 2019-03-30
+=============
+- Compatibility with Odoo 11.
+- Added Spanish translation.
+- Enable signature algorithm selection (SHA-1 or HMAC-SHA-256).
+- Improve backend configuration.
+- [technical] Manage enabled/disabled features by plugin variant.
+
 1.0.0, 2017-05-01
 =============
 - Bug fix: authentication error on payment end when request contains accented characters.

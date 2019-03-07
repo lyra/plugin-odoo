@@ -9,13 +9,6 @@
             <field name="view_template_id" ref="lyra_acquirer_button" />
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra website after clicking on the payment button.</p>]]></field>
-            <field name="lyra_site_id">12345678</field>
-            <field name="lyra_key_test">1111111111111111</field>
-            <field name="lyra_key_prod">2222222222222222</field>
-            <field name="lyra_sign_algo">SHA-256</field>
-            <field name="lyra_notify_url">/payment/lyra/ipn</field>
-            <field name="lyra_gateway_url">https://secure.lyra.com/vads-payment/</field>
-            <field name="lyra_language">en</field>
             <field name="lyra_available_languages"></field>
             <field name="lyra_capture_delay"></field>
             <field name="lyra_validation_mode"> </field>
@@ -23,16 +16,15 @@
             <field name="lyra_threeds_min_amount"></field>
             <field name="lyra_redirect_enabled">0</field>
             <field name="lyra_redirect_success_timeout">5</field>
-            <field name="lyra_redirect_success_message"><![CDATA[Redirection to shop in a few seconds...]]></field>
             <field name="lyra_redirect_error_timeout">5</field>
-            <field name="lyra_redirect_error_message"><![CDATA[Redirection to shop in a few seconds...]]></field>
             <field name="lyra_return_mode">GET</field>
 
             <field name="description" type="html">
                 <p>
                     A payment gateway to accept online payments via credit cards and PayPal.
                 </p>
-                <ul>
+                <ul class="list-inline">
+                    <li><i class="fa fa-check"/>Online Payment</li>
                     <li><i class="fa fa-check" />eCommerce</li>
                 </ul>
             </field>

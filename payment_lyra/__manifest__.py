@@ -9,18 +9,18 @@
 
 {
     'name': 'Lyra Payment Acquirer',
-    'version': '1.0.0',
+    'version': '1.1.0',
     'summary': 'Payment Acquirer: Lyra Implementation',
-    'category': 'Payment Acquirer',
+    'category': 'Accounting',
     'author': 'Lyra Network',
     'website': 'https://www.lyra-network.com/',
+    'description': """Lyra Payment Acquirer""",
     'license': 'AGPL-3',
     'depends': ['payment'],
     'data': [
         'views/payment_views.xml',
         'views/payment_lyra_templates.xml',
         'data/payment_acquirer_data.xml',
-        'data/lyra_language_data.xml',
     ],
     'installable': True,
 }

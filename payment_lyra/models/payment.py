@@ -7,11 +7,14 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
-from hashlib import sha1
+from hashlib import sha1, sha256
+import base64 
+import hmac
 import logging
-import urlparse
+
 import math
 from odoo.addons.payment_lyra.models.language import LyraLanguage
+from odoo.addons.payment_lyra.models.card import LyraCard
 
 from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.addons.payment_lyra.controllers.main import LyraController
@@ -20,46 +23,68 @@ from odoo import models, api, release, fields, _
 from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.float_utils import float_compare, float_repr
 from datetime import datetime
+from pkg_resources import parse_version
+
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 
 _logger = logging.getLogger(__name__)
 
 class AcquirerLyra(models.Model):
     _inherit = 'payment.acquirer'
 
-    lyra_form_url = 'https://secure.lyra.com/vads-payment/'
+    def _get_notify_url(self):
+        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        return urlparse.urljoin(base_url, LyraController._notify_url)
+    
+    sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office.')
+    
+    if (constants.pluginFeatures.get('shatwo') == False):
+        sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon.')
 
     provider = fields.Selection(selection_add=[('lyra', 'Lyra')])
-    lyra_site_id = fields.Char(string='Shop ID', required_if_provider='lyra')
-    lyra_key_test = fields.Char(string='Key in test mode', required_if_provider='lyra')
-    lyra_key_prod = fields.Char(string='Key in production mode', required_if_provider='lyra')
-    lyra_sign_algo = fields.Selection(string='Signature algorithm', selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], required_if_provider='lyra')
-    lyra_notify_url = fields.Char(string='Instant Payment Notification URL', readonly=True)
-    lyra_gateway_url = fields.Char(string='Payment page URL', required_if_provider='lyra')
-    lyra_language = fields.Selection(string='Default language', selection='_get_languages')
-    lyra_available_languages = fields.Many2many('lyra.language', string='Available languages', column1='code', column2='label')
-    lyra_capture_delay = fields.Char(string='Capture delay')
-    lyra_validation_mode = fields.Selection(string='Validation mode', selection=[(' ', _('Back Office Configuration')), ('0', _('Automatic')), ('1', _('Manual'))])
-    lyra_payment_cards = fields.Char(string='Card types')
-    lyra_threeds_min_amount = fields.Char(string='Disable 3DS')
-    lyra_redirect_enabled = fields.Selection(string='Redirection enabled', selection=[('0', _('Disabled')), ('1', _('Enabled'))])
-    lyra_redirect_success_timeout = fields.Char(string='Redirection timeout on success')
-    lyra_redirect_success_message = fields.Char(string='Redirection message on success')
-    lyra_redirect_error_timeout = fields.Char(string='Redirection timeout on failure')
-    lyra_redirect_error_message = fields.Char(string='Redirection message on failure')
-    lyra_return_mode = fields.Selection(string='Return mode', selection=[('GET', 'GET'), ('POST', 'POST')])
+    lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra.'), default=constants.LYRA_PARAMS.get('SITE_ID'), required_if_provider='lyra')
+    lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.pluginFeatures.get('qualif'), required_if_provider='lyra')
+    lyra_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRA_PARAMS.get('KEY_PROD'), required_if_provider='lyra')
+    lyra_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRA_PARAMS.get('SIGN_ALGO'), required_if_provider='lyra')
+    lyra_notify_url = fields.Char(string=_('Instant Payment Notification URL'), help=_('URL to copy into your Lyra Expert Back Office > Settings > Notification rules.'), default=_get_notify_url, readonly=True)
+    lyra_gateway_url = fields.Char(string=_('Payment page URL'), help='Link to the payment page.', default=constants.LYRA_PARAMS.get('GATEWAY_URL'), required_if_provider='lyra')
+    lyra_language = fields.Selection(string=_('Default language'), help=_('Default language on the payment page.'), default=constants.LYRA_PARAMS.get('LANGUAGE'), selection='_get_languages')
+    lyra_available_languages = fields.Many2many('lyra.language', string=_('Available languages'), column1='code', column2='label', help=_('Languages available on the payment page. If you do not select any, all the supported languages will be available.'))
+    lyra_capture_delay = fields.Char(string=_('Capture delay'), help=_('The number of days before the bank capture (adjustable in your Lyra Expert Back Office).'))
+    lyra_validation_mode = fields.Selection(string=_('Validation mode'), help=_('If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office.'), selection=[(' ', _('Lyra Expert Back Office Configuration')), ('0', _('Automatic')), ('1', _('Manual'))])
+    lyra_payment_cards = fields.Many2many('lyra.card', string=_('Card types'), column1='code', column2='label', help=_('The card type(s) that can be used for the payment. Select none to use gateway configuration.'))
+    lyra_threeds_min_amount = fields.Char(string=_('Disable 3DS'), help=_('Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, refer to the module documentation.'))
+    lyra_redirect_enabled = fields.Selection(string=_('Redirection enabled'), help=_('If enabled, the buyer is automatically redirected to your site at the end of the payment.'), selection=[('0', _('Disabled')), ('1', _('Enabled'))])
+    lyra_redirect_success_timeout = fields.Char(string=_('Redirection timeout on success'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a successful payment.'))
+    lyra_redirect_success_message = fields.Char(string=_('Redirection message on success'), help=_('Message displayed on the payment page prior to redirection after a successful payment.'), default=_('Redirection to shop in a few seconds...'))
+    lyra_redirect_error_timeout = fields.Char(string=_('Redirection timeout on failure'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment.'))
+    lyra_redirect_error_message = fields.Char(string=_('Redirection message on failure'), help=_('Message displayed on the payment page prior to redirection after a declined payment.'), default=_('Redirection to shop in a few seconds...'))
+    lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')], required_if_provider='lyra')
+
+    # Check if it's Odoo 10
+    lyra_odoo10 = True if (parse_version(release.version) < parse_version("11")) else False
 
     def _get_languages(self):
         languages = constants.LYRA_LANGUAGES
         return list(languages.items())
 
     def _lyra_generate_digital_sign(self, acquirer, values):
+        certificate = self.lyra_key_prod if (self.environment == 'prod') else self.lyra_key_test
+
         sign = ''
-        for key in sorted(values.iterkeys()):
+        for key in sorted(values.keys()):
             if key.startswith('vads_'):
                 sign += values[key] + '+'
 
-        sign += self.lyra_secretkey
-        shasign = sha1(sign.encode('utf-8')).hexdigest()
+        sign += certificate
+        
+        if self.lyra_sign_algo =='SHA-1':
+            shasign = sha1(sign.encode('utf-8')).hexdigest()
+        else:
+            shasign = base64.b64encode(hmac.new(certificate.encode('utf-8'), sign.encode('utf-8'), sha256).digest())
 
         return shasign
 
@@ -75,28 +100,55 @@ class AcquirerLyra(models.Model):
 
         mode = u'PRODUCTION' if (self.environment == 'prod') else u'TEST'
 
+        threeds_mpi = u''
+        if self.lyra_threeds_min_amount and self.lyra_threeds_min_amount > values['amount']:
+            threeds_mpi = u'2'
+
         # amount in cents
         amount = int(values['amount'] * math.pow(10, int(values['currency'].decimal_places)))
+        
+        # list of available languages
+        available_languages = ''
+        for value in self.lyra_available_languages:
+            available_languages += value.code + ';'
+        
+        #list of available payment cards
+        payment_cards = ''
+        for value in self.lyra_payment_cards:
+            payment_cards += value.code + ';'
 
         tx_values = dict() # values to sign in unicode
         tx_values.update({
-            'vads_site_id': self.lyra_websitekey,
-            'vads_amount': unicode(amount),
+            'vads_site_id': self.lyra_site_id,
+            'vads_sign_algo': self.lyra_sign_algo,
+            'vads_amount': str(amount),
             'vads_currency': constants.LYRA_CURRENCIES.get(values['currency'].name),
-            'vads_trans_date': unicode(datetime.utcnow().strftime("%Y%m%d%H%M%S")),
-            'vads_trans_id': unicode(trans_id),
+            'vads_trans_date': str(datetime.utcnow().strftime("%Y%m%d%H%M%S")),
+            'vads_trans_id': str(trans_id),
             'vads_ctx_mode': mode,
             'vads_page_action': u'PAYMENT',
             'vads_action_mode': u'INTERACTIVE',
             'vads_payment_config': u'SINGLE',
-            'vads_version': u'V2',
+            'vads_version': constants.LYRA_PARAMS.get('GATEWAY_VERSION'),
             'vads_url_return': urlparse.urljoin(base_url, LyraController._return_url),
-            'vads_return_mode': u'GET',
-            'vads_order_id': unicode(values.get('reference')),
-            'vads_contrib': u'Odoo10_0.9.1/' + release.version,
+            'vads_order_id': str(values.get('reference')),
+            'vads_contrib': constants.LYRA_PARAMS.get('CMS_IDENTIFIER') + u'_' + constants.LYRA_PARAMS.get('PLUGIN_VERSION') + u'_' + release.version,
+
+            'vads_language': self.lyra_language or '',
+            'vads_available_languages': available_languages,
+            'vads_capture_delay': self.lyra_capture_delay or '',
+            'vads_validation_mode': self.lyra_validation_mode or '',
+            'vads_payment_cards': payment_cards,
+            'vads_redirect_enabled': self.lyra_redirect_enabled or '0',
+            'vads_redirect_success_timeout': self.lyra_redirect_success_timeout or '',
+            'vads_redirect_success_message': self.lyra_redirect_success_message or '',
+            'vads_redirect_error_timeout': self.lyra_redirect_error_timeout or '',
+            'vads_redirect_error_message': self.lyra_redirect_error_message or '',
+            'vads_return_mode': str(self.lyra_return_mode),
+            'vads_threeds_mpi': threeds_mpi,
 
             # customer info
-            'vads_cust_id': unicode(values.get('billing_partner_id')) or '',
+            'vads_cust_id': str(values.get('billing_partner_id')) or '',
             'vads_cust_first_name': values.get('billing_partner_first_name') and values.get('billing_partner_first_name')[0:62] or '',
             'vads_cust_last_name': values.get('billing_partner_last_name') and values.get('billing_partner_last_name')[0:62] or '',
             'vads_cust_address': values.get('billing_partner_address') and values.get('billing_partner_address')[0:254] or '',
@@ -120,7 +172,10 @@ class AcquirerLyra(models.Model):
 
         lyra_tx_values = dict() # values encoded in utf-8
 
-        for key in tx_values.iterkeys():
+        for key in tx_values.keys():
+            if tx_values[key] == ' ':
+                tx_values[key] = ''
+
             lyra_tx_values[key] = tx_values[key].encode('utf-8')
 
         lyra_tx_values['lyra_signature'] = self._lyra_generate_digital_sign(self, tx_values)
@@ -128,14 +183,14 @@ class AcquirerLyra(models.Model):
 
     @api.multi
     def lyra_get_form_action_url(self):
-        return self.lyra_form_url
+        return self.lyra_gateway_url
 
 
 class TxLyra(models.Model):
     _inherit = 'payment.transaction'
 
-    state_message = fields.Char(string='Transaction log')
-    authresult_message = fields.Char(string='Transaction error')
+    state_message = fields.Char(_('Transaction log'))
+    authresult_message = fields.Char(_('Transaction error'))
 
     # --------------------------------------------------
     # FORM RELATED METHODS
@@ -146,13 +201,13 @@ class TxLyra(models.Model):
         shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
 
         if not reference or not shasign or not status:
-            error_msg = 'Lyra : received bad data %s' % (data)
+            error_msg = 'Lyra : received bad data {}'.format(data)
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
         tx = self.search([('reference', '=', reference)])
         if not tx or len(tx) > 1:
-            error_msg = 'Lyra: received data for reference %s' % (reference)
+            error_msg = 'Lyra: received data for reference {}'.format(reference)
             if not tx:
                 error_msg += '; no order found'
             else:
@@ -164,7 +219,7 @@ class TxLyra(models.Model):
         # verify shasign
         shasign_check = tx.acquirer_id._lyra_generate_digital_sign('out', data)
         if shasign_check.upper() != shasign.upper():
-            error_msg = 'Lyra: invalid shasign, received %s, computed %s, for data %s' % (shasign, shasign_check, data)
+            error_msg = 'Lyra: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, data)
             _logger.info(error_msg)
             raise ValidationError(error_msg)
 
@@ -177,7 +232,7 @@ class TxLyra(models.Model):
         amount = float(int(data.get('vads_amount', 0)) / math.pow(10, int(self.currency_id.decimal_places)))
 
         if float_compare(amount, self.amount, int(self.currency_id.decimal_places)) != 0:
-            invalid_parameters.append(('amount', amount, '%.2f' % self.amount))
+            invalid_parameters.append(('amount', amount, '{:.2f}'.format(self.amount)))
 
         currency_code = constants.LYRA_CURRENCIES.get(self.currency_id.name, 0)
         if int(data.get('vads_currency')) != int(currency_code):
@@ -204,7 +259,7 @@ class TxLyra(models.Model):
                 'date_validate': fields.Datetime.now(),
                 'acquirer_reference': data.get('vads_trans_id'),
                 'state': 'done',
-                'state_message': '%s' % (data),
+                'state_message': '{}'.format(data),
                 'html_3ds': html_3ds
             })
             return True
@@ -213,7 +268,7 @@ class TxLyra(models.Model):
                 'date_validate': fields.Datetime.now(),
                 'acquirer_reference': data.get('vads_trans_id'),
                 'state': 'pending',
-                'state_message': '%s' % (data),
+                'state_message': '{}'.format(data),
                 'html_3ds': html_3ds
             })
             return True
@@ -221,7 +276,7 @@ class TxLyra(models.Model):
             self.write({
                 'date_validate': fields.Datetime.now(),
                 'state': 'cancel',
-                'state_message': '%s' % (data)
+                'state_message': '{}'.format(data)
             })
             return False
         else:
@@ -230,14 +285,14 @@ class TxLyra(models.Model):
             if auth_result in constants.LYRA_AUTH_RESULT:
                 auth_message = constants.LYRA_AUTH_RESULT[auth_result]
 
-            error_msg = 'Lyra payment error, message %s, code %s' % (auth_message, auth_result)
+            error_msg = 'Lyra payment error, message {}, code {}'.format(auth_message, auth_result)
             _logger.info(error_msg)
 
             self.write({
                 'date_validate': fields.Datetime.now(),
                 'acquirer_reference': data.get('vads_trans_id'),
                 'state': 'error',
-                'state_message': '%s' % (data),
+                'state_message': '{}'.format(data),
                 'authresult_message': auth_message,
                 'html_3ds': html_3ds
             })

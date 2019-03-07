@@ -9,7 +9,12 @@
 
 from odoo import  _
 
-LYRA_DEFAULT = {
+pluginFeatures = {
+    'qualif' : False,
+    'shatwo' : True,
+}
+
+LYRA_PARAMS = {
     'GATEWAY_CODE': u'Lyra',
     'GATEWAY_NAME': u'Lyra',
     'GATEWAY_URL': u'https://secure.lyra.com/vads-payment/',
@@ -19,7 +24,7 @@ LYRA_DEFAULT = {
     'SIGN_ALGO': u'SHA-256',
     'LANGUAGE': u'en',
     'GATEWAY_VERSION': u'V2',
-    'PLUGIN_VERSION': u'1.0.0',
+    'PLUGIN_VERSION': u'1.1.0',
     'CMS_IDENTIFIER': u'Odoo_10.x',
 }
 
@@ -42,7 +47,7 @@ LYRA_LANGUAGES = {
 LYRA_CARDS = {
     'CB': u'CB',
     'E-CARTEBLEUE': u'E-CARTEBLEUE',
-    'MAESTRo': u'Maestro',
+    'MAESTRO': u'Maestro',
     'MASTERCARD': u'Mastercard',
     'VISA': u'Visa',
     'VISA_ELECTRON': u'Visa Electron',

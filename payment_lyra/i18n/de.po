@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Lyra Payment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-13 08:27+0100\n"
-"PO-Revision-Date: 2019-02-13 09:15+0100\n"
+"POT-Creation-Date: 2019-03-07 07:57+0100\n"
+"PO-Revision-Date: 2019-03-07 08:01+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: Lyra Network\n"
 "Language: de\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: Char;Selection;_\n"
+"X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -33,166 +33,294 @@ msgstr "SELEKTIVES 3DS"
 msgid "RETURN TO SHOP"
 msgstr "ÜBERMITTLUNGSOPTIONEN"
 
-#: helpers/constants.py:27
+#: helpers/constants.py:32
 msgid "Chinese"
 msgstr "Chinesisch"
 
-#: helpers/constants.py:28
+#: helpers/constants.py:33
 msgid "German"
 msgstr "Deutsch"
 
-#: helpers/constants.py:29
+#: helpers/constants.py:34
 msgid "Spanish"
 msgstr "Spanisch"
 
-#: helpers/constants.py:30
+#: helpers/constants.py:35
 msgid "English"
 msgstr "Englisch"
 
-#: helpers/constants.py:31
+#: helpers/constants.py:36
 msgid "French"
 msgstr "Französisch"
 
-#: helpers/constants.py:32
+#: helpers/constants.py:37
 msgid "Italian"
 msgstr "Italienisch"
 
-#: helpers/constants.py:33
+#: helpers/constants.py:38
 msgid "Japanese"
 msgstr "Japanisch"
 
-#: helpers/constants.py:34
+#: helpers/constants.py:39
 msgid "Dutch"
 msgstr "Holländisch"
 
-#: helpers/constants.py:35
+#: helpers/constants.py:40
 msgid "Polish"
 msgstr "Polnisch"
 
-#: helpers/constants.py:36
+#: helpers/constants.py:41
 msgid "Portuguese"
 msgstr "Portugiesisch"
 
-#: helpers/constants.py:37
+#: helpers/constants.py:42
 msgid "Russian"
 msgstr "Russisch"
 
-#: helpers/constants.py:38
+#: helpers/constants.py:43
 msgid "Swedish"
 msgstr "Schwedisch"
 
-#: helpers/constants.py:39
+#: helpers/constants.py:44
 msgid "Turkish"
 msgstr "Türkisch"
 
-#: models/payment.py:29
-msgid "Account Type"
-msgstr "Art der Transaktion"
+#: models/payment.py:42
+msgid ""
+"Algorithm used to compute the payment form signature. Selected algorithm "
+"must be the same as one configured in the Lyra Expert Back Office."
+msgstr ""
+"Algorithmus zur Berechnung der Zahlungsformsignatur. Der ausgewählte "
+"Algorithmus muss derselbe sein, wie er im Lyra Expert Back Office."
 
-#: models/payment.py:48
+#: models/payment.py:44
+msgid ""
+"The HMAC-SHA-256 algorithm should not be activated if it is not yet "
+"available in the Lyra Expert Back Office, the feature will be available soon."
+msgstr ""
+"Der HMAC-SHA-256-Algorithmus sollte nicht aktiviert werden, wenn er noch "
+"nicht im Lyra Expert Back Office verfügbar ist, die Funktion wird in Kürze "
+"verfügbar sein."
+
+#: models/payment.py:47
 msgid "Shop ID"
 msgstr "Shop ID"
 
-#: models/payment.py:49
+#: models/payment.py:47
+msgid "The identifier provided by Lyra."
+msgstr "Die Kennung von Lyra bereitgestellt."
+
+#: models/payment.py:48
 msgid "Key in test mode"
 msgstr "Schlüssel im Testbetrieb"
 
-#: models/payment.py:50
+#: models/payment.py:48
+msgid ""
+"Key provided by Lyra for test mode (available in Lyra Expert Back Office)."
+msgstr ""
+"Schlüssel, das von Lyra zu Testzwecken bereitgestellt wird (im Lyra Expert "
+"Back Office verfügbar)."
+
+#: models/payment.py:49
 msgid "Key in production mode"
 msgstr "Schlüssel im Produktivbetrieb"
 
-#: models/payment.py:51
+#: models/payment.py:49
+msgid ""
+"Key provided by Lyra (available in Lyra Expert Back Office after enabling "
+"production mode)."
+msgstr ""
+"Von Lyra bereitgestelltes Schlüssel (im Lyra Expert Back Office verfügbar, "
+"nachdem der Produktionsmodus aktiviert wurde)."
+
+#: models/payment.py:50
 msgid "Signature algorithm"
 msgstr "Signaturalgorithmus"
 
-#: models/payment.py:52
+#: models/payment.py:51
 msgid "Instant Payment Notification URL"
 msgstr "Benachrichtigung-URL"
 
-#: models/payment.py:53
+#: models/payment.py:51
+msgid ""
+"URL to copy into your Lyra Expert Back Office > Settings > Notification "
+"rules."
+msgstr ""
+"URL, die Sie in Ihre Lyra Expert Back Office kopieren sollen > Einstellung > "
+"Regeln der Benachrichtigungen."
+
+#: models/payment.py:52
 msgid "Payment page URL"
 msgstr "Schnittstellen-URL"
 
-#: models/payment.py:54
+#: models/payment.py:53
 msgid "Default language"
 msgstr "Standardsprache"
 
-#: models/payment.py:56
+#: models/payment.py:53
+msgid "Default language on the payment page."
+msgstr "Standardsprache auf Zahlungsseite."
+
+#: models/payment.py:54
+msgid "Available languages"
+msgstr "Verfügbare Sprachen"
+
+#: models/payment.py:54
+msgid ""
+"Languages available on the payment page. If you do not select any, all the "
+"supported languages will be available."
+msgstr ""
+"Die Sprache auswählen, die auf die Bezahlungsseite vorgeschlagen werden.Wenn "
+"Sie keine auswählen, werden alle unterstützten Sprachen verfügbar."
+
+#: models/payment.py:55
 msgid "Capture delay"
 msgstr "Einzugsfrist"
 
-#: models/payment.py:57
-msgid "Back Office Configuration"
-msgstr "Back Office Konfiguration"
+#: models/payment.py:55
+msgid ""
+"The number of days before the bank capture (adjustable in your Lyra Expert "
+"Back Office)."
+msgstr ""
+"Anzahl der Tage bis zum Einzug der Zahlung (Einstellung über Ihr Lyra Expert "
+"Back Office)."
 
-#: models/payment.py:57
+#: models/payment.py:56
+msgid "Validation mode"
+msgstr "Bestätigungsmodus"
+
+#: models/payment.py:56
+msgid ""
+"If manual is selected, you will have to confirm payments manually in your "
+"Lyra Expert Back Office."
+msgstr ""
+"Bei manueller Eingabe müssen Sie Zahlungen manuell in Ihrem Lyra Expert Back "
+"Office bestätigen."
+
+#: models/payment.py:56
+msgid "Lyra Expert Back Office Configuration"
+msgstr "Lyra Expert Back Office Konfiguration"
+
+#: models/payment.py:56
 msgid "Automatic"
 msgstr "Automatisch"
 
-#: models/payment.py:57
+#: models/payment.py:56
 msgid "Manual"
 msgstr "Manuell"
 
 #: models/payment.py:57
-msgid "Validation mode"
-msgstr "Bestätigungsmodus"
-
-#: models/payment.py:58
 msgid "Card types"
 msgstr "Art der Kreditkarten"
 
-#: models/payment.py:59
+#: models/payment.py:57
+msgid ""
+"The card type(s) that can be used for the payment. Select none to use "
+"gateway configuration."
+msgstr ""
+"Wählen Sie die zur Zahlung verfügbaren Kartentypen aus.Ne rien sélectionner "
+"pour utiliser la configuration de la plateforme."
+
+#: models/payment.py:58
 msgid "Disable 3DS"
 msgstr "3DS deaktivieren"
 
-#: models/payment.py:62
-msgid "Disabled"
-msgstr "Deaktivierte"
+#: models/payment.py:58
+msgid ""
+"Amount below which 3DS will be disabled. Needs subscription to selective 3DS "
+"option. For more information, refer to the module documentation."
+msgstr ""
+"Betrag, unter dem 3DS deaktiviert wird. Muss für die Option Selektives 3DS "
+"freigeschaltet sein. Weitere Informationen finden Sie in der "
+"Moduldokumentation."
 
-#: models/payment.py:62
-msgid "Enabled"
-msgstr "Aktivierte"
-
-#: models/payment.py:62
+#: models/payment.py:59
 msgid "Redirection enabled"
 msgstr "Automatische Weiterleitung"
 
-#: models/payment.py:63
+#: models/payment.py:59
+msgid ""
+"If enabled, the buyer is automatically redirected to your site at the end of "
+"the payment."
+msgstr ""
+"Falls erlaubt, der Kaufer wurde automatisch am Ende des Zahlungsprozesses "
+"auf Ihre Webseite weitergeleitet."
+
+#: models/payment.py:59
+msgid "Disabled"
+msgstr "Deaktivierte"
+
+#: models/payment.py:59
+msgid "Enabled"
+msgstr "Aktivierte"
+
+#: models/payment.py:60
 msgid "Redirection timeout on success"
 msgstr "Erfolgreiche timeout Umleitung"
 
-#: models/payment.py:64
+#: models/payment.py:60
+msgid ""
+"Time in seconds (0-300) before the buyer is automatically redirected to your "
+"website after a successful payment."
+msgstr ""
+"Zeit in Sekunden (0-300), bevor der Käufer automatisch zu Ihrer Shop "
+"umgeleitet wird, als die Bezahlung erfolgreich wurde."
+
+#: models/payment.py:61
 msgid "Redirection message on success"
 msgstr "Erfolgreiche Meldung vor Umleitung"
 
-#: models/payment.py:65
+#: models/payment.py:61
+msgid ""
+"Message displayed on the payment page prior to redirection after a "
+"successful payment."
+msgstr ""
+"Meldung auf die Zahlungsseite vor Umleitung als die Zahlung ist erfolgreich."
+
+#: models/payment.py:61 models/payment.py:63
+msgid "Redirection to shop in a few seconds..."
+msgstr "Weiterleitung zum Shop in Kürze..."
+
+#: models/payment.py:62
 msgid "Redirection timeout on failure"
 msgstr "Umleitung-Timeout auf Fehler"
 
-#: models/payment.py:66
+#: models/payment.py:62
+msgid ""
+"Time in seconds (0-300) before the buyer is automatically redirected to your "
+"website after a declined payment."
+msgstr ""
+"Zeit in Sekunden (0-300) bevor der Käufer automatisch zu Ihrer Shop "
+"umgeleitet wird, als die Bezahlung verweigert wurde."
+
+#: models/payment.py:63
 msgid "Redirection message on failure"
 msgstr "Umleitung Timeout auf Fehler"
 
-#: models/payment.py:67
+#: models/payment.py:63
+msgid ""
+"Message displayed on the payment page prior to redirection after a declined "
+"payment."
+msgstr ""
+"Meldung angezeigt auf die Zahlungsseite vor Umleitung nach der verweigerten "
+"Zahlung."
+
+#: models/payment.py:64
 msgid "Return mode"
 msgstr "Übermittlungs-Modus"
 
-#: models/payment.py:155
+#: models/payment.py:64
+msgid ""
+"Method that will be used for transmitting the payment result from the "
+"payment page to your shop."
+msgstr ""
+"Methode, die für die Übermittlung des Zahlungsvorgang benützt wird, kommt "
+"aus der Bezahlungsseite zu Ihrem Geschäft."
+
+#: models/payment.py:191
 msgid "Transaction log"
 msgstr "Transaktionslog"
 
-#: models/payment.py:156
+#: models/payment.py:192
 msgid "Transaction error"
 msgstr "Transaktionsfehler"
-
-#~ msgid "Available languages"
-#~ msgstr "Verfügbare Sprachen"
-
-#~ msgid "DISABLED"
-#~ msgstr "Deaktivierte"
-
-#~ msgid "ENABLED"
-#~ msgstr "Aktivierte"
-
-#~ msgid "Certificate"
-#~ msgstr "Zertifikat"
