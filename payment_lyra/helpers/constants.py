@@ -15,17 +15,18 @@ pluginFeatures = {
 }
 
 LYRA_PARAMS = {
-    'GATEWAY_CODE': u'Lyra',
-    'GATEWAY_NAME': u'Lyra',
-    'GATEWAY_URL': u'https://secure.lyra.com/vads-payment/',
-    'SITE_ID': u'12345678',
-    'KEY_TEST': u'1111111111111111',
-    'KEY_PROD': u'2222222222222222',
-    'SIGN_ALGO': u'SHA-256',
-    'LANGUAGE': u'en',
-    'GATEWAY_VERSION': u'V2',
-    'PLUGIN_VERSION': u'1.1.0',
-    'CMS_IDENTIFIER': u'Odoo_10.x',
+    'GATEWAY_CODE': 'Lyra',
+    'GATEWAY_NAME': 'Lyra',
+    'BACKOFFICE_NAME': 'Lyra Expert',
+    'GATEWAY_URL': 'https://secure.lyra.com/vads-payment/',
+    'SITE_ID': '12345678',
+    'KEY_TEST': '1111111111111111',
+    'KEY_PROD': '2222222222222222',
+    'SIGN_ALGO': 'SHA-256',
+    'LANGUAGE': 'en',
+    'GATEWAY_VERSION': 'V2',
+    'PLUGIN_VERSION': '1.1.0',
+    'CMS_IDENTIFIER': 'Odoo_10.x',
 }
 
 LYRA_LANGUAGES = {
