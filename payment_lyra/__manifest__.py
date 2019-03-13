@@ -14,7 +14,6 @@
     'category': 'Accounting',
     'author': 'Lyra Network',
     'website': 'https://www.lyra-network.com/',
-    'description': """Lyra Payment Acquirer""",
     'license': 'AGPL-3',
     'depends': ['payment'],
     'data': [

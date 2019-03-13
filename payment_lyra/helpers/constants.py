@@ -26,7 +26,7 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
     'GATEWAY_VERSION': 'V2',
     'PLUGIN_VERSION': '1.1.0',
-    'CMS_IDENTIFIER': 'Odoo_10.x',
+    'CMS_IDENTIFIER': 'Odoo_10-12',
 }
 
 LYRA_LANGUAGES = {
@@ -55,9 +55,10 @@ LYRA_CARDS = {
     'VPAY': u'V PAY',
     'AMEX': u'American Express',
     'CONECS': u'Titre-Restaurant Dématérialisé Conecs',
-    'CONECS_APETIZ': u'Titre-Restaurant Dématérialisé Apetiz',
-    'CONECS_SODEXO': u'Titre-Restaurant Dématérialisé Sodexo',
-    'CONECS_EDENRED': u'Ticket Restaurant',
+    'APETIZ': u'Titre-Restaurant Dématérialisé Apetiz',
+    'CHQ_DEJ': u'Titre-Restaurant Dématérialisé Chèque Déjeuner',
+    'SODEXO': u'Titre-Restaurant Dématérialisé Sodexo',
+    'EDENRED': u'Ticket Restaurant',
     'PAYPAL': u'PayPal',
     'PAYPAL_SB': u'PayPal - Sandbox',
     'ALIPAY': u'Alipay',
@@ -74,14 +75,14 @@ LYRA_CARDS = {
 
 LYRA_CURRENCIES = {
     'CAD': u'124',
-    'CNY': u'156',
     'DKK': u'208',
+    'JPY': u'392',
     'NOK': u'578',
     'CHF': u'756',
     'GBP': u'826',
     'USD': u'840',
-    'BGN': u'975',
     'EUR': u'978',
+    'PLN': u'985',
 }
 
 LYRA_AUTH_RESULT = {
