@@ -7,7 +7,7 @@ Lyra plugin for Odoo
 ===================================================
 
 Lyra plugin for Odoo is an open source plugin that links Odoo based e-commerce websites to Lyra
-secure payment gateway developed by `Lyra Network <https://www.lyra-network.com/>`_.
+secure payment gateway developed by `Lyra Network <https://www.lyra.com/>`_.
 
 Installation & Upgrade
 ======================
@@ -52,7 +52,7 @@ failed with a 404 error.
 Author
 =======
 
-* Lyra Network (https://www.lyra-network.com/)
+* Lyra Network (https://www.lyra.com/)
 
 License
 =======
