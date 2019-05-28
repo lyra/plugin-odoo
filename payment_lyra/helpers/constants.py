@@ -7,26 +7,29 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
-from odoo import  _
+from odoo import _
 
-pluginFeatures = {
-    'qualif' : False,
-    'shatwo' : True,
+LYRA_PLUGIN_FEATURES = {
+    'qualif': False,
+    'shatwo': True
 }
 
 LYRA_PARAMS = {
     'GATEWAY_CODE': 'Lyra',
     'GATEWAY_NAME': 'Lyra',
     'BACKOFFICE_NAME': 'Lyra Expert',
+    'SUPPORT_EMAIL': 'support-ecommerce@lyra-collect.com',
     'GATEWAY_URL': 'https://secure.lyra.com/vads-payment/',
     'SITE_ID': '12345678',
     'KEY_TEST': '1111111111111111',
     'KEY_PROD': '2222222222222222',
+    'CTX_MODE': 'TEST',
     'SIGN_ALGO': 'SHA-256',
     'LANGUAGE': 'en',
+
     'GATEWAY_VERSION': 'V2',
     'PLUGIN_VERSION': '1.1.0',
-    'CMS_IDENTIFIER': 'Odoo_10-12',
+    'CMS_IDENTIFIER': 'Odoo_10-12'
 }
 
 LYRA_LANGUAGES = {

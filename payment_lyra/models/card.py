@@ -8,7 +8,7 @@
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
 from odoo import models, fields, api
-from odoo.addons.payment_lyra.helpers import constants
+from .helpers import constants
 
 class LyraCard(models.Model):
     _name = "lyra.card"
@@ -23,5 +23,5 @@ class LyraCard(models.Model):
         cards = constants.LYRA_CARDS
 
         for key in cards.keys():
-           value = {"code": key, "label": cards[key]}
-           self.create(value)
+            value = {"code": key, "label": cards[key]}
+            self.create(value)

@@ -11,14 +11,14 @@
             <t t-else="">
               <input type="hidden" name="data_set" t-att-data-action-url="tx_url" data-remove-me=""/>
             </t>
-    
+
             <input type="hidden" name="vads_site_id" t-att-value="vads_site_id" />
             <input type="hidden" name="vads_sign_algo" t-att-value="vads_sign_algo" />
             <input type="hidden" name="vads_amount" t-att-value="vads_amount" />
             <input type="hidden" name="vads_currency" t-att-value="vads_currency" />
             <input type="hidden" name="vads_trans_date" t-att-value="vads_trans_date" />
             <input type="hidden" name="vads_trans_id" t-att-value="vads_trans_id" />
-    
+
             <input type="hidden" name="vads_ctx_mode" t-att-value="vads_ctx_mode" />
             <input type="hidden" name="vads_page_action" t-att-value="vads_page_action" />
             <input type="hidden" name="vads_action_mode" t-att-value="vads_action_mode" />
@@ -28,7 +28,7 @@
             <input type="hidden" name="vads_order_id" t-att-value="vads_order_id" />
             <input type="hidden" name="vads_contrib" t-att-value="vads_contrib" />
             <input type="hidden" name="signature" t-att-value="lyra_signature" />
-    
+
             <input type="hidden" name="vads_language" t-att-value="vads_language" />
             <input type="hidden" name="vads_available_languages" t-att-value="vads_available_languages" />
             <input type="hidden" name="vads_capture_delay" t-att-value="vads_capture_delay" />
@@ -40,8 +40,8 @@
             <input type="hidden" name="vads_redirect_success_message" t-att-value="vads_redirect_success_message" />
             <input type="hidden" name="vads_redirect_error_timeout" t-att-value="vads_redirect_error_timeout" />
             <input type="hidden" name="vads_redirect_error_message" t-att-value="vads_redirect_error_message" />
-                
-                <!-- customer info -->
+
+            <!-- Customer info. -->
             <input type="hidden" name="vads_cust_id" t-att-value="vads_cust_id" />
             <input type="hidden" name="vads_cust_first_name" t-att-value="vads_cust_first_name" />
             <input type="hidden" name="vads_cust_last_name" t-att-value="vads_cust_last_name" />
@@ -52,8 +52,8 @@
             <input type="hidden" name="vads_cust_country" t-att-value="vads_cust_country" />
             <input type="hidden" name="vads_cust_email" t-att-value="vads_cust_email" />
             <input type="hidden" name="vads_cust_phone" t-att-value="vads_cust_phone" />
-    
-                <!-- shipping info -->
+
+            <!-- Shipping info. -->
             <input type="hidden" name="vads_ship_to_first_name" t-att-value="vads_ship_to_first_name" />
             <input type="hidden" name="vads_ship_to_last_name" t-att-value="vads_ship_to_last_name" />
             <input type="hidden" name="vads_ship_to_street" t-att-value="vads_ship_to_street" />
@@ -62,10 +62,10 @@
             <input type="hidden" name="vads_ship_to_state" t-att-value="vads_ship_to_state" />
             <input type="hidden" name="vads_ship_to_country" t-att-value="vads_ship_to_country" />
             <input type="hidden" name="vads_ship_to_phone_num" t-att-value="vads_ship_to_phone_num" />
-    
-                <!-- URLs --> 
+
+            <!-- URLs. --> 
             <input type="hidden" name="vads_url_return" t-att-value="vads_url_return" />
-    
+
             <t t-if="acquirer.lyra_odoo10">
                 <button type="submit" width="100px" t-att-class="submit_class">
                      <span t-if="submit_txt"><t t-esc="submit_txt" /> <span class="fa fa-long-arrow-right" /></span>

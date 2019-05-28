@@ -8,7 +8,7 @@
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
 from odoo import models, fields, api
-from odoo.addons.payment_lyra.helpers import constants
+from .helpers import constants
 
 class LyraLanguage(models.Model):
     _name = "lyra.language"
@@ -23,5 +23,5 @@ class LyraLanguage(models.Model):
         languages = constants.LYRA_LANGUAGES
 
         for key in languages.keys():
-           value = {"code": key, "label": languages[key]}
-           self.create(value)
+            value = {"code": key, "label": languages[key]}
+            self.create(value)
