@@ -16,9 +16,9 @@ from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
-class LyraController(http.Controller):
-    _notify_url = '/payment/lyra/ipn'
-    _return_url = '/payment/lyra/return'
+class LyragwController(http.Controller):
+    _notify_url = '/payment/lyragw/ipn'
+    _return_url = '/payment/lyragw/return'
 
     def _get_return_url(self, result, **post):
         return_url = post.pop('return_url', '')
@@ -27,19 +27,19 @@ class LyraController(http.Controller):
 
         return return_url
 
-    @http.route('/payment/lyra/return', type='http', auth='none', methods=['POST', 'GET'], csrf=False)
-    def lyra_return(self, **post):
+    @http.route('/payment/lyragw/return', type='http', auth='none', methods=['POST', 'GET'], csrf=False)
+    def lyragw_return(self, **post):
         _logger.info('Lyra: entering form_feedback with post data %s', pprint.pformat(post))
 
-        # check payment result and create payment transaction
-        result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyra')
+        # Check payment result and create transaction.
+        result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyragw')
         return_url = self._get_return_url(result, **post)
         return werkzeug.utils.redirect(return_url)
 
-    @http.route('/payment/lyra/ipn', type='http', auth='none', methods=['POST'], csrf=False)
-    def lyra_ipn(self, **post):
+    @http.route('/payment/lyragw/ipn', type='http', auth='none', methods=['POST'], csrf=False)
+    def lyragw_ipn(self, **post):
         _logger.info('Lyra: entering IPN form_feedback with post data %s', pprint.pformat(post))
 
-        # check payment result and create payment transaction
-        result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyra')
+        # Check payment result and create transaction.
+        result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyragw')
         return 'Valid payment processed' if result else 'Invalid payment processed'

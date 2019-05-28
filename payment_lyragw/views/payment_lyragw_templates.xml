@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <template id="lyra_acquirer_button">
-            <t t-if="acquirer.lyra_odoo10">
+        <template id="lyragw_acquirer_button">
+            <t t-if="acquirer.lyragw_odoo10">
                  <form t-if="acquirer" t-att-action="tx_url" method="post" target="_self" >
                  <![CDATA[<!-- ]]> <!-- Neutralize </form> balise -->
                     </form>
@@ -27,7 +27,7 @@
             <input type="hidden" name="vads_return_mode" t-att-value="vads_return_mode" />
             <input type="hidden" name="vads_order_id" t-att-value="vads_order_id" />
             <input type="hidden" name="vads_contrib" t-att-value="vads_contrib" />
-            <input type="hidden" name="signature" t-att-value="lyra_signature" />
+            <input type="hidden" name="signature" t-att-value="lyragw_signature" />
 
             <input type="hidden" name="vads_language" t-att-value="vads_language" />
             <input type="hidden" name="vads_available_languages" t-att-value="vads_available_languages" />
@@ -66,7 +66,7 @@
             <!-- URLs. --> 
             <input type="hidden" name="vads_url_return" t-att-value="vads_url_return" />
 
-            <t t-if="acquirer.lyra_odoo10">
+            <t t-if="acquirer.lyragw_odoo10">
                 <button type="submit" width="100px" t-att-class="submit_class">
                      <span t-if="submit_txt"><t t-esc="submit_txt" /> <span class="fa fa-long-arrow-right" /></span>
                  </button>

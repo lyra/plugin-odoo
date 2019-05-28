@@ -9,12 +9,12 @@
 
 from odoo import _
 
-LYRA_PLUGIN_FEATURES = {
+LYRAGW_PLUGIN_FEATURES = {
     'qualif': False,
     'shatwo': True
 }
 
-LYRA_PARAMS = {
+LYRAGW_PARAMS = {
     'GATEWAY_CODE': 'Lyra',
     'GATEWAY_NAME': 'Lyra',
     'BACKOFFICE_NAME': 'Lyra Expert',
@@ -32,7 +32,7 @@ LYRA_PARAMS = {
     'CMS_IDENTIFIER': 'Odoo_10-12'
 }
 
-LYRA_LANGUAGES = {
+LYRAGW_LANGUAGES = {
     'cn': _('Chinese'),
     'de': _('German'),
     'es': _('Spanish'),
@@ -48,7 +48,7 @@ LYRA_LANGUAGES = {
     'tr': _('Turkish'),
 }
 
-LYRA_CARDS = {
+LYRAGW_CARDS = {
     'CB': u'CB',
     'E-CARTEBLEUE': u'E-CARTEBLEUE',
     'MAESTRO': u'Maestro',
@@ -76,7 +76,7 @@ LYRA_CARDS = {
     'WECHAT': u'WeChat Pay',
 }
 
-LYRA_CURRENCIES = {
+LYRAGW_CURRENCIES = {
     'CAD': u'124',
     'DKK': u'208',
     'JPY': u'392',
@@ -88,7 +88,7 @@ LYRA_CURRENCIES = {
     'PLN': u'985',
 }
 
-LYRA_AUTH_RESULT = {
+LYRAGW_AUTH_RESULT = {
     "00": u"Transaction approuvée ou traitée avec succès",
     "02": u"Contacter l’émetteur de carte",
     "03": u"Accepteur invalide",

@@ -10,9 +10,9 @@
 from odoo import models, fields, api
 from .helpers import constants
 
-class LyraCard(models.Model):
-    _name = "lyra.card"
-    _description = "Lyra payment card"
+class LyragwLanguage(models.Model):
+    _name = "lyragw.language"
+    _description = "Lyra language"
     _rec_name = "label"
 
     code = fields.Char()
@@ -20,8 +20,8 @@ class LyraCard(models.Model):
 
     @api.model_cr
     def init(self):
-        cards = constants.LYRA_CARDS
+        languages = constants.LYRAGW_LANGUAGES
 
-        for key in cards.keys():
-            value = {"code": key, "label": cards[key]}
+        for key in languages.keys():
+            value = {"code": key, "label": languages[key]}
             self.create(value)
