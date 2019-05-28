@@ -7,5 +7,5 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
-from . import models
 from . import controllers
+from . import models

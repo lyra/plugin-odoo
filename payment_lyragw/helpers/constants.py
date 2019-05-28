@@ -45,7 +45,7 @@ LYRAGW_LANGUAGES = {
     'pt': _('Portuguese'),
     'ru': _('Russian'),
     'sv': _('Swedish'),
-    'tr': _('Turkish'),
+    'tr': _('Turkish')
 }
 
 LYRAGW_CARDS = {
@@ -73,7 +73,7 @@ LYRAGW_CARDS = {
     'PRZELEWY24': u'Przelewy24',
     'SOFORT_BANKING': u'Sofort',
     'UNION_PAY': u'UnionPay',
-    'WECHAT': u'WeChat Pay',
+    'WECHAT': u'WeChat Pay'
 }
 
 LYRAGW_CURRENCIES = {
@@ -85,7 +85,7 @@ LYRAGW_CURRENCIES = {
     'GBP': u'826',
     'USD': u'840',
     'EUR': u'978',
-    'PLN': u'985',
+    'PLN': u'985'
 }
 
 LYRAGW_AUTH_RESULT = {
@@ -135,5 +135,5 @@ LYRAGW_AUTH_RESULT = {
     "96": u"Mauvais fonctionnement du système",
     "97": u"Echéance de la temporisation de surveillance globale",
     "98": u"Serveur indisponible routage réseau demandé à nouveau",
-    "99": u"Incident domaine initiateur",
+    "99": u"Incident domaine initiateur"
 }

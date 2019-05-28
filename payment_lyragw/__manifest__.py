@@ -21,5 +21,5 @@
         'views/payment_lyragw_templates.xml',
         'data/payment_acquirer_data.xml',
     ],
-    'installable': True,
+    'installable': True
 }
