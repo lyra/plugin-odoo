@@ -243,8 +243,8 @@ class TxLyragw(models.Model):
 
     def _lyragw_form_validate(self, data):
         lyragw_statuses = {
-            'success': ['AUTHORISED', 'CAPTURED', 'CAPTURE_FAILED'],
-            'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION'],
+            'success': ['AUTHORISED', 'CAPTURED', 'CAPTURE_FAILED', 'ACCEPTED'],
+            'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION', 'WAITING_FOR_PAYMENT'],
             'cancel': ['NOT_CREATED', 'ABANDONED']
         }
 
