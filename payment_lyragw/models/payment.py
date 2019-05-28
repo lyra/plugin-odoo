@@ -93,7 +93,7 @@ class AcquirerLyragw(models.Model):
     def lyragw_form_generate_values(self, values):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
 
-        # trans id is number of 1/10 seconds from midnight
+        # trans_id is the number of 1/10 seconds from midnight.
         now = datetime.now()
         midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
         delta = int((now - midnight).total_seconds() * 10)
@@ -105,20 +105,20 @@ class AcquirerLyragw(models.Model):
         if self.lyragw_threeds_min_amount and self.lyragw_threeds_min_amount > values['amount']:
             threeds_mpi = u'2'
 
-        # amount in cents
+        # Amount in cents.
         amount = int(values['amount'] * math.pow(10, int(values['currency'].decimal_places)))
 
-        # list of available languages
+        # List of available languages.
         available_languages = ''
         for value in self.lyragw_available_languages:
             available_languages += value.code + ';'
 
-        #list of available payment cards
+        # List of available payment cards.
         payment_cards = ''
         for value in self.lyragw_payment_cards:
             payment_cards += value.code + ';'
 
-        tx_values = dict() # values to sign in unicode
+        tx_values = dict() # Values to sign in unicode.
         tx_values.update({
             'vads_site_id': self.lyragw_site_id,
             'vads_sign_algo': self.lyragw_sign_algo,
@@ -133,7 +133,7 @@ class AcquirerLyragw(models.Model):
             'vads_version': constants.LYRAGW_PARAMS.get('GATEWAY_VERSION'),
             'vads_url_return': urlparse.urljoin(base_url, LyragwController._return_url),
             'vads_order_id': str(values.get('reference')),
-            'vads_contrib': constants.LYRAGW_PARAMS.get('CMS_IDENTIFIER') + u'_' + constants.LYRAGW_PARAMS.get('PLUGIN_VERSION') + u'_' + release.version,
+            'vads_contrib': constants.LYRAGW_PARAMS.get('CMS_IDENTIFIER') + u'_' + constants.LYRAGW_PARAMS.get('PLUGIN_VERSION') + u'/' + release.version,
 
             'vads_language': self.lyragw_language or '',
             'vads_available_languages': available_languages,
@@ -148,7 +148,7 @@ class AcquirerLyragw(models.Model):
             'vads_return_mode': str(self.lyragw_return_mode),
             'vads_threeds_mpi': threeds_mpi,
 
-            # customer info
+            # Customer info.
             'vads_cust_id': str(values.get('billing_partner_id')) or '',
             'vads_cust_first_name': values.get('billing_partner_first_name') and values.get('billing_partner_first_name')[0:62] or '',
             'vads_cust_last_name': values.get('billing_partner_last_name') and values.get('billing_partner_last_name')[0:62] or '',
@@ -160,7 +160,7 @@ class AcquirerLyragw(models.Model):
             'vads_cust_email': values.get('billing_partner_email') and values.get('billing_partner_email')[0:126] or '',
             'vads_cust_phone': values.get('billing_partner_phone') and values.get('billing_partner_phone')[0:31] or '',
 
-            # shipping info
+            # Shipping info.
             'vads_ship_to_first_name': values.get('partner_first_name') and values.get('partner_first_name')[0:62] or '',
             'vads_ship_to_last_name': values.get('partner_last_name') and values.get('partner_last_name')[0:62] or '',
             'vads_ship_to_street': values.get('partner_address') and values.get('partner_address')[0:254] or '',
@@ -217,7 +217,7 @@ class TxLyragw(models.Model):
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
-        # verify shasign
+        # Verify shasign.
         shasign_check = tx.acquirer_id._lyragw_generate_digital_sign('out', data)
         if shasign_check.upper() != shasign.upper():
             error_msg = 'Lyra: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, data)
@@ -229,7 +229,7 @@ class TxLyragw(models.Model):
     def _lyragw_form_get_invalid_parameters(self, data):
         invalid_parameters = []
 
-        # check what is bought
+        # Check what is bought.
         amount = float(int(data.get('vads_amount', 0)) / math.pow(10, int(self.currency_id.decimal_places)))
 
         if float_compare(amount, self.amount, int(self.currency_id.decimal_places)) != 0:
