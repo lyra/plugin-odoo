@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record id="payment.payment_acquirer_lyragw" model="payment.acquirer">
             <field name="name"><![CDATA[Lyra]]></field>
-            <field name="image" type="base64" file="payment_lyragw/static/src/img/lyragw_logo.png" />
+            <field name="image" type="base64" file="payment_lyragw/static/src/img/logo.png" />
             <field name="provider">lyragw</field>
             <field name="company_id" ref="base.main_company" />
             <field name="view_template_id" ref="lyragw_acquirer_button" />
