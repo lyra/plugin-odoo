@@ -9,7 +9,7 @@
 
 {
     'name': 'Lyra Payment Acquirer',
-    'version': '1.1.0',
+    'version': '1.1.0-beta1',
     'summary': 'Payment Acquirer: Lyra Implementation',
     'category': 'Accounting',
     'author': 'Lyra Network',
