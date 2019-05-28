@@ -13,7 +13,6 @@
             </t>
 
             <input type="hidden" name="vads_site_id" t-att-value="vads_site_id" />
-            <input type="hidden" name="vads_sign_algo" t-att-value="vads_sign_algo" />
             <input type="hidden" name="vads_amount" t-att-value="vads_amount" />
             <input type="hidden" name="vads_currency" t-att-value="vads_currency" />
             <input type="hidden" name="vads_trans_date" t-att-value="vads_trans_date" />
