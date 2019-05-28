@@ -11,7 +11,7 @@ from odoo import _
 
 LYRAGW_PLUGIN_FEATURES = {
     'qualif': False,
-    'shatwo': True
+    'shatwo': True,
 }
 
 LYRAGW_PARAMS = {
@@ -29,7 +29,7 @@ LYRAGW_PARAMS = {
 
     'GATEWAY_VERSION': 'V2',
     'PLUGIN_VERSION': '1.1.0-beta1',
-    'CMS_IDENTIFIER': 'Odoo_10-12'
+    'CMS_IDENTIFIER': 'Odoo_10-12',
 }
 
 LYRAGW_LANGUAGES = {
@@ -45,7 +45,7 @@ LYRAGW_LANGUAGES = {
     'pt': _('Portuguese'),
     'ru': _('Russian'),
     'sv': _('Swedish'),
-    'tr': _('Turkish')
+    'tr': _('Turkish'),
 }
 
 LYRAGW_CARDS = {
@@ -73,20 +73,20 @@ LYRAGW_CARDS = {
     'PRZELEWY24': u'Przelewy24',
     'SOFORT_BANKING': u'Sofort',
     'UNION_PAY': u'UnionPay',
-    'WECHAT': u'WeChat Pay'
+    'WECHAT': u'WeChat Pay',
 }
 
-LYRAGW_CURRENCIES = {
-    'CAD': u'124',
-    'DKK': u'208',
-    'JPY': u'392',
-    'NOK': u'578',
-    'CHF': u'756',
-    'GBP': u'826',
-    'USD': u'840',
-    'EUR': u'978',
-    'PLN': u'985'
-}
+LYRAGW_CURRENCIES = [
+    ['EUR', '978', 2],
+    ['GBP', '826', 2],
+    ['CAD', '124', 2],
+    ['JPY', '392', 0],
+    ['DKK', '208', 2],
+    ['PLN', '985', 2],
+    ['USD', '840', 2],
+    ['CHF', '756', 2],
+    ['NOK', '578', 2],
+]
 
 LYRAGW_AUTH_RESULT = {
     "00": u"Transaction approuvée ou traitée avec succès",
@@ -135,5 +135,5 @@ LYRAGW_AUTH_RESULT = {
     "96": u"Mauvais fonctionnement du système",
     "97": u"Echéance de la temporisation de surveillance globale",
     "98": u"Serveur indisponible routage réseau demandé à nouveau",
-    "99": u"Incident domaine initiateur"
+    "99": u"Incident domaine initiateur",
 }

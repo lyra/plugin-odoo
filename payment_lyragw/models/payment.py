@@ -23,6 +23,7 @@ from odoo.tools.float_utils import float_compare, float_repr
 
 from ..controllers.main import LyragwController
 from ..helpers import constants
+from ..helpers import tools
 from .card import LyragwCard
 from .language import LyragwLanguage
 
@@ -85,7 +86,7 @@ class AcquirerLyragw(models.Model):
         if self.lyragw_sign_algo =='SHA-1':
             shasign = sha1(sign.encode('utf-8')).hexdigest()
         else:
-            shasign = base64.b64encode(hmac.new(certificate.encode('utf-8'), sign.encode('utf-8'), sha256).digest())
+            shasign = base64.b64encode(hmac.new(certificate.encode('utf-8'), sign.encode('utf-8'), sha256).digest()).decode('utf-8')
 
         return shasign
 
@@ -121,9 +122,8 @@ class AcquirerLyragw(models.Model):
         tx_values = dict() # Values to sign in unicode.
         tx_values.update({
             'vads_site_id': self.lyragw_site_id,
-            'vads_sign_algo': self.lyragw_sign_algo,
             'vads_amount': str(amount),
-            'vads_currency': constants.LYRAGW_CURRENCIES.get(values['currency'].name),
+            'vads_currency': tools.find_currency(values['currency'].name),
             'vads_trans_date': str(datetime.utcnow().strftime("%Y%m%d%H%M%S")),
             'vads_trans_id': str(trans_id),
             'vads_ctx_mode': mode,
@@ -235,7 +235,7 @@ class TxLyragw(models.Model):
         if float_compare(amount, self.amount, int(self.currency_id.decimal_places)) != 0:
             invalid_parameters.append(('amount', amount, '{:.2f}'.format(self.amount)))
 
-        currency_code = constants.LYRAGW_CURRENCIES.get(self.currency_id.name, 0)
+        currency_code = tools.find_currency(self.currency_id.name)
         if int(data.get('vads_currency')) != int(currency_code):
             invalid_parameters.append(('currency', data.get('vads_currency'), currency_code))
 
