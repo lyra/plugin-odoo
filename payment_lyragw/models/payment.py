@@ -21,10 +21,10 @@ from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.float_utils import float_compare, float_repr
 
-from .controllers.main import LyragwController
-from .helpers import constants
-from .models.card import LyragwCard
-from .models.language import LyragwLanguage
+from ..controllers.main import LyragwController
+from ..helpers import constants
+from .card import LyragwCard
+from .language import LyragwLanguage
 
 try:
     import urlparse

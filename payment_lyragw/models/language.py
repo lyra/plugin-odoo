@@ -8,7 +8,7 @@
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
 from odoo import models, fields, api
-from .helpers import constants
+from ..helpers import constants
 
 class LyragwLanguage(models.Model):
     _name = "lyragw.language"
