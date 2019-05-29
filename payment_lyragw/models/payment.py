@@ -7,7 +7,7 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
-import base64 
+import base64
 from datetime import datetime
 from hashlib import sha1, sha256
 import hmac
@@ -103,7 +103,7 @@ class AcquirerLyragw(models.Model):
         mode = u'PRODUCTION' if (self.environment == 'prod') else u'TEST'
 
         threeds_mpi = u''
-        if self.lyragw_threeds_min_amount and self.lyragw_threeds_min_amount > values['amount']:
+        if self.lyragw_threeds_min_amount and float(self.lyragw_threeds_min_amount) > values['amount']:
             threeds_mpi = u'2'
 
         # Amount in cents.
