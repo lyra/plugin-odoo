@@ -9,7 +9,7 @@
 
 {
     'name': 'Lyra Payment Acquirer',
-    'version': '1.1.0-beta1',
+    'version': '1.1.0-beta2',
     'summary': 'Accept payments with Lyra secure payment gateway.',
     'category': 'Accounting',
     'author': 'Lyra Network',
