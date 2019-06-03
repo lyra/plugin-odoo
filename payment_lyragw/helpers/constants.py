@@ -28,7 +28,7 @@ LYRAGW_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '1.1.0-beta2',
+    'PLUGIN_VERSION': '1.1.0-beta3',
     'CMS_IDENTIFIER': 'Odoo_10-12',
 }
 
