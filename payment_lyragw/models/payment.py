@@ -22,8 +22,7 @@ from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.float_utils import float_compare, float_repr
 
 from ..controllers.main import LyragwController
-from ..helpers import constants
-from ..helpers import tools
+from ..helpers import constants, tools
 from .card import LyragwCard
 from .language import LyragwLanguage
 
@@ -43,16 +42,17 @@ class AcquirerLyragw(models.Model):
 
     sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the {} Back Office.').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME'))
 
-    if (constants.LYRAGW_PLUGIN_FEATURES.get('shatwo') == False):
+    if constants.LYRAGW_PLUGIN_FEATURES.get('shatwo') == False:
         sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the {} Back Office, the feature will be available soon.').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME'))
 
     provider = fields.Selection(selection_add=[('lyragw', 'Lyra')])
-    lyragw_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by {}.').format(constants.LYRAGW_PARAMS.get('GATEWAY_NAME')), default=constants.LYRAGW_PARAMS.get('SITE_ID'), required_if_provider='lyragw')
-    lyragw_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by {} for test mode (available in {} Back Office).').format(constants.LYRAGW_PARAMS.get('GATEWAY_NAME'), constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')), default=constants.LYRAGW_PARAMS.get('KEY_TEST'), readonly=constants.LYRAGW_PLUGIN_FEATURES.get('qualif'), required_if_provider='lyragw')
-    lyragw_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by {} (available in {} Back Office after enabling production mode).').format(constants.LYRAGW_PARAMS.get('GATEWAY_NAME'), constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')), default=constants.LYRAGW_PARAMS.get('KEY_PROD'), required_if_provider='lyragw')
-    lyragw_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRAGW_PARAMS.get('SIGN_ALGO'), required_if_provider='lyragw')
+
+    lyragw_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by {}.').format(constants.LYRAGW_PARAMS.get('GATEWAY_NAME')), default=constants.LYRAGW_PARAMS.get('SITE_ID'), required=True)
+    lyragw_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by {} for test mode (available in {} Back Office).').format(constants.LYRAGW_PARAMS.get('GATEWAY_NAME'), constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')), default=constants.LYRAGW_PARAMS.get('KEY_TEST'), readonly=constants.LYRAGW_PLUGIN_FEATURES.get('qualif'), required=True)
+    lyragw_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by {} (available in {} Back Office after enabling production mode).').format(constants.LYRAGW_PARAMS.get('GATEWAY_NAME'), constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')), default=constants.LYRAGW_PARAMS.get('KEY_PROD'), required=True)
+    lyragw_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRAGW_PARAMS.get('SIGN_ALGO'), required=True)
     lyragw_notify_url = fields.Char(string=_('Instant Payment Notification URL'), help=_('URL to copy into your {} Back Office > Settings > Notification rules.').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')), default=_get_notify_url, readonly=True)
-    lyragw_gateway_url = fields.Char(string=_('Payment page URL'), help=_('Link to the payment page.'), default=constants.LYRAGW_PARAMS.get('GATEWAY_URL'), required_if_provider='lyragw')
+    lyragw_gateway_url = fields.Char(string=_('Payment page URL'), help=_('Link to the payment page.'), default=constants.LYRAGW_PARAMS.get('GATEWAY_URL'), required=True)
     lyragw_language = fields.Selection(string=_('Default language'), help=_('Default language on the payment page.'), default=constants.LYRAGW_PARAMS.get('LANGUAGE'), selection='_get_languages')
     lyragw_available_languages = fields.Many2many('lyragw.language', string=_('Available languages'), column1='code', column2='label', help=_('Languages available on the payment page. If you do not select any, all the supported languages will be available.'))
     lyragw_capture_delay = fields.Char(string=_('Capture delay'), help=_('The number of days before the bank capture (adjustable in your {} Back Office).').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')))
@@ -64,29 +64,29 @@ class AcquirerLyragw(models.Model):
     lyragw_redirect_success_message = fields.Char(string=_('Redirection message on success'), help=_('Message displayed on the payment page prior to redirection after a successful payment.'), default=_('Redirection to shop in a few seconds...'))
     lyragw_redirect_error_timeout = fields.Char(string=_('Redirection timeout on failure'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment.'))
     lyragw_redirect_error_message = fields.Char(string=_('Redirection message on failure'), help=_('Message displayed on the payment page prior to redirection after a declined payment.'), default=_('Redirection to shop in a few seconds...'))
-    lyragw_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')], required_if_provider='lyragw')
+    lyragw_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
 
     # Check if it's Odoo 10.
-    lyragw_odoo10 = True if (parse_version(release.version) < parse_version("11")) else False
+    lyragw_odoo10 = True if parse_version(release.version) < parse_version("11") else False
 
     def _get_languages(self):
         languages = constants.LYRAGW_LANGUAGES
         return list(languages.items())
 
-    def _lyragw_generate_digital_sign(self, acquirer, values):
-        certificate = self.lyragw_key_prod if (self.environment == 'prod') else self.lyragw_key_test
+    def _lyragw_generate_sign(self, acquirer, values):
+        key = self.lyragw_key_prod if self.environment == 'prod' else self.lyragw_key_test
 
         sign = ''
-        for key in sorted(values.keys()):
-            if key.startswith('vads_'):
-                sign += values[key] + '+'
+        for k in sorted(values.keys()):
+            if k.startswith('vads_'):
+                sign += values[k] + '+'
 
-        sign += certificate
+        sign += key
 
-        if self.lyragw_sign_algo =='SHA-1':
+        if self.lyragw_sign_algo == 'SHA-1':
             shasign = sha1(sign.encode('utf-8')).hexdigest()
         else:
-            shasign = base64.b64encode(hmac.new(certificate.encode('utf-8'), sign.encode('utf-8'), sha256).digest()).decode('utf-8')
+            shasign = base64.b64encode(hmac.new(key.encode('utf-8'), sign.encode('utf-8'), sha256).digest()).decode('utf-8')
 
         return shasign
 
@@ -96,11 +96,11 @@ class AcquirerLyragw(models.Model):
 
         # trans_id is the number of 1/10 seconds from midnight.
         now = datetime.now()
-        midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        midnight = now.replace(hour = 0, minute = 0, second = 0, microsecond = 0)
         delta = int((now - midnight).total_seconds() * 10)
         trans_id = str(delta).rjust(6, '0')
 
-        mode = u'PRODUCTION' if (self.environment == 'prod') else u'TEST'
+        mode = u'PRODUCTION' if self.environment == 'prod' else u'TEST'
 
         threeds_mpi = u''
         if self.lyragw_threeds_min_amount and float(self.lyragw_threeds_min_amount) > values['amount']:
@@ -118,6 +118,9 @@ class AcquirerLyragw(models.Model):
         payment_cards = ''
         for value in self.lyragw_payment_cards:
             payment_cards += value.code + ';'
+
+        # Enable redirection?
+        self.lyragw_redirect = True if str(self.lyragw_redirect_enabled) == '1' else False
 
         tx_values = dict() # Values to sign in unicode.
         tx_values.update({
@@ -140,11 +143,6 @@ class AcquirerLyragw(models.Model):
             'vads_capture_delay': self.lyragw_capture_delay or '',
             'vads_validation_mode': self.lyragw_validation_mode or '',
             'vads_payment_cards': payment_cards,
-            'vads_redirect_enabled': self.lyragw_redirect_enabled or '0',
-            'vads_redirect_success_timeout': self.lyragw_redirect_success_timeout or '',
-            'vads_redirect_success_message': self.lyragw_redirect_success_message or '',
-            'vads_redirect_error_timeout': self.lyragw_redirect_error_timeout or '',
-            'vads_redirect_error_message': self.lyragw_redirect_error_message or '',
             'vads_return_mode': str(self.lyragw_return_mode),
             'vads_threeds_mpi': threeds_mpi,
 
@@ -171,6 +169,14 @@ class AcquirerLyragw(models.Model):
             'vads_ship_to_phone_num': values.get('partner_phone') and values.get('partner_phone')[0:31] or '',
         })
 
+        if self.lyragw_redirect:
+            tx_values.update({
+                'vads_redirect_success_timeout': self.lyragw_redirect_success_timeout or '',
+                'vads_redirect_success_message': self.lyragw_redirect_success_message or '',
+                'vads_redirect_error_timeout': self.lyragw_redirect_error_timeout or '',
+                'vads_redirect_error_message': self.lyragw_redirect_error_message or ''
+            })
+
         lyragw_tx_values = dict() # Values encoded in UTF-8.
 
         for key in tx_values.keys():
@@ -179,7 +185,7 @@ class AcquirerLyragw(models.Model):
 
             lyragw_tx_values[key] = tx_values[key].encode('utf-8')
 
-        lyragw_tx_values['lyragw_signature'] = self._lyragw_generate_digital_sign(self, tx_values)
+        lyragw_tx_values['lyragw_signature'] = self._lyragw_generate_sign(self, tx_values)
         return lyragw_tx_values
 
     @api.multi
@@ -187,11 +193,16 @@ class AcquirerLyragw(models.Model):
         return self.lyragw_gateway_url
 
 
-class TxLyragw(models.Model):
+class TransactionLyragw(models.Model):
     _inherit = 'payment.transaction'
 
     state_message = fields.Char(_('Transaction log'))
-    authresult_message = fields.Char(_('Transaction error'))
+
+    lyra_trans_status = fields.Char(_('Transaction status'))
+    lyra_card_brand = fields.Char(_('Means of payment'))
+    lyra_card_number = fields.Char(_('Card number'))
+    lyra_expiration_date = fields.Char(_('Expiration date'))
+    lyra_auth_result = fields.Char(_('Authorization result'))
 
     # --------------------------------------------------
     # FORM RELATED METHODS
@@ -218,7 +229,7 @@ class TxLyragw(models.Model):
             raise ValidationError(error_msg)
 
         # Verify shasign.
-        shasign_check = tx.acquirer_id._lyragw_generate_digital_sign('out', data)
+        shasign_check = tx.acquirer_id._lyragw_generate_sign('out', data)
         if shasign_check.upper() != shasign.upper():
             error_msg = 'Lyra: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, data)
             _logger.info(error_msg)
@@ -248,58 +259,68 @@ class TxLyragw(models.Model):
             'cancel': ['NOT_CREATED', 'ABANDONED']
         }
 
-        html_3ds = '3-DS authentication : '
+        html_3ds = _('3DS authentication: ')
         if data.get('vads_threeds_status') == 'Y':
-            html_3ds += 'YES'
-            html_3ds += '<br />3-DS certificate : ' + data.get('vads_threeds_cavv')
+            html_3ds += _('YES')
+            html_3ds += '<br />' + _('3DS certificate: ') + data.get('vads_threeds_cavv')
         else:
-            html_3ds += 'NO'
+            html_3ds += _('NO')
+
+        expiry = ''
+        if data.get('vads_expiry_month') and data.get('vads_expiry_year'):
+            expiry = data.get('vads_expiry_month').zfill(2) + '/' + data.get('vads_expiry_year')
+
+        values = {
+            'acquirer_reference': data.get('vads_trans_uuid'),
+            'state_message': '{}'.format(data),
+            'html_3ds': html_3ds,
+            'lyra_trans_status': data.get('vads_trans_status'),
+            'lyra_card_brand': data.get('vads_card_brand'),
+            'lyra_card_number': data.get('vads_card_number'),
+            'lyra_expiration_date': expiry,
+        }
+
+        key = 'date' if hasattr(self, 'date')  else 'date_validate'
+        values[key] = fields.Datetime.now()
 
         status = data.get('vads_trans_status')
         if status in lyragw_statuses['success']:
-            self.write({
-                'date_validate': fields.Datetime.now(),
-                'acquirer_reference': data.get('vads_trans_id'),
+            values.update({
                 'state': 'done',
-                'state_message': '{}'.format(data),
-                'html_3ds': html_3ds
             })
+
+            self.write(values)
 
             return True
         elif status in lyragw_statuses['pending']:
-            self.write({
-                'date_validate': fields.Datetime.now(),
-                'acquirer_reference': data.get('vads_trans_id'),
+            values.update({
                 'state': 'pending',
-                'state_message': '{}'.format(data),
-                'html_3ds': html_3ds
             })
+
+            self.write(values)
 
             return True
         elif status in lyragw_statuses['cancel']:
             self.write({
                 'date_validate': fields.Datetime.now(),
                 'state': 'cancel',
-                'state_message': '{}'.format(data)
+                'state_message': '{}'.format(data),
             })
 
             return False
         else:
             auth_result = data.get('vads_auth_result')
-            auth_message = ''
-            if auth_result in constants.LYRAGW_AUTH_RESULT:
-                auth_message = constants.LYRAGW_AUTH_RESULT[auth_result]
+            trans_status = data.get('vads_trans_status')
+            auth_message = _('See the transaction details for more information ({}).').format(auth_result)
 
-            error_msg = 'Lyra payment error, message {}, code {}'.format(auth_message, auth_result)
+            error_msg = 'Lyra payment error, transaction status: {}, authorization result: {}.'.format(trans_status, auth_result)
             _logger.info(error_msg)
 
-            self.write({
-                'date_validate': fields.Datetime.now(),
-                'acquirer_reference': data.get('vads_trans_id'),
+            values.update({
                 'state': 'error',
-                'state_message': '{}'.format(data),
-                'authresult_message': auth_message,
-                'html_3ds': html_3ds
+                'lyra_auth_result': auth_message,
             })
+
+            self.write(values)
 
             return False

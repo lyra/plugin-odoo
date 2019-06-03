@@ -3,13 +3,13 @@
     <data noupdate="1">
         <template id="lyragw_acquirer_button">
             <t t-if="acquirer.lyragw_odoo10">
-                 <form t-if="acquirer" t-att-action="tx_url" method="post" target="_self" >
-                 <![CDATA[<!-- ]]> <!-- Neutralize </form> balise -->
+                 <form t-if="acquirer" t-att-action="tx_url" method="post" target="_self">
+                 <![CDATA[<!-- ]]> <!-- Neutralize </form> tag. -->
                     </form>
                  <![CDATA[ --> ]]>
             </t>
             <t t-else="">
-              <input type="hidden" name="data_set" t-att-data-action-url="tx_url" data-remove-me=""/>
+              <input type="hidden" name="data_set" t-att-data-action-url="tx_url" data-remove-me="" />
             </t>
 
             <input type="hidden" name="vads_site_id" t-att-value="vads_site_id" />
@@ -34,11 +34,13 @@
             <input type="hidden" name="vads_validation_mode" t-att-value="vads_validation_mode" />
             <input type="hidden" name="vads_payment_cards" t-att-value="vads_payment_cards" />
             <input type="hidden" name="vads_threeds_mpi" t-att-value="vads_threeds_mpi" />
-            <input type="hidden" name="vads_redirect_enabled" t-att-value="vads_redirect_enabled" />
-            <input type="hidden" name="vads_redirect_success_timeout" t-att-value="vads_redirect_success_timeout" />
-            <input type="hidden" name="vads_redirect_success_message" t-att-value="vads_redirect_success_message" />
-            <input type="hidden" name="vads_redirect_error_timeout" t-att-value="vads_redirect_error_timeout" />
-            <input type="hidden" name="vads_redirect_error_message" t-att-value="vads_redirect_error_message" />
+
+            <t t-if="acquirer.lyragw_redirect">
+                <input type="hidden" name="vads_redirect_success_timeout" t-att-value="vads_redirect_success_timeout" />
+                <input type="hidden" name="vads_redirect_success_message" t-att-value="vads_redirect_success_message" />
+                <input type="hidden" name="vads_redirect_error_timeout" t-att-value="vads_redirect_error_timeout" />
+                <input type="hidden" name="vads_redirect_error_message" t-att-value="vads_redirect_error_message" />
+            </t>
 
             <!-- Customer info. -->
             <input type="hidden" name="vads_cust_id" t-att-value="vads_cust_id" />
@@ -69,7 +71,7 @@
                 <button type="submit" width="100px" t-att-class="submit_class">
                      <span t-if="submit_txt"><t t-esc="submit_txt" /> <span class="fa fa-long-arrow-right" /></span>
                  </button>
-                <![CDATA[ </form> ]]>
+                <![CDATA[</form>]]>
             </t>
         </template>
     </data>
