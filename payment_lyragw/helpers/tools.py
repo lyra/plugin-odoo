@@ -11,7 +11,7 @@ from .constants import LYRAGW_CURRENCIES
 
 def find_currency(iso):
     for currency in LYRAGW_CURRENCIES:
-        if (currency[0] == iso):
+        if currency[0] == iso:
             return currency[1];
 
     return NUL

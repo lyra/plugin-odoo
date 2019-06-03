@@ -11,9 +11,10 @@ from odoo import models, fields, api
 from ..helpers import constants
 
 class LyragwCard(models.Model):
-    _name = "lyragw.card"
-    _description = "Lyra payment card"
-    _rec_name = "label"
+    _name = 'lyragw.card'
+    _description = 'Lyra payment card'
+    _rec_name = 'label'
+    _order = 'label'
 
     code = fields.Char()
     label = fields.Char(translate=True)
@@ -22,6 +23,8 @@ class LyragwCard(models.Model):
     def init(self):
         cards = constants.LYRAGW_CARDS
 
-        for key in cards.keys():
-            value = {"code": key, "label": cards[key]}
-            self.create(value)
+        for c, l in cards.items():
+            card = self.search([('code', '=', c)])
+
+            if not card:
+                self.create({'code': c, 'label': l})
