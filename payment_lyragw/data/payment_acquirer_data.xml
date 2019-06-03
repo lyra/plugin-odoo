@@ -21,7 +21,7 @@
             <field name="lyragw_return_mode">GET</field>
 
             <field name="description" type="html">
-                <p>Accept payments with Lyra secure payment gateway.</p>
+                <p><![CDATA[Accept payments with Lyra secure payment gateway.]]></p>
                 <ul class="list-inline">
                     <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
                     <li class="list-inline-item"><i class="fa fa-check" />eCommerce</li>
