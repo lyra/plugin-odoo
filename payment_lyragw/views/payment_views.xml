@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+# Copyright © Lyra Network.
+# This file is part of Lyra plugin for Odoo. See COPYING.md for license details.
+#
+# Author:    Lyra Network (https://www.lyra.com)
+# Copyright: Copyright © Lyra Network
+# License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
+-->
+
 <odoo>
     <data>
         <record id="acquirer_form_lyragw" model="ir.ui.view">
@@ -9,30 +18,30 @@
                 <xpath expr='//group[@name="acquirer"]' position='after'>
                     <div attrs="{'invisible': [('provider', '!=', 'lyragw')]}">
                         <group string="PAYMENT GATEWAY ACCESS">
-                            <field name="lyragw_site_id" autocomplete="off" attrs="{'required': True}" />
-                            <field name="lyragw_key_test" autocomplete="off" attrs="{'required': True}" />
-                            <field name="lyragw_key_prod" autocomplete="off" attrs="{'required': True}" />
-                            <field name="lyragw_sign_algo" attrs="{'required': True}" style="background-color: unset !important;" />
+                            <field name="lyragw_site_id" autocomplete="off" attrs="{'required': [('provider', 'in', ('lyragw'))]}" />
+                            <field name="lyragw_key_test" autocomplete="off" attrs="{'required': [('provider', 'in', ('lyragw'))]}" />
+                            <field name="lyragw_key_prod" autocomplete="off" attrs="{'required': [('provider', 'in', ('lyragw'))]}" />
+                            <field name="lyragw_sign_algo" attrs="{'required': [('provider', 'in', ('lyragw'))]}" style="background-color: unset !important;" />
                             <field name="lyragw_notify_url" />
-                            <field name="lyragw_gateway_url" attrs="{'required': True}" />
+                            <field name="lyragw_gateway_url" attrs="{'required': [('provider', 'in', ('lyragw'))]}" />
                         </group>
                         <group string="PAYMENT PAGE">
-                            <field name="lyragw_language" attrs="{'required': True}" style="background-color: unset !important;" />
+                            <field name="lyragw_language" attrs="{'required': [('provider', 'in', ('lyragw'))]}" style="background-color: unset !important;" />
                             <field name="lyragw_available_languages" widget="many2many_tags" options="{'no_create': True}" />
                             <field name="lyragw_capture_delay" />
-                            <field name="lyragw_validation_mode" attrs="{'required': True}" style="background-color: unset !important;" />
+                            <field name="lyragw_validation_mode" attrs="{'required': [('provider', 'in', ('lyragw'))]}" style="background-color: unset !important;" />
                             <field name="lyragw_payment_cards" widget="many2many_tags" options="{'no_create': True}" />
                         </group>
                         <group string="SELECTIVE 3DS">
                             <field name="lyragw_threeds_min_amount" />
                         </group>
                         <group string="RETURN TO SHOP">
-                            <field name="lyragw_redirect_enabled" attrs="{'required': True}" style="background-color: unset !important;" />
+                            <field name="lyragw_redirect_enabled" attrs="{'required': [('provider', 'in', ('lyragw'))]}" style="background-color: unset !important;" />
                             <field name="lyragw_redirect_success_timeout" />
                             <field name="lyragw_redirect_success_message" />
                             <field name="lyragw_redirect_error_timeout" />
                             <field name="lyragw_redirect_error_message" />
-                            <field name="lyragw_return_mode" attrs="{'required': True}" style="background-color: unset !important;" />
+                            <field name="lyragw_return_mode" attrs="{'required': [('provider', 'in', ('lyragw'))]}" style="background-color: unset !important;" />
                         </group>
                     </div>
                 </xpath>
