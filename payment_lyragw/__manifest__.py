@@ -20,6 +20,8 @@
         'views/payment_views.xml',
         'views/payment_lyragw_templates.xml',
         'data/payment_acquirer_data.xml',
+        'security/ir.model.access.csv',
     ],
+    'images': ['static/description/icon.png'],
     'installable': True,
 }
