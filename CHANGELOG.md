@@ -1,9 +1,10 @@
-1.1.0, 2019-03-30
+1.1.0, 2019-05-10
 =============
-- Compatibility with Odoo 11.
+- Compatibility with Odoo 11 and 12 versions.
 - Added Spanish translation.
 - Enable signature algorithm selection (SHA-1 or HMAC-SHA-256).
-- Improve backend configuration.
+- Added various configuration options.
+- Improve payment details dislay.
 - [technical] Manage enabled/disabled features by plugin variant.
 
 1.0.0, 2017-05-01
