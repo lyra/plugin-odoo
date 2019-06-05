@@ -18,7 +18,7 @@ If already installed, you must delete the old payment_lyragw folder. You will fi
 addons in either:
 
 * [ODOO_ROOT_FOLDER]/server/odoo/addons/
-* /var/lib/odoo/addons/[VERSION]/ (Linux only)
+* /var/lib/odoo/addons/[VERSION]/ (on Linux only)
 * `addons_path` defined in odoo.conf
 
 Now unzip the downloaded archive and copy the new payment_lyragw folder to Odoo addons directory. Then, you
@@ -43,14 +43,12 @@ Configuration
 
 Important
 ---------
-You should select a Payment Journal in the "Configuration" tab of the Lyra aquirer to start using this payment method.
-
-Notice
-------
-If you have multiple Odoo databases on your server, do not forget to set dbfilter
-parameter in odoo.conf. *You must launch one database only per URL* because Lyra
-have to send back payment notification on the right database. Otherwise it will 
-failed with a 404 error.
+* You should select a Payment Journal in the "Configuration" tab of the Lyra aquirer
+  to start using this payment method.
+* If you have multiple Odoo databases on your server, do not forget to set dbfilter
+  parameter in odoo.conf. *You must launch one database only per URL* because Lyra
+  have to send back payment notification on the right database. Otherwise it will
+  failed with a 404 error.
 
 Author
 =======
