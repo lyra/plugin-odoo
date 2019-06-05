@@ -41,9 +41,12 @@ Configuration
 * Click on button "Configure" of Lyra module.
 * You can now enter your Lyra credentials.
 
+Important
+---------
+You should select a Payment Journal in the "Configuration" tab of the Lyra aquirer to start using this payment method.
+
 Notice
 ------
-
 If you have multiple Odoo databases on your server, do not forget to set dbfilter
 parameter in odoo.conf. *You must launch one database only per URL* because Lyra
 have to send back payment notification on the right database. Otherwise it will 
