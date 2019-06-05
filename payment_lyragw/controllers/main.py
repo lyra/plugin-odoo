@@ -9,10 +9,13 @@
 
 import logging
 import pprint
+
+from pkg_resources import parse_version
 import werkzeug
 
-from odoo import http
+from odoo import http, release
 from odoo.http import request
+
 
 _logger = logging.getLogger(__name__)
 
@@ -22,8 +25,13 @@ class LyragwController(http.Controller):
 
     def _get_return_url(self, result, **post):
         return_url = post.pop('return_url', '')
+
         if not return_url:
-            return_url = '/shop/payment/validate' if result else '/shop/cart'
+            if result:
+                old_version = True if parse_version(release.version) < parse_version('12') else False
+                return_url = '/shop/payment/validate' if old_version else '/payment/process'
+            else:
+                return_url = '/shop/cart'
 
         return return_url
 
@@ -42,4 +50,4 @@ class LyragwController(http.Controller):
 
         # Check payment result and create transaction.
         result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyragw')
-        return 'Valid payment processed' if result else 'Invalid payment processed'
+        return 'Accepted payment, order has been updated.' if result else 'Payment failure, order has been cancelled.'

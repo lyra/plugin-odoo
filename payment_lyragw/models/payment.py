@@ -72,7 +72,7 @@ class AcquirerLyragw(models.Model):
     lyragw_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
 
     # Check if it's Odoo 10.
-    lyragw_odoo10 = True if parse_version(release.version) < parse_version("11") else False
+    lyragw_odoo10 = True if parse_version(release.version) < parse_version('11') else False
 
     def _lyragw_generate_sign(self, acquirer, values):
         key = self.lyragw_key_prod if self.environment == 'prod' else self.lyragw_key_test
