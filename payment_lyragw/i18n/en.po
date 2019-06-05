@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Lyra Payment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-03 15:01+0200\n"
-"PO-Revision-Date: 2019-06-03 15:14+0200\n"
+"POT-Creation-Date: 2019-06-03 14:43+0200\n"
+"PO-Revision-Date: 2019-06-05 14:20+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: Lyra Network\n"
-"Language: de\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _\n"
@@ -21,98 +21,97 @@ msgstr ""
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Chinese"
-msgstr "Chinesisch"
+msgstr "Chinese"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "German"
-msgstr "Deutsch"
+msgstr "German"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Spanish"
-msgstr "Spanisch"
+msgstr "Spanish"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "English"
-msgstr "Englisch"
+msgstr "English"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "French"
-msgstr "Französisch"
+msgstr "French"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Italian"
-msgstr "Italienisch"
+msgstr "Italian"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Japanese"
-msgstr "Japanisch"
+msgstr "Japanese"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Dutch"
-msgstr "Holländisch"
+msgstr "Dutch"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Polish"
-msgstr "Polnisch"
+msgstr "Polish"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Portuguese"
-msgstr "Portugiesisch"
+msgstr "Portuguese"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Russian"
-msgstr "Russisch"
+msgstr "Russian"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Swedish"
-msgstr "Schwedisch"
+msgstr "Swedish"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/helpers/tools.py:23
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid "Turkish"
-msgstr "Türkisch"
+msgstr "Turkish"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_sign_algo
 msgid ""
-"Algorithm used to compute the payment form signature. Selected algorithm "
-"must be the same as one configured in the Lyra Expert Back Office."
+"Algorithm used to compute the payment form signature. Selected algorithm must be the "
+"same as one configured in the Lyra Expert Back Office."
 msgstr ""
-"Algorithmus zur Berechnung der Zahlungsformsignatur. Der ausgewählte "
-"Algorithmus muss derselbe sein, wie er im Lyra Expert Back Office."
+"Algorithm used to compute the payment form signature. Selected algorithm must be the "
+"same as one configured in the Lyra Expert Back Office."
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:46
 msgid ""
-"The HMAC-SHA-256 algorithm should not be activated if it is not yet "
-"available in the Lyra Expert Back Office, the feature will be available soon."
+"The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the "
+"Lyra Expert Back Office, the feature will be available soon."
 msgstr ""
-"Der HMAC-SHA-256-Algorithmus sollte nicht aktiviert werden, wenn er noch "
-"nicht im Lyra Expert Back Office verfügbar ist. Die Funktion wird in Kürze verfügbar "
-"sein."
+"The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the "
+"Lyra Expert Back Office, the feature will be available soon."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_site_id
@@ -122,24 +121,22 @@ msgstr "Shop ID"
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_site_id
 msgid "The identifier provided by Lyra."
-msgstr "Die Kennung von Lyra bereitgestellt."
+msgstr "The identifier provided by Lyra."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_key_test
 msgid "Key in test mode"
-msgstr "Schlüssel im Testbetrieb"
+msgstr "Key in test mode"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_key_test
 msgid "Key provided by Lyra for test mode (available in Lyra Expert Back Office)."
-msgstr ""
-"Schlüssel, das von Lyra zu Testzwecken bereitgestellt wird (im Lyra Expert Back Office "
-"verfügbar)."
+msgstr "Key provided by Lyra for test mode (available in Lyra Expert Back Office)."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_key_prod
 msgid "Key in production mode"
-msgstr "Schlüssel im Produktivbetrieb"
+msgstr "Key in production mode"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_key_prod
@@ -147,64 +144,62 @@ msgid ""
 "Key provided by Lyra (available in Lyra Expert Back Office after enabling production "
 "mode)."
 msgstr ""
-"Von Lyra bereitgestelltes Schlüssel (im Lyra Expert Back Office verfügbar, nachdem der "
-"Produktionsmodus aktiviert wurde)."
+"Key provided by Lyra (available in Lyra Expert Back Office after enabling production "
+"mode)."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_sign_algo
 msgid "Signature algorithm"
-msgstr "Signaturalgorithmus"
+msgstr "Signature algorithm"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_notify_url
 msgid "Instant Payment Notification URL"
-msgstr "Benachrichtigung-URL"
+msgstr "Instant Payment Notification URL"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_notify_url
 msgid "URL to copy into your Lyra Expert Back Office > Settings > Notification rules."
-msgstr ""
-"URL, die Sie in Ihre Lyra Expert Back Office kopieren sollen > Einstellung > Regeln "
-"der Benachrichtigungen."
+msgstr "URL to copy into your Lyra Expert Back Office > Settings > Notification rules."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_gateway_url
 msgid "Payment page URL"
-msgstr "Schnittstellen-URL"
+msgstr "Payment page URL"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_gateway_url
 msgid "Link to the payment page."
-msgstr "Link zur Bezahlungsplattform."
+msgstr "Link to the payment page."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_language
 msgid "Default language"
-msgstr "Standardsprache"
+msgstr "Default language"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_language
 msgid "Default language on the payment page."
-msgstr "Wählen Sie bitte die Spracheinstellung der Zahlungsseiten aus."
+msgstr "Default language on the payment page."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_available_languages
 msgid "Available languages"
-msgstr "Verfügbare Sprachen"
+msgstr "Available languages"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_available_languages
 msgid ""
-"Languages available on the payment page. If you do not select any, all the "
-"supported languages will be available."
+"Languages available on the payment page. If you do not select any, all the supported "
+"languages will be available."
 msgstr ""
-"Die Sprache auswählen, die auf die Bezahlungsseite vorgeschlagen werden.Wenn "
-"Sie keine auswählen, werden alle unterstützten Sprachen verfügbar."
+"Languages available on the payment page. If you do not select any, all the supported "
+"languages will be available."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_capture_delay
 msgid "Capture delay"
-msgstr "Einzugsfrist"
+msgstr "Capture delay"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_capture_delay
@@ -212,13 +207,13 @@ msgid ""
 "The number of days before the bank capture (adjustable in your Lyra Expert Back "
 "Office)."
 msgstr ""
-"Anzahl der Tage bis zum Einzug der Zahlung (Einstellung über Ihr Lyra Expert Back "
+"The number of days before the bank capture (adjustable in your Lyra Expert Back "
 "Office)."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_validation_mode
 msgid "Validation mode"
-msgstr "Bestätigungsmodus"
+msgstr "Validation mode"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_validation_mode
@@ -226,217 +221,214 @@ msgid ""
 "If manual is selected, you will have to confirm payments manually in your Lyra Expert "
 "Back Office."
 msgstr ""
-"Bei manueller Eingabe müssen Sie Zahlungen manuell in Ihrem Lyra Expert bestätigen."
+"If manual is selected, you will have to confirm payments manually in your Lyra Expert "
+"Back Office."
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:59
 msgid "Lyra Expert Back Office Configuration"
-msgstr "Lyra Expert Back Office Konfiguration"
+msgstr "Lyra Expert Back Office Configuration"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:59
 msgid "Automatic"
-msgstr "Automatisch"
+msgstr "Automatic"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:59
 msgid "Manual"
-msgstr "Manuell"
+msgstr "Manual"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_payment_cards
 msgid "Card types"
-msgstr "Art der Kreditkarten"
+msgstr "Card types"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_payment_cards
 msgid ""
-"The card type(s) that can be used for the payment. Select none to use "
-"gateway configuration."
+"The card type(s) that can be used for the payment. Select none to use gateway "
+"configuration."
 msgstr ""
-"Wählen Sie die zur Zahlung verfügbaren Kartentypen aus. Nichts auswählen, um "
-"die Einstellung der Zahlungsplattform zu benutzen."
+"The card type(s) that can be used for the payment. Select none to use gateway "
+"configuration."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_threeds_min_amount
 msgid "Disable 3DS"
-msgstr "3DS deaktivieren"
+msgstr "Disable 3DS"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_threeds_min_amount
 msgid ""
-"Amount below which 3DS will be disabled. Needs subscription to selective 3DS "
-"option. For more information, refer to the module documentation."
+"Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. "
+"For more information, refer to the module documentation."
 msgstr ""
-"Betrag, unter dem 3DS deaktiviert wird. Muss für die Option Selektives 3DS "
-"freigeschaltet sein. Weitere Informationen finden Sie in der "
-"Moduldokumentation."
+"Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. "
+"For more information, refer to the module documentation."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_enabled
 msgid "Automatic redirection"
-msgstr "Automatische Weiterleitung"
+msgstr "Automatic redirection"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_enabled
 msgid ""
-"If enabled, the buyer is automatically redirected to your site at the end of "
-"the payment."
+"If enabled, the buyer is automatically redirected to your site at the end of the "
+"payment."
 msgstr ""
-"Falls erlaubt, der Kaufer wurde automatisch am Ende des Zahlungsprozesses "
-"auf Ihre Webseite weitergeleitet."
+"If enabled, the buyer is automatically redirected to your site at the end of the "
+"payment."
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:62
 msgid "Disabled"
-msgstr "Deaktivierte"
+msgstr "Disabled"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:62
 msgid "Enabled"
-msgstr "Aktivierte"
+msgstr "Enabled"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_success_timeout
 msgid "Redirection timeout on success"
-msgstr "Erfolgreiche timeout Umleitung"
+msgstr "Redirection timeout on success"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_success_timeout
 msgid ""
-"Time in seconds (0-300) before the buyer is automatically redirected to your "
-"website after a successful payment."
+"Time in seconds (0-300) before the buyer is automatically redirected to your website "
+"after a successful payment."
 msgstr ""
-"Zeit in Sekunden (0-300), bevor der Käufer automatisch zu Ihrer Shop "
-"umgeleitet wird, als die Bezahlung erfolgreich wurde."
+"Time in seconds (0-300) before the buyer is automatically redirected to your website "
+"after a successful payment."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_success_message
 msgid "Redirection message on success"
-msgstr "Erfolgreiche Meldung vor Umleitung"
+msgstr "Redirection message on success"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_success_message
 msgid ""
-"Message displayed on the payment page prior to redirection after a "
-"successful payment."
+"Message displayed on the payment page prior to redirection after a successful payment."
 msgstr ""
-"Meldung auf die Zahlungsseite vor Umleitung als die Zahlung ist erfolgreich."
+"Message displayed on the payment page prior to redirection after a successful payment."
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:64
 #: code:addons/payment_lyragw/models/payment.py:66
 msgid "Redirection to shop in a few seconds..."
-msgstr "Weiterleitung zum Shop in Kürze..."
+msgstr "Redirection to shop in a few seconds..."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_error_timeout
 msgid "Redirection timeout on failure"
-msgstr "Umleitung-Timeout auf Fehler"
+msgstr "Redirection timeout on failure"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_error_timeout
 msgid ""
-"Time in seconds (0-300) before the buyer is automatically redirected to your "
-"website after a declined payment."
+"Time in seconds (0-300) before the buyer is automatically redirected to your website "
+"after a declined payment."
 msgstr ""
-"Zeit in Sekunden (0-300) bevor der Käufer automatisch zu Ihrer Shop "
-"umgeleitet wird, als die Bezahlung verweigert wurde."
+"Time in seconds (0-300) before the buyer is automatically redirected to your website "
+"after a declined payment."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_error_message
 msgid "Redirection message on failure"
-msgstr "Umleitung Timeout auf Fehler"
+msgstr "Redirection message on failure"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_error_message
 msgid ""
-"Message displayed on the payment page prior to redirection after a declined "
-"payment."
+"Message displayed on the payment page prior to redirection after a declined payment."
 msgstr ""
-"Meldung angezeigt auf die Zahlungsseite vor Umleitung nach der verweigerten "
-"Zahlung."
+"Message displayed on the payment page prior to redirection after a declined payment."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_return_mode
 msgid "Return mode"
-msgstr "Übermittlungs-Modus"
+msgstr "Return mode"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_return_mode
 msgid ""
-"Method that will be used for transmitting the payment result from the "
-"payment page to your shop."
+"Method that will be used for transmitting the payment result from the payment page to "
+"your shop."
 msgstr ""
-"Methode, die für die Übermittlung des Zahlungsvorgang benützt wird, kommt "
-"aus der Bezahlungsseite zu Ihrem Geschäft."
+"Method that will be used for transmitting the payment result from the payment page to "
+"your shop."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_trans_status
 msgid "Transaction status"
-msgstr "Status der Transaktion"
+msgstr "Transaction status"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_card_brand
 msgid "Means of payment"
-msgstr "Zahlungsmittel"
+msgstr "Means of payment"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_card_number
 msgid "Card number"
-msgstr "Kartennummer"
+msgstr "Card number"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_expiration_date
 msgid "Expiration date"
-msgstr "Verfallsdatum"
+msgstr "Expiration date"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_auth_result
 msgid "Authorization result"
-msgstr "Autorisierungsergebnis"
+msgstr "Authorization result"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:262
 msgid "3DS authentication: "
-msgstr "3DS Authentication: "
+msgstr "3DS authentication: "
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:264
 msgid "YES"
-msgstr "JA"
+msgstr "YES"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:265
 msgid "3DS certificate: "
-msgstr "3DS Zertifikat: "
+msgstr "3DS certificate: "
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:267
 msgid "NO"
-msgstr "NEIN"
+msgstr "NO"
 
 #. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:314
 msgid "See the transaction details for more information ({})."
-msgstr "Weitere Informationen finden Sie in den Transaktionsdetails ({})."
+msgstr "See the transaction details for more information ({})."
 
 #. module: payment_lyragw
 #: model_terms:ir.ui.view,arch_db:payment_lyragw.acquirer_form_lyragw
 msgid "PAYMENT GATEWAY ACCESS"
-msgstr "ZUGANG ZAHLUNGSSCHNITTSTELLE"
+msgstr "PAYMENT GATEWAY ACCESS"
 
 #. module: payment_lyragw
 #: model_terms:ir.ui.view,arch_db:payment_lyragw.acquirer_form_lyragw
 msgid "PAYMENT PAGE"
-msgstr "ZAHLUNGSSEITE"
+msgstr "PAYMENT PAGE"
 
 #. module: payment_lyragw
 #: model_terms:ir.ui.view,arch_db:payment_lyragw.acquirer_form_lyragw
 msgid "SELECTIVE 3DS"
-msgstr "SELEKTIVES 3DS"
+msgstr "SELECTIVE 3DS"
 
 #. module: payment_lyragw
 #: model_terms:ir.ui.view,arch_db:payment_lyragw.acquirer_form_lyragw
 msgid "RETURN TO SHOP"
-msgstr "ÜBERMITTLUNGSOPTIONEN"
+msgstr "RETURN TO SHOP"

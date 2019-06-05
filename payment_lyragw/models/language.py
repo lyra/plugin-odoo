@@ -8,7 +8,7 @@
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
 from odoo import models, fields, api
-from ..helpers import constants
+from ..helpers import constants, tools
 
 class LyragwLanguage(models.Model):
     _name = 'lyragw.language'
@@ -17,7 +17,7 @@ class LyragwLanguage(models.Model):
     _order = 'label'
 
     code = fields.Char()
-    label = fields.Char(translate=True)
+    label = fields.Char(translate=tools.lang_translate)
 
     @api.model_cr
     def init(self):

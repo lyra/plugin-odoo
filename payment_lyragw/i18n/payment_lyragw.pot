@@ -1,4 +1,3 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Lyra Payment\n"
@@ -17,286 +16,372 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: helpers/constants.py:36
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Chinese"
 msgstr ""
 
-#: helpers/constants.py:37
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "German"
 msgstr ""
 
-#: helpers/constants.py:38
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Spanish"
 msgstr ""
 
-#: helpers/constants.py:39
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "English"
 msgstr ""
 
-#: helpers/constants.py:40
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "French"
 msgstr ""
 
-#: helpers/constants.py:41
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Italian"
 msgstr ""
 
-#: helpers/constants.py:42
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Japanese"
 msgstr ""
 
-#: helpers/constants.py:43
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Dutch"
 msgstr ""
 
-#: helpers/constants.py:44
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Polish"
 msgstr ""
 
-#: helpers/constants.py:45
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Portuguese"
 msgstr ""
 
-#: helpers/constants.py:46
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Russian"
 msgstr ""
 
-#: helpers/constants.py:47
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Swedish"
 msgstr ""
 
-#: helpers/constants.py:48
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/helpers/tools.py:23
+#: code:addons/payment_lyragw/models/payment.py:46
 msgid "Turkish"
 msgstr ""
 
-#: models/payment.py:43
-msgid "Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the {} Back Office."
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_sign_algo
+msgid "Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office."
 msgstr ""
 
-#: models/payment.py:46
-msgid "The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the {} Back Office, the feature will be available soon."
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:46
+msgid "The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon."
 msgstr ""
 
-#: models/payment.py:50
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_site_id
 msgid "Shop ID"
 msgstr ""
 
-#: models/payment.py:50
-msgid "The identifier provided by {}."
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_site_id
+msgid "The identifier provided by Lyra."
 msgstr ""
 
-#: models/payment.py:51
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_key_test
 msgid "Key in test mode"
 msgstr ""
 
-#: models/payment.py:51
-msgid "Key provided by {} for test mode (available in {} Back Office)."
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_key_test
+msgid "Key provided by Lyra for test mode (available in Lyra Expert Back Office)."
 msgstr ""
 
-#: models/payment.py:52
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_key_prod
 msgid "Key in production mode"
 msgstr ""
 
-#: models/payment.py:52
-msgid "Key provided by {} (available in {} Back Office after enabling production mode)."
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_key_prod
+msgid "Key provided by Lyra (available in Lyra Expert Back Office after enabling production mode)."
 msgstr ""
 
-#: models/payment.py:53
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_sign_algo
 msgid "Signature algorithm"
 msgstr ""
 
-#: models/payment.py:54
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_notify_url
 msgid "Instant Payment Notification URL"
 msgstr ""
 
-#: models/payment.py:54
-msgid "URL to copy into your {} Back Office > Settings > Notification rules."
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_notify_url
+msgid "URL to copy into your Lyra Expert Back Office > Settings > Notification rules."
 msgstr ""
 
-#: models/payment.py:55
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_gateway_url
 msgid "Payment page URL"
 msgstr ""
 
-#: models/payment.py:55
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_gateway_url
 msgid "Link to the payment page."
 msgstr ""
 
-#: models/payment.py:56
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_language
 msgid "Default language"
 msgstr ""
 
-#: models/payment.py:56
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_language
 msgid "Default language on the payment page."
 msgstr ""
 
-#: models/payment.py:57
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_available_languages
 msgid "Available languages"
 msgstr ""
 
-#: models/payment.py:57
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_available_languages
 msgid "Languages available on the payment page. If you do not select any, all the supported languages will be available."
 msgstr ""
 
-#: models/payment.py:58
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_capture_delay
 msgid "Capture delay"
 msgstr ""
 
-#: models/payment.py:58
-msgid "The number of days before the bank capture (adjustable in your {} Back Office)."
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_capture_delay
+msgid "The number of days before the bank capture (adjustable in your Lyra Expert Back Office)."
 msgstr ""
 
-#: models/payment.py:59
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_validation_mode
 msgid "Validation mode"
 msgstr ""
 
-#: models/payment.py:59
-msgid "If manual is selected, you will have to confirm payments manually in your {} Back Office."
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_validation_mode
+msgid "If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office."
 msgstr ""
 
-#: models/payment.py:59
-msgid "{} Back Office Configuration"
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:59
+msgid "Lyra Expert Back Office Configuration"
 msgstr ""
 
-#: models/payment.py:59
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:59
 msgid "Automatic"
 msgstr ""
 
-#: models/payment.py:59
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:59
 msgid "Manual"
 msgstr ""
 
-#: models/payment.py:60
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_payment_cards
 msgid "Card types"
 msgstr ""
 
-#: models/payment.py:60
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_payment_cards
 msgid "The card type(s) that can be used for the payment. Select none to use gateway configuration."
 msgstr ""
 
-#: models/payment.py:61
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_threeds_min_amount
 msgid "Disable 3DS"
 msgstr ""
 
-#: models/payment.py:61
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_threeds_min_amount
 msgid "Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, refer to the module documentation."
 msgstr ""
 
-#: models/payment.py:62
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_enabled
 msgid "Automatic redirection"
 msgstr ""
 
-#: models/payment.py:62
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_enabled
 msgid "If enabled, the buyer is automatically redirected to your site at the end of the payment."
 msgstr ""
 
-#: models/payment.py:62
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:62
 msgid "Disabled"
 msgstr ""
 
-#: models/payment.py:62
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:62
 msgid "Enabled"
 msgstr ""
 
-#: models/payment.py:63
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_success_timeout
 msgid "Redirection timeout on success"
 msgstr ""
 
-#: models/payment.py:63
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_success_timeout
 msgid "Time in seconds (0-300) before the buyer is automatically redirected to your website after a successful payment."
 msgstr ""
 
-#: models/payment.py:64
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_success_message
 msgid "Redirection message on success"
 msgstr ""
 
-#: models/payment.py:64
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_success_message
 msgid "Message displayed on the payment page prior to redirection after a successful payment."
 msgstr ""
 
-#: models/payment.py:64 models/payment.py:66
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:64
+#: code:addons/payment_lyragw/models/payment.py:66
 msgid "Redirection to shop in a few seconds..."
 msgstr ""
 
-#: models/payment.py:65
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_error_timeout
 msgid "Redirection timeout on failure"
 msgstr ""
 
-#: models/payment.py:65
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_error_timeout
 msgid "Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment."
 msgstr ""
 
-#: models/payment.py:66
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_redirect_error_message
 msgid "Redirection message on failure"
 msgstr ""
 
-#: models/payment.py:66
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_redirect_error_message
 msgid "Message displayed on the payment page prior to redirection after a declined payment."
 msgstr ""
 
-#: models/payment.py:67
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_return_mode
 msgid "Return mode"
 msgstr ""
 
-#: models/payment.py:67
+#. module: payment_lyragw
+#: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_return_mode
 msgid "Method that will be used for transmitting the payment result from the payment page to your shop."
 msgstr ""
 
-#: models/payment.py:199
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__state_message
 msgid "Transaction log"
 msgstr ""
 
-#: models/payment.py:201
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_trans_status
 msgid "Transaction status"
 msgstr ""
 
-#: models/payment.py:202
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_card_brand
 msgid "Means of payment"
 msgstr ""
 
-#: models/payment.py:203
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_card_number
 msgid "Card number"
 msgstr ""
 
-#: models/payment.py:204
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_expiration_date
 msgid "Expiration date"
 msgstr ""
 
-#: models/payment.py:205
+#. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_auth_result
 msgid "Authorization result"
 msgstr ""
 
-#: models/payment.py:262
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:262
 msgid "3DS authentication: "
 msgstr ""
 
-#: models/payment.py:264
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:264
 msgid "YES"
 msgstr ""
 
-#: models/payment.py:265
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:265
 msgid "3DS certificate: "
 msgstr ""
 
-#: models/payment.py:267
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:267
 msgid "NO"
 msgstr ""
 
-#: models/payment.py:314
+#. module: payment_lyragw
+#: code:addons/payment_lyragw/models/payment.py:314
+#, python-format
 msgid "See the transaction details for more information ({})."
 msgstr ""
 
-#: views/payment_views.xml:20
+#. module: payment_lyragw
+#: model_terms:ir.ui.view,arch_db:payment_lyragw.acquirer_form_lyragw
 msgid "PAYMENT GATEWAY ACCESS"
 msgstr ""
 
-#: views/payment_views.xml:28
+#. module: payment_lyragw
+#: model_terms:ir.ui.view,arch_db:payment_lyragw.acquirer_form_lyragw
 msgid "PAYMENT PAGE"
 msgstr ""
 
-#: views/payment_views.xml:35
+#. module: payment_lyragw
+#: model_terms:ir.ui.view,arch_db:payment_lyragw.acquirer_form_lyragw
 msgid "SELECTIVE 3DS"
 msgstr ""
 
-#: views/payment_views.xml:38
+#. module: payment_lyragw
+#: model_terms:ir.ui.view,arch_db:payment_lyragw.acquirer_form_lyragw
 msgid "RETURN TO SHOP"
 msgstr ""

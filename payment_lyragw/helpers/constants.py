@@ -33,19 +33,19 @@ LYRAGW_PARAMS = {
 }
 
 LYRAGW_LANGUAGES = {
-    'cn': _('Chinese'),
-    'de': _('German'),
-    'es': _('Spanish'),
-    'en': _('English'),
-    'fr': _('French'),
-    'it': _('Italian'),
-    'jp': _('Japanese'),
-    'nl': _('Dutch'),
-    'pl': _('Polish'),
-    'pt': _('Portuguese'),
-    'ru': _('Russian'),
-    'sv': _('Swedish'),
-    'tr': _('Turkish'),
+    'cn': 'Chinese',
+    'de': 'German',
+    'es': 'Spanish',
+    'en': 'English',
+    'fr': 'French',
+    'it': 'Italian',
+    'jp': 'Japanese',
+    'nl': 'Dutch',
+    'pl': 'Polish',
+    'pt': 'Portuguese',
+    'ru': 'Russian',
+    'sv': 'Swedish',
+    'tr': 'Turkish',
 }
 
 LYRAGW_CARDS = {

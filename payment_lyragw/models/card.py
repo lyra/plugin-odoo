@@ -17,7 +17,7 @@ class LyragwCard(models.Model):
     _order = 'label'
 
     code = fields.Char()
-    label = fields.Char(translate=True)
+    label = fields.Char()
 
     @api.model_cr
     def init(self):

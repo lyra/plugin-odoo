@@ -40,23 +40,28 @@ class AcquirerLyragw(models.Model):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         return urlparse.urljoin(base_url, LyragwController._notify_url)
 
-    sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the {} Back Office.').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME'))
+    def _get_languages(self):
+        languages = constants.LYRAGW_LANGUAGES
+
+        return [(c, _(l)) for c, l in languages.items()]
+
+    sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office.')
 
     if constants.LYRAGW_PLUGIN_FEATURES.get('shatwo') == False:
-        sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the {} Back Office, the feature will be available soon.').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME'))
+        sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon.')
 
     provider = fields.Selection(selection_add=[('lyragw', 'Lyra')])
 
-    lyragw_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by {}.').format(constants.LYRAGW_PARAMS.get('GATEWAY_NAME')), default=constants.LYRAGW_PARAMS.get('SITE_ID'), required=True)
-    lyragw_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by {} for test mode (available in {} Back Office).').format(constants.LYRAGW_PARAMS.get('GATEWAY_NAME'), constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')), default=constants.LYRAGW_PARAMS.get('KEY_TEST'), readonly=constants.LYRAGW_PLUGIN_FEATURES.get('qualif'), required=True)
-    lyragw_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by {} (available in {} Back Office after enabling production mode).').format(constants.LYRAGW_PARAMS.get('GATEWAY_NAME'), constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')), default=constants.LYRAGW_PARAMS.get('KEY_PROD'), required=True)
+    lyragw_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra.'), default=constants.LYRAGW_PARAMS.get('SITE_ID'), required=True)
+    lyragw_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra for test mode (available in Lyra Expert Back Office).'), default=constants.LYRAGW_PARAMS.get('KEY_TEST'), readonly=constants.LYRAGW_PLUGIN_FEATURES.get('qualif'), required=True)
+    lyragw_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRAGW_PARAMS.get('KEY_PROD'), required=True)
     lyragw_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRAGW_PARAMS.get('SIGN_ALGO'), required=True)
-    lyragw_notify_url = fields.Char(string=_('Instant Payment Notification URL'), help=_('URL to copy into your {} Back Office > Settings > Notification rules.').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')), default=_get_notify_url, readonly=True)
+    lyragw_notify_url = fields.Char(string=_('Instant Payment Notification URL'), help=_('URL to copy into your Lyra Expert Back Office > Settings > Notification rules.'), default=_get_notify_url, readonly=True)
     lyragw_gateway_url = fields.Char(string=_('Payment page URL'), help=_('Link to the payment page.'), default=constants.LYRAGW_PARAMS.get('GATEWAY_URL'), required=True)
-    lyragw_language = fields.Selection(string=_('Default language'), help=_('Default language on the payment page.'), default=constants.LYRAGW_PARAMS.get('LANGUAGE'), selection='_get_languages')
+    lyragw_language = fields.Selection(string=_('Default language'), help=_('Default language on the payment page.'), default=constants.LYRAGW_PARAMS.get('LANGUAGE'), selection=_get_languages)
     lyragw_available_languages = fields.Many2many('lyragw.language', string=_('Available languages'), column1='code', column2='label', help=_('Languages available on the payment page. If you do not select any, all the supported languages will be available.'))
-    lyragw_capture_delay = fields.Char(string=_('Capture delay'), help=_('The number of days before the bank capture (adjustable in your {} Back Office).').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')))
-    lyragw_validation_mode = fields.Selection(string=_('Validation mode'), help=_('If manual is selected, you will have to confirm payments manually in your {} Back Office.').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME')), selection=[(' ', _('{} Back Office Configuration').format(constants.LYRAGW_PARAMS.get('BACKOFFICE_NAME'))), ('0', _('Automatic')), ('1', _('Manual'))])
+    lyragw_capture_delay = fields.Char(string=_('Capture delay'), help=_('The number of days before the bank capture (adjustable in your Lyra Expert Back Office).'))
+    lyragw_validation_mode = fields.Selection(string=_('Validation mode'), help=_('If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office.'), selection=[(' ', _('Lyra Expert Back Office Configuration')), ('0', _('Automatic')), ('1', _('Manual'))])
     lyragw_payment_cards = fields.Many2many('lyragw.card', string=_('Card types'), column1='code', column2='label', help=_('The card type(s) that can be used for the payment. Select none to use gateway configuration.'))
     lyragw_threeds_min_amount = fields.Char(string=_('Disable 3DS'), help=_('Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, refer to the module documentation.'))
     lyragw_redirect_enabled = fields.Selection(string=_('Automatic redirection'), help=_('If enabled, the buyer is automatically redirected to your site at the end of the payment.'), selection=[('0', _('Disabled')), ('1', _('Enabled'))])
@@ -68,10 +73,6 @@ class AcquirerLyragw(models.Model):
 
     # Check if it's Odoo 10.
     lyragw_odoo10 = True if parse_version(release.version) < parse_version("11") else False
-
-    def _get_languages(self):
-        languages = constants.LYRAGW_LANGUAGES
-        return list(languages.items())
 
     def _lyragw_generate_sign(self, acquirer, values):
         key = self.lyragw_key_prod if self.environment == 'prod' else self.lyragw_key_test
@@ -195,8 +196,6 @@ class AcquirerLyragw(models.Model):
 
 class TransactionLyragw(models.Model):
     _inherit = 'payment.transaction'
-
-    state_message = fields.Char(_('Transaction log'))
 
     lyra_trans_status = fields.Char(_('Transaction status'))
     lyra_card_brand = fields.Char(_('Means of payment'))

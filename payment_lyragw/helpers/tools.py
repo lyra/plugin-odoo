@@ -7,7 +7,10 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
+from odoo import _
+
 from .constants import LYRAGW_CURRENCIES
+
 
 def find_currency(iso):
     for currency in LYRAGW_CURRENCIES:
@@ -15,3 +18,6 @@ def find_currency(iso):
             return currency[1];
 
     return NUL
+
+def lang_translate(callback, v):
+    return _(v)
