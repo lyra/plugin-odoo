@@ -396,6 +396,11 @@ msgid "Authorization result"
 msgstr "Resultado de la autorizacion"
 
 #. module: payment_lyragw
+#: model:ir.model.fields,field_description:payment_lyragw.field_payment_transaction__lyra_raw_data
+msgid "Transaction log"
+msgstr "Registro de transacción"
+
+#. module: payment_lyragw
 #: code:addons/payment_lyragw/models/payment.py:262
 msgid "3DS authentication: "
 msgstr "Autenticación 3DS: "
@@ -439,3 +444,8 @@ msgstr "3DS SELECTIVO"
 #: model_terms:ir.ui.view,arch_db:payment_lyragw.acquirer_form_lyragw
 msgid "RETURN TO SHOP"
 msgstr "VOLVER A LA TIENDA"
+
+#. module: payment_lyragw
+#: model_terms:ir.ui.view,arch_db:payment_lyragw.transaction_form_lyragw
+msgid "Transaction log"
+msgstr "Registro de transacción"

@@ -202,6 +202,7 @@ class TransactionLyragw(models.Model):
     lyra_card_number = fields.Char(_('Card number'))
     lyra_expiration_date = fields.Char(_('Expiration date'))
     lyra_auth_result = fields.Char(_('Authorization result'))
+    lyra_raw_data = fields.Text(string=_('Transaction log'), readonly=True)
 
     # --------------------------------------------------
     # FORM RELATED METHODS
@@ -271,7 +272,7 @@ class TransactionLyragw(models.Model):
 
         values = {
             'acquirer_reference': data.get('vads_trans_uuid'),
-            'state_message': '{}'.format(data),
+            'lyra_raw_data': '{}'.format(data),
             'html_3ds': html_3ds,
             'lyra_trans_status': data.get('vads_trans_status'),
             'lyra_card_brand': data.get('vads_card_brand'),
@@ -279,6 +280,7 @@ class TransactionLyragw(models.Model):
             'lyra_expiration_date': expiry,
         }
 
+        # Set validation date.
         key = 'date' if hasattr(self, 'date')  else 'date_validate'
         values[key] = fields.Datetime.now()
 
@@ -301,21 +303,20 @@ class TransactionLyragw(models.Model):
             return True
         elif status in lyragw_statuses['cancel']:
             self.write({
-                'date_validate': fields.Datetime.now(),
+                'state_message': 'Payment for transaction #%s is cancelled (%s).' % (self.reference, data.get('vads_result')),
                 'state': 'cancel',
-                'state_message': '{}'.format(data),
             })
 
             return False
         else:
             auth_result = data.get('vads_auth_result')
-            trans_status = data.get('vads_trans_status')
             auth_message = _('See the transaction details for more information ({}).').format(auth_result)
 
-            error_msg = 'Lyra payment error, transaction status: {}, authorization result: {}.'.format(trans_status, auth_result)
+            error_msg = 'Lyra payment error, transaction status: {}, authorization result: {}.'.format(status, auth_result)
             _logger.info(error_msg)
 
             values.update({
+                'state_message': 'Payment for transaction #%s is refused (%s).' % (self.reference, data.get('vads_result')),
                 'state': 'error',
                 'lyra_auth_result': auth_message,
             })

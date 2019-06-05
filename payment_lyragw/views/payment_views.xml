@@ -54,12 +54,18 @@
             <field name="inherit_id" ref="payment.transaction_form" />
             <field name="arch" type="xml">
                 <field name="acquirer_reference" position="after">
-                    <field name="lyra_trans_status" />
-                    <field name="lyra_card_brand" />
-                    <field name="lyra_card_number" />
-                    <field name="lyra_expiration_date" />
-                    <field name="lyra_auth_result" />
+                    <field name="lyra_trans_status" attrs="{'invisible': [('provider', '!=', 'lyragw')]}" />
+                    <field name="lyra_card_brand" attrs="{'invisible': [('provider', '!=', 'lyragw')]}" />
+                    <field name="lyra_card_number" attrs="{'invisible': [('provider', '!=', 'lyragw')]}" />
+                    <field name="lyra_expiration_date" attrs="{'invisible': [('provider', '!=', 'lyragw')]}" />
+                    <field name="lyra_auth_result" attrs="{'invisible': [('provider', '!=', 'lyragw')]}" />
                 </field>
+
+                <xpath expr="//form/sheet/group[last()]" position="after">
+                    <group string="Transaction log" attrs="{'invisible': [('provider', '!=', 'payzen')]}">
+                        <field name="lyra_raw_data" nolabel="1"/>
+                    </group>
+                </xpath>
             </field>
         </record>
     </data>
