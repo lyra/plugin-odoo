@@ -14,14 +14,14 @@ Installation & Upgrade
 
 Download the module archive from gateway resources website (menu E-commerce > Free payment plugins).
 
-If already installed, you must delete the old payment_lyragw folder. You will find already installed
+If already installed, you must delete the old payment_lyra folder. You will find already installed
 addons in either:
 
 * [ODOO_ROOT_FOLDER]/server/odoo/addons/
 * /var/lib/odoo/addons/[VERSION]/ (on Linux only)
 * `addons_path` defined in odoo.conf
 
-Now unzip the downloaded archive and copy the new payment_lyragw folder to Odoo addons directory. Then, you
+Now unzip the downloaded archive and copy the new payment_lyra folder to Odoo addons directory. Then, you
 can choose one of these instructions:
 
 * In your Odoo administrator interface, browse to "Configuration" tab. Here in, activate the developer mode.
@@ -30,7 +30,7 @@ can choose one of these instructions:
   Odoo will update the applications list on startup.
 
 In your Odoo administrator interface, browse to "Applications" tab, delete "Applications" filter from
-search field and search for "lyragw" keyword. Click "Install" (or "Upgrade") button of the "Lyra Collect
+search field and search for "lyra" keyword. Click "Install" (or "Upgrade") button of the "Lyra Collect
 Payment Acquirer" module.
 
 Configuration

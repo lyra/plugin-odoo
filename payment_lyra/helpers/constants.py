@@ -9,12 +9,12 @@
 
 from odoo import _
 
-LYRAGW_PLUGIN_FEATURES = {
+LYRA_PLUGIN_FEATURES = {
     'qualif': False,
     'shatwo': True,
 }
 
-LYRAGW_PARAMS = {
+LYRA_PARAMS = {
     'GATEWAY_CODE': 'Lyra',
     'GATEWAY_NAME': 'Lyra Collect',
     'BACKOFFICE_NAME': 'Lyra Expert',
@@ -32,7 +32,7 @@ LYRAGW_PARAMS = {
     'CMS_IDENTIFIER': 'Odoo_10-12',
 }
 
-LYRAGW_LANGUAGES = {
+LYRA_LANGUAGES = {
     'cn': 'Chinese',
     'de': 'German',
     'es': 'Spanish',
@@ -48,7 +48,7 @@ LYRAGW_LANGUAGES = {
     'tr': 'Turkish',
 }
 
-LYRAGW_CARDS = {
+LYRA_CARDS = {
     'CB': u'CB',
     'E-CARTEBLEUE': u'E-CARTEBLEUE',
     'MAESTRO': u'Maestro',
@@ -76,7 +76,7 @@ LYRAGW_CARDS = {
     'WECHAT': u'WeChat Pay',
 }
 
-LYRAGW_CURRENCIES = [
+LYRA_CURRENCIES = [
     ['EUR', '978', 2],
     ['GBP', '826', 2],
     ['CAD', '124', 2],

@@ -21,10 +21,10 @@ from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.float_utils import float_compare, float_repr
 
-from ..controllers.main import LyragwController
+from ..controllers.main import LyraController
 from ..helpers import constants, tools
-from .card import LyragwCard
-from .language import LyragwLanguage
+from .card import LyraCard
+from .language import LyraLanguage
 
 try:
     import urlparse
@@ -33,49 +33,49 @@ except ImportError:
 
 _logger = logging.getLogger(__name__)
 
-class AcquirerLyragw(models.Model):
+class AcquirerLyra(models.Model):
     _inherit = 'payment.acquirer'
 
     def _get_notify_url(self):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-        return urlparse.urljoin(base_url, LyragwController._notify_url)
+        return urlparse.urljoin(base_url, LyraController._notify_url)
 
     def _get_languages(self):
-        languages = constants.LYRAGW_LANGUAGES
+        languages = constants.LYRA_LANGUAGES
 
         return [(c, _(l)) for c, l in languages.items()]
 
     sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office.')
 
-    if constants.LYRAGW_PLUGIN_FEATURES.get('shatwo') == False:
+    if constants.LYRA_PLUGIN_FEATURES.get('shatwo') == False:
         sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon.')
 
-    provider = fields.Selection(selection_add=[('lyragw', 'Lyra Collect')])
+    provider = fields.Selection(selection_add=[('lyra', 'Lyra Collect')])
 
-    lyragw_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRAGW_PARAMS.get('SITE_ID'), required=True)
-    lyragw_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRAGW_PARAMS.get('KEY_TEST'), readonly=constants.LYRAGW_PLUGIN_FEATURES.get('qualif'), required=True)
-    lyragw_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRAGW_PARAMS.get('KEY_PROD'), required=True)
-    lyragw_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRAGW_PARAMS.get('SIGN_ALGO'), required=True)
-    lyragw_notify_url = fields.Char(string=_('Instant Payment Notification URL'), help=_('URL to copy into your Lyra Expert Back Office > Settings > Notification rules.'), default=_get_notify_url, readonly=True)
-    lyragw_gateway_url = fields.Char(string=_('Payment page URL'), help=_('Link to the payment page.'), default=constants.LYRAGW_PARAMS.get('GATEWAY_URL'), required=True)
-    lyragw_language = fields.Selection(string=_('Default language'), help=_('Default language on the payment page.'), default=constants.LYRAGW_PARAMS.get('LANGUAGE'), selection=_get_languages)
-    lyragw_available_languages = fields.Many2many('lyragw.language', string=_('Available languages'), column1='code', column2='label', help=_('Languages available on the payment page. If you do not select any, all the supported languages will be available.'))
-    lyragw_capture_delay = fields.Char(string=_('Capture delay'), help=_('The number of days before the bank capture (adjustable in your Lyra Expert Back Office).'))
-    lyragw_validation_mode = fields.Selection(string=_('Validation mode'), help=_('If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office.'), selection=[(' ', _('Lyra Expert Back Office Configuration')), ('0', _('Automatic')), ('1', _('Manual'))])
-    lyragw_payment_cards = fields.Many2many('lyragw.card', string=_('Card types'), column1='code', column2='label', help=_('The card type(s) that can be used for the payment. Select none to use gateway configuration.'))
-    lyragw_threeds_min_amount = fields.Char(string=_('Disable 3DS'), help=_('Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, refer to the module documentation.'))
-    lyragw_redirect_enabled = fields.Selection(string=_('Automatic redirection'), help=_('If enabled, the buyer is automatically redirected to your site at the end of the payment.'), selection=[('0', _('Disabled')), ('1', _('Enabled'))])
-    lyragw_redirect_success_timeout = fields.Char(string=_('Redirection timeout on success'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a successful payment.'))
-    lyragw_redirect_success_message = fields.Char(string=_('Redirection message on success'), help=_('Message displayed on the payment page prior to redirection after a successful payment.'), default=_('Redirection to shop in a few seconds...'))
-    lyragw_redirect_error_timeout = fields.Char(string=_('Redirection timeout on failure'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment.'))
-    lyragw_redirect_error_message = fields.Char(string=_('Redirection message on failure'), help=_('Message displayed on the payment page prior to redirection after a declined payment.'), default=_('Redirection to shop in a few seconds...'))
-    lyragw_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
+    lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'), required=True)
+    lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'), required=True)
+    lyra_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRA_PARAMS.get('KEY_PROD'), required=True)
+    lyra_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRA_PARAMS.get('SIGN_ALGO'), required=True)
+    lyra_notify_url = fields.Char(string=_('Instant Payment Notification URL'), help=_('URL to copy into your Lyra Expert Back Office > Settings > Notification rules.'), default=_get_notify_url, readonly=True)
+    lyra_gateway_url = fields.Char(string=_('Payment page URL'), help=_('Link to the payment page.'), default=constants.LYRA_PARAMS.get('GATEWAY_URL'), required=True)
+    lyra_language = fields.Selection(string=_('Default language'), help=_('Default language on the payment page.'), default=constants.LYRA_PARAMS.get('LANGUAGE'), selection=_get_languages)
+    lyra_available_languages = fields.Many2many('lyra.language', string=_('Available languages'), column1='code', column2='label', help=_('Languages available on the payment page. If you do not select any, all the supported languages will be available.'))
+    lyra_capture_delay = fields.Char(string=_('Capture delay'), help=_('The number of days before the bank capture (adjustable in your Lyra Expert Back Office).'))
+    lyra_validation_mode = fields.Selection(string=_('Validation mode'), help=_('If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office.'), selection=[(' ', _('Lyra Expert Back Office Configuration')), ('0', _('Automatic')), ('1', _('Manual'))])
+    lyra_payment_cards = fields.Many2many('lyra.card', string=_('Card types'), column1='code', column2='label', help=_('The card type(s) that can be used for the payment. Select none to use gateway configuration.'))
+    lyra_threeds_min_amount = fields.Char(string=_('Disable 3DS'), help=_('Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, refer to the module documentation.'))
+    lyra_redirect_enabled = fields.Selection(string=_('Automatic redirection'), help=_('If enabled, the buyer is automatically redirected to your site at the end of the payment.'), selection=[('0', _('Disabled')), ('1', _('Enabled'))])
+    lyra_redirect_success_timeout = fields.Char(string=_('Redirection timeout on success'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a successful payment.'))
+    lyra_redirect_success_message = fields.Char(string=_('Redirection message on success'), help=_('Message displayed on the payment page prior to redirection after a successful payment.'), default=_('Redirection to shop in a few seconds...'))
+    lyra_redirect_error_timeout = fields.Char(string=_('Redirection timeout on failure'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment.'))
+    lyra_redirect_error_message = fields.Char(string=_('Redirection message on failure'), help=_('Message displayed on the payment page prior to redirection after a declined payment.'), default=_('Redirection to shop in a few seconds...'))
+    lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
 
     # Check if it's Odoo 10.
-    lyragw_odoo10 = True if parse_version(release.version) < parse_version('11') else False
+    lyra_odoo10 = True if parse_version(release.version) < parse_version('11') else False
 
-    def _lyragw_generate_sign(self, acquirer, values):
-        key = self.lyragw_key_prod if self.environment == 'prod' else self.lyragw_key_test
+    def _lyra_generate_sign(self, acquirer, values):
+        key = self.lyra_key_prod if self.environment == 'prod' else self.lyra_key_test
 
         sign = ''
         for k in sorted(values.keys()):
@@ -84,7 +84,7 @@ class AcquirerLyragw(models.Model):
 
         sign += key
 
-        if self.lyragw_sign_algo == 'SHA-1':
+        if self.lyra_sign_algo == 'SHA-1':
             shasign = sha1(sign.encode('utf-8')).hexdigest()
         else:
             shasign = base64.b64encode(hmac.new(key.encode('utf-8'), sign.encode('utf-8'), sha256).digest()).decode('utf-8')
@@ -92,7 +92,7 @@ class AcquirerLyragw(models.Model):
         return shasign
 
     @api.multi
-    def lyragw_form_generate_values(self, values):
+    def lyra_form_generate_values(self, values):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
 
         # trans_id is the number of 1/10 seconds from midnight.
@@ -104,7 +104,7 @@ class AcquirerLyragw(models.Model):
         mode = u'PRODUCTION' if self.environment == 'prod' else u'TEST'
 
         threeds_mpi = u''
-        if self.lyragw_threeds_min_amount and float(self.lyragw_threeds_min_amount) > values['amount']:
+        if self.lyra_threeds_min_amount and float(self.lyra_threeds_min_amount) > values['amount']:
             threeds_mpi = u'2'
 
         # Amount in cents.
@@ -112,20 +112,20 @@ class AcquirerLyragw(models.Model):
 
         # List of available languages.
         available_languages = ''
-        for value in self.lyragw_available_languages:
+        for value in self.lyra_available_languages:
             available_languages += value.code + ';'
 
         # List of available payment cards.
         payment_cards = ''
-        for value in self.lyragw_payment_cards:
+        for value in self.lyra_payment_cards:
             payment_cards += value.code + ';'
 
         # Enable redirection?
-        self.lyragw_redirect = True if str(self.lyragw_redirect_enabled) == '1' else False
+        self.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
 
         tx_values = dict() # Values to sign in unicode.
         tx_values.update({
-            'vads_site_id': self.lyragw_site_id,
+            'vads_site_id': self.lyra_site_id,
             'vads_amount': str(amount),
             'vads_currency': tools.find_currency(values['currency'].name),
             'vads_trans_date': str(datetime.utcnow().strftime("%Y%m%d%H%M%S")),
@@ -134,17 +134,17 @@ class AcquirerLyragw(models.Model):
             'vads_page_action': u'PAYMENT',
             'vads_action_mode': u'INTERACTIVE',
             'vads_payment_config': u'SINGLE',
-            'vads_version': constants.LYRAGW_PARAMS.get('GATEWAY_VERSION'),
-            'vads_url_return': urlparse.urljoin(base_url, LyragwController._return_url),
+            'vads_version': constants.LYRA_PARAMS.get('GATEWAY_VERSION'),
+            'vads_url_return': urlparse.urljoin(base_url, LyraController._return_url),
             'vads_order_id': str(values.get('reference')),
-            'vads_contrib': constants.LYRAGW_PARAMS.get('CMS_IDENTIFIER') + u'_' + constants.LYRAGW_PARAMS.get('PLUGIN_VERSION') + u'/' + release.version,
+            'vads_contrib': constants.LYRA_PARAMS.get('CMS_IDENTIFIER') + u'_' + constants.LYRA_PARAMS.get('PLUGIN_VERSION') + u'/' + release.version,
 
-            'vads_language': self.lyragw_language or '',
+            'vads_language': self.lyra_language or '',
             'vads_available_languages': available_languages,
-            'vads_capture_delay': self.lyragw_capture_delay or '',
-            'vads_validation_mode': self.lyragw_validation_mode or '',
+            'vads_capture_delay': self.lyra_capture_delay or '',
+            'vads_validation_mode': self.lyra_validation_mode or '',
             'vads_payment_cards': payment_cards,
-            'vads_return_mode': str(self.lyragw_return_mode),
+            'vads_return_mode': str(self.lyra_return_mode),
             'vads_threeds_mpi': threeds_mpi,
 
             # Customer info.
@@ -170,31 +170,31 @@ class AcquirerLyragw(models.Model):
             'vads_ship_to_phone_num': values.get('partner_phone') and values.get('partner_phone')[0:31] or '',
         })
 
-        if self.lyragw_redirect:
+        if self.lyra_redirect:
             tx_values.update({
-                'vads_redirect_success_timeout': self.lyragw_redirect_success_timeout or '',
-                'vads_redirect_success_message': self.lyragw_redirect_success_message or '',
-                'vads_redirect_error_timeout': self.lyragw_redirect_error_timeout or '',
-                'vads_redirect_error_message': self.lyragw_redirect_error_message or ''
+                'vads_redirect_success_timeout': self.lyra_redirect_success_timeout or '',
+                'vads_redirect_success_message': self.lyra_redirect_success_message or '',
+                'vads_redirect_error_timeout': self.lyra_redirect_error_timeout or '',
+                'vads_redirect_error_message': self.lyra_redirect_error_message or ''
             })
 
-        lyragw_tx_values = dict() # Values encoded in UTF-8.
+        lyra_tx_values = dict() # Values encoded in UTF-8.
 
         for key in tx_values.keys():
             if tx_values[key] == ' ':
                 tx_values[key] = ''
 
-            lyragw_tx_values[key] = tx_values[key].encode('utf-8')
+            lyra_tx_values[key] = tx_values[key].encode('utf-8')
 
-        lyragw_tx_values['lyragw_signature'] = self._lyragw_generate_sign(self, tx_values)
-        return lyragw_tx_values
+        lyra_tx_values['lyra_signature'] = self._lyra_generate_sign(self, tx_values)
+        return lyra_tx_values
 
     @api.multi
-    def lyragw_get_form_action_url(self):
-        return self.lyragw_gateway_url
+    def lyra_get_form_action_url(self):
+        return self.lyra_gateway_url
 
 
-class TransactionLyragw(models.Model):
+class TransactionLyra(models.Model):
     _inherit = 'payment.transaction'
 
     lyra_trans_status = fields.Char(_('Transaction status'))
@@ -209,7 +209,7 @@ class TransactionLyragw(models.Model):
     # --------------------------------------------------
 
     @api.model
-    def _lyragw_form_get_tx_from_data(self, data):
+    def _lyra_form_get_tx_from_data(self, data):
         shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
 
         if not reference or not shasign or not status:
@@ -229,7 +229,7 @@ class TransactionLyragw(models.Model):
             raise ValidationError(error_msg)
 
         # Verify shasign.
-        shasign_check = tx.acquirer_id._lyragw_generate_sign('out', data)
+        shasign_check = tx.acquirer_id._lyra_generate_sign('out', data)
         if shasign_check.upper() != shasign.upper():
             error_msg = 'Lyra Collect: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, data)
             _logger.info(error_msg)
@@ -237,7 +237,7 @@ class TransactionLyragw(models.Model):
 
         return tx
 
-    def _lyragw_form_get_invalid_parameters(self, data):
+    def _lyra_form_get_invalid_parameters(self, data):
         invalid_parameters = []
 
         # Check what is bought.
@@ -252,8 +252,8 @@ class TransactionLyragw(models.Model):
 
         return invalid_parameters
 
-    def _lyragw_form_validate(self, data):
-        lyragw_statuses = {
+    def _lyra_form_validate(self, data):
+        lyra_statuses = {
             'success': ['AUTHORISED', 'CAPTURED', 'CAPTURE_FAILED', 'ACCEPTED'],
             'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION', 'WAITING_FOR_PAYMENT'],
             'cancel': ['NOT_CREATED', 'ABANDONED']
@@ -285,7 +285,7 @@ class TransactionLyragw(models.Model):
         values[key] = fields.Datetime.now()
 
         status = data.get('vads_trans_status')
-        if status in lyragw_statuses['success']:
+        if status in lyra_statuses['success']:
             values.update({
                 'state': 'done',
             })
@@ -293,7 +293,7 @@ class TransactionLyragw(models.Model):
             self.write(values)
 
             return True
-        elif status in lyragw_statuses['pending']:
+        elif status in lyra_statuses['pending']:
             values.update({
                 'state': 'pending',
             })
@@ -301,7 +301,7 @@ class TransactionLyragw(models.Model):
             self.write(values)
 
             return True
-        elif status in lyragw_statuses['cancel']:
+        elif status in lyra_statuses['cancel']:
             self.write({
                 'state_message': 'Payment for transaction #%s is cancelled (%s).' % (self.reference, data.get('vads_result')),
                 'state': 'cancel',

@@ -18,7 +18,7 @@
     'depends': ['payment'],
     'data': [
         'views/payment_views.xml',
-        'views/payment_lyragw_templates.xml',
+        'views/payment_lyra_templates.xml',
         'data/payment_acquirer_data.xml',
         'security/ir.model.access.csv',
     ],

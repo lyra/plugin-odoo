@@ -9,11 +9,11 @@
 
 from odoo import _
 
-from .constants import LYRAGW_CURRENCIES
+from .constants import LYRA_CURRENCIES
 
 
 def find_currency(iso):
-    for currency in LYRAGW_CURRENCIES:
+    for currency in LYRA_CURRENCIES:
         if currency[0] == iso:
             return currency[1];
 

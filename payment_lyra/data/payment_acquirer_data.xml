@@ -10,24 +10,24 @@
 
 <odoo>
     <data noupdate="1">
-        <record id="payment_acquirer_lyragw" model="payment.acquirer">
+        <record id="payment_acquirer_lyra" model="payment.acquirer">
             <field name="name"><![CDATA[Lyra Collect]]></field>
-            <field name="image" type="base64" file="payment_lyragw/static/src/img/logo.png" />
-            <field name="provider">lyragw</field>
+            <field name="image" type="base64" file="payment_lyra/static/src/img/logo.png" />
+            <field name="provider">lyra</field>
             <field name="company_id" ref="base.main_company" />
-            <field name="view_template_id" ref="lyragw_acquirer_button" />
+            <field name="view_template_id" ref="lyra_acquirer_button" />
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
 
-            <field name="lyragw_available_languages"></field>
-            <field name="lyragw_capture_delay"></field>
-            <field name="lyragw_validation_mode"> </field>
-            <field name="lyragw_payment_cards"></field>
-            <field name="lyragw_threeds_min_amount"></field>
-            <field name="lyragw_redirect_enabled">0</field>
-            <field name="lyragw_redirect_success_timeout">5</field>
-            <field name="lyragw_redirect_error_timeout">5</field>
-            <field name="lyragw_return_mode">GET</field>
+            <field name="lyra_available_languages"></field>
+            <field name="lyra_capture_delay"></field>
+            <field name="lyra_validation_mode"> </field>
+            <field name="lyra_payment_cards"></field>
+            <field name="lyra_threeds_min_amount"></field>
+            <field name="lyra_redirect_enabled">0</field>
+            <field name="lyra_redirect_success_timeout">5</field>
+            <field name="lyra_redirect_error_timeout">5</field>
+            <field name="lyra_return_mode">GET</field>
 
             <field name="description" type="html">
                 <p><![CDATA[Accept payments with Lyra Collect secure payment gateway.]]></p>

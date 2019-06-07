@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_lyragw_card_system,lyragw.card.system,model_lyragw_card,base.group_system,1,1,1,1
-access_lyragw_language_system,lyragw.language.system,model_lyragw_language,base.group_system,1,1,1,1

@@ -10,8 +10,8 @@
 from odoo import models, fields, api
 from ..helpers import constants, tools
 
-class LyragwLanguage(models.Model):
-    _name = 'lyragw.language'
+class LyraLanguage(models.Model):
+    _name = 'lyra.language'
     _description = 'Lyra Collect language'
     _rec_name = 'label'
     _order = 'label'
@@ -21,7 +21,7 @@ class LyragwLanguage(models.Model):
 
     @api.model_cr
     def init(self):
-        languages = constants.LYRAGW_LANGUAGES
+        languages = constants.LYRA_LANGUAGES
 
         for c, l in languages.items():
             lang = self.search([('code', '=', c)])
