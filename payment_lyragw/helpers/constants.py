@@ -1,7 +1,7 @@
 # coding: utf-8
 #
 # Copyright © Lyra Network.
-# This file is part of Lyra plugin for Odoo. See COPYING.md for license details.
+# This file is part of Lyra Collect plugin for Odoo. See COPYING.md for license details.
 #
 # Author:    Lyra Network (https://www.lyra.com)
 # Copyright: Copyright © Lyra Network
@@ -16,7 +16,7 @@ LYRAGW_PLUGIN_FEATURES = {
 
 LYRAGW_PARAMS = {
     'GATEWAY_CODE': 'Lyra',
-    'GATEWAY_NAME': 'Lyra',
+    'GATEWAY_NAME': 'Lyra Collect',
     'BACKOFFICE_NAME': 'Lyra Expert',
     'SUPPORT_EMAIL': 'support-ecommerce@lyra-collect.com',
     'GATEWAY_URL': 'https://secure.lyra.com/vads-payment/',

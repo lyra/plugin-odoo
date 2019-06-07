@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Lyra Payment\n"
+"Project-Id-Version: Odoo Lyra Collect Payment\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-03 14:47+0200\n"
 "PO-Revision-Date: 2019-06-03 15:00+0200\n"
@@ -120,8 +120,8 @@ msgstr "ID de tienda"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_site_id
-msgid "The identifier provided by Lyra."
-msgstr "El identificador proporcionado por Lyra."
+msgid "The identifier provided by Lyra Collect."
+msgstr "El identificador proporcionado por Lyra Collect."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_key_test
@@ -130,9 +130,9 @@ msgstr "Clave en modo test"
 
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_key_test
-msgid "Key provided by Lyra for test mode (available in Lyra Expert Back Office)."
+msgid "Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office)."
 msgstr ""
-"Clave proporcionada por Lyra para modo test (disponible en el Back Office Lyra Expert)."
+"Clave proporcionada por Lyra Collect para modo test (disponible en el Back Office Lyra Expert)."
 
 #. module: payment_lyragw
 #: model:ir.model.fields,field_description:payment_lyragw.field_payment_acquirer__lyragw_key_prod
@@ -142,10 +142,10 @@ msgstr "Clave en modo production"
 #. module: payment_lyragw
 #: model:ir.model.fields,help:payment_lyragw.field_payment_acquirer__lyragw_key_prod
 msgid ""
-"Key provided by Lyra (available in Lyra Expert Back Office after enabling production "
+"Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production "
 "mode)."
 msgstr ""
-"Clave proporcionada por Lyra (disponible en el Back Office Lyra Expert después de "
+"Clave proporcionada por Lyra Collect (disponible en el Back Office Lyra Expert después de "
 "habilitar el modo production)."
 
 #. module: payment_lyragw

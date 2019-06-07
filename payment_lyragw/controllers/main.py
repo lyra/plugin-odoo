@@ -1,7 +1,7 @@
 # coding: utf-8
 #
 # Copyright © Lyra Network.
-# This file is part of Lyra plugin for Odoo. See COPYING.md for license details.
+# This file is part of Lyra Collect plugin for Odoo. See COPYING.md for license details.
 #
 # Author:    Lyra Network (https://www.lyra.com)
 # Copyright: Copyright © Lyra Network
@@ -37,7 +37,7 @@ class LyragwController(http.Controller):
 
     @http.route('/payment/lyragw/return', type='http', auth='none', methods=['POST', 'GET'], csrf=False)
     def lyragw_return(self, **post):
-        _logger.info('Lyra: entering form_feedback with post data %s', pprint.pformat(post))
+        _logger.info('Lyra Collect: entering form_feedback with post data %s', pprint.pformat(post))
 
         # Check payment result and create transaction.
         result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyragw')
@@ -46,7 +46,7 @@ class LyragwController(http.Controller):
 
     @http.route('/payment/lyragw/ipn', type='http', auth='none', methods=['POST'], csrf=False)
     def lyragw_ipn(self, **post):
-        _logger.info('Lyra: entering IPN form_feedback with post data %s', pprint.pformat(post))
+        _logger.info('Lyra Collect: entering IPN form_feedback with post data %s', pprint.pformat(post))
 
         # Check payment result and create transaction.
         result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyragw')

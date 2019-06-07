@@ -3,10 +3,10 @@
    :alt: License: AGPL v3
 
 ===================================================
-Lyra plugin for Odoo
+Lyra Collect plugin for Odoo
 ===================================================
 
-Lyra plugin for Odoo is an open source plugin that links Odoo based e-commerce websites to Lyra
+Lyra Collect plugin for Odoo is an open source plugin that links Odoo based e-commerce websites to Lyra Collect
 secure payment gateway developed by `Lyra Network <https://www.lyra.com/>`_.
 
 Installation & Upgrade
@@ -30,7 +30,7 @@ can choose one of these instructions:
   Odoo will update the applications list on startup.
 
 In your Odoo administrator interface, browse to "Applications" tab, delete "Applications" filter from
-search field and search for "lyragw" keyword. Click "Install" (or "Upgrade") button of the "Lyra
+search field and search for "lyragw" keyword. Click "Install" (or "Upgrade") button of the "Lyra Collect
 Payment Acquirer" module.
 
 Configuration
@@ -38,15 +38,15 @@ Configuration
 
 * Go to "Website Admin" tab.
 * In "Configuration" section, expand "eCommerce" menu than click on "Payment Acquirers" entry.
-* Click on button "Configure" of Lyra module.
-* You can now enter your Lyra credentials.
+* Click on button "Configure" of Lyra Collect module.
+* You can now enter your Lyra Collect credentials.
 
 Important
 ---------
-* You should select a Payment Journal in the "Configuration" tab of the Lyra aquirer
+* You should select a Payment Journal in the "Configuration" tab of the Lyra Collect aquirer
   to start using this payment method.
 * If you have multiple Odoo databases on your server, do not forget to set dbfilter
-  parameter in odoo.conf. *You must launch one database only per URL* because Lyra
+  parameter in odoo.conf. *You must launch one database only per URL* because Lyra Collect
   have to send back payment notification on the right database. Otherwise it will
   failed with a 404 error.
 
@@ -58,7 +58,7 @@ Author
 License
 =======
 
-Each Lyra plugin source file included in this distribution is licensed under
+Each Lyra Collect plugin source file included in this distribution is licensed under
 the Affero General Public License (AGPL 3.0).
 
 Please see LICENSE.txt for the full text of the AGPL 3.0 license. 

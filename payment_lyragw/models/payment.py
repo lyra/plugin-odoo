@@ -1,7 +1,7 @@
 # coding: utf-8
 #
 # Copyright © Lyra Network.
-# This file is part of Lyra plugin for Odoo. See COPYING.md for license details.
+# This file is part of Lyra Collect plugin for Odoo. See COPYING.md for license details.
 #
 # Author:    Lyra Network (https://www.lyra.com)
 # Copyright: Copyright © Lyra Network
@@ -50,11 +50,11 @@ class AcquirerLyragw(models.Model):
     if constants.LYRAGW_PLUGIN_FEATURES.get('shatwo') == False:
         sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon.')
 
-    provider = fields.Selection(selection_add=[('lyragw', 'Lyra')])
+    provider = fields.Selection(selection_add=[('lyragw', 'Lyra Collect')])
 
-    lyragw_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra.'), default=constants.LYRAGW_PARAMS.get('SITE_ID'), required=True)
-    lyragw_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra for test mode (available in Lyra Expert Back Office).'), default=constants.LYRAGW_PARAMS.get('KEY_TEST'), readonly=constants.LYRAGW_PLUGIN_FEATURES.get('qualif'), required=True)
-    lyragw_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRAGW_PARAMS.get('KEY_PROD'), required=True)
+    lyragw_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRAGW_PARAMS.get('SITE_ID'), required=True)
+    lyragw_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRAGW_PARAMS.get('KEY_TEST'), readonly=constants.LYRAGW_PLUGIN_FEATURES.get('qualif'), required=True)
+    lyragw_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRAGW_PARAMS.get('KEY_PROD'), required=True)
     lyragw_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRAGW_PARAMS.get('SIGN_ALGO'), required=True)
     lyragw_notify_url = fields.Char(string=_('Instant Payment Notification URL'), help=_('URL to copy into your Lyra Expert Back Office > Settings > Notification rules.'), default=_get_notify_url, readonly=True)
     lyragw_gateway_url = fields.Char(string=_('Payment page URL'), help=_('Link to the payment page.'), default=constants.LYRAGW_PARAMS.get('GATEWAY_URL'), required=True)
@@ -213,13 +213,13 @@ class TransactionLyragw(models.Model):
         shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
 
         if not reference or not shasign or not status:
-            error_msg = 'Lyra : received bad data {}'.format(data)
+            error_msg = 'Lyra Collect : received bad data {}'.format(data)
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
         tx = self.search([('reference', '=', reference)])
         if not tx or len(tx) > 1:
-            error_msg = 'Lyra: received data for reference {}'.format(reference)
+            error_msg = 'Lyra Collect: received data for reference {}'.format(reference)
             if not tx:
                 error_msg += '; no order found'
             else:
@@ -231,7 +231,7 @@ class TransactionLyragw(models.Model):
         # Verify shasign.
         shasign_check = tx.acquirer_id._lyragw_generate_sign('out', data)
         if shasign_check.upper() != shasign.upper():
-            error_msg = 'Lyra: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, data)
+            error_msg = 'Lyra Collect: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, data)
             _logger.info(error_msg)
             raise ValidationError(error_msg)
 
@@ -312,7 +312,7 @@ class TransactionLyragw(models.Model):
             auth_result = data.get('vads_auth_result')
             auth_message = _('See the transaction details for more information ({}).').format(auth_result)
 
-            error_msg = 'Lyra payment error, transaction status: {}, authorization result: {}.'.format(status, auth_result)
+            error_msg = 'Lyra Collect payment error, transaction status: {}, authorization result: {}.'.format(status, auth_result)
             _logger.info(error_msg)
 
             values.update({

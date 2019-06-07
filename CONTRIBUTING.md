@@ -1,6 +1,6 @@
-# Contributing to Lyra plugin for Odoo
+# Contributing to Lyra Collect plugin for Odoo
 
-Anyone is welcome to contribute to Lyra plugin for Odoo. There are various ways you can contribute:
+Anyone is welcome to contribute to Lyra Collect plugin for Odoo. There are various ways you can contribute:
 
 - Raise an issue on GitHub.
 - Send us a Pull Request on **develop** branch with your bug fixes.
