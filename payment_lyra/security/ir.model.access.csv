@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_lyra_card_system,lyra.card.system,model_lyra_card,base.group_system,1,1,1,1
+access_lyra_language_system,lyra.language.system,model_lyra_language,base.group_system,1,1,1,1
