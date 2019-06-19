@@ -1,4 +1,4 @@
-1.1.0, 2019-05-10
+1.1.0, 2019-06-17
 =============
 - Compatibility with Odoo 11 and 12 versions.
 - Added Spanish translation.
