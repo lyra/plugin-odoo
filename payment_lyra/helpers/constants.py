@@ -10,6 +10,7 @@
 from odoo import _
 
 LYRA_PLUGIN_FEATURES = {
+    'multi' : True,
     'qualif': False,
     'shatwo': True,
 }
@@ -28,7 +29,7 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '1.1.1',
+    'PLUGIN_VERSION': '1.2.0',
     'CMS_IDENTIFIER': 'Odoo_10-12',
 }
 

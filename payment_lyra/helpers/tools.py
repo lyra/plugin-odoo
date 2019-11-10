@@ -11,7 +11,6 @@ from odoo import _
 
 from .constants import LYRA_CURRENCIES
 
-
 def find_currency(iso):
     for currency in LYRA_CURRENCIES:
         if currency[0] == iso:

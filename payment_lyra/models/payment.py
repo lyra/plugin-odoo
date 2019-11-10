@@ -50,14 +50,19 @@ class AcquirerLyra(models.Model):
     if constants.LYRA_PLUGIN_FEATURES.get('shatwo') == False:
         sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon.')
 
-    provider = fields.Selection(selection_add=[('lyra', 'Lyra Collect')])
+    providers = [('lyra', _('Lyra Collect - Standard payment'))]
 
-    lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'), required=True)
-    lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'), required=True)
-    lyra_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRA_PARAMS.get('KEY_PROD'), required=True)
-    lyra_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRA_PARAMS.get('SIGN_ALGO'), required=True)
+    if constants.LYRA_PLUGIN_FEATURES.get('multi') == True:
+        providers.append(('lyramulti', _('Lyra Collect - Payment in installments')))
+
+    provider = fields.Selection(selection_add=providers)
+
+    lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'))
+    lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'))
+    lyra_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRA_PARAMS.get('KEY_PROD'))
+    lyra_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRA_PARAMS.get('SIGN_ALGO'))
     lyra_notify_url = fields.Char(string=_('Instant Payment Notification URL'), help=_('URL to copy into your Lyra Expert Back Office > Settings > Notification rules.'), default=_get_notify_url, readonly=True)
-    lyra_gateway_url = fields.Char(string=_('Payment page URL'), help=_('Link to the payment page.'), default=constants.LYRA_PARAMS.get('GATEWAY_URL'), required=True)
+    lyra_gateway_url = fields.Char(string=_('Payment page URL'), help=_('Link to the payment page.'), default=constants.LYRA_PARAMS.get('GATEWAY_URL'))
     lyra_language = fields.Selection(string=_('Default language'), help=_('Default language on the payment page.'), default=constants.LYRA_PARAMS.get('LANGUAGE'), selection=_get_languages)
     lyra_available_languages = fields.Many2many('lyra.language', string=_('Available languages'), column1='code', column2='label', help=_('Languages available on the payment page. If you do not select any, all the supported languages will be available.'))
     lyra_capture_delay = fields.Char(string=_('Capture delay'), help=_('The number of days before the bank capture (adjustable in your Lyra Expert Back Office).'))
@@ -70,6 +75,11 @@ class AcquirerLyra(models.Model):
     lyra_redirect_error_timeout = fields.Char(string=_('Redirection timeout on failure'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment.'))
     lyra_redirect_error_message = fields.Char(string=_('Redirection message on failure'), help=_('Message displayed on the payment page prior to redirection after a declined payment.'), default=_('Redirection to shop in a few seconds...'))
     lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
+
+    if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
+        lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
+        lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
+        lyra_multi_first = fields.Char(string=_('1st payment'), help=_('Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount.'))
 
     # Check if it's Odoo 10.
     lyra_odoo10 = True if parse_version(release.version) < parse_version('11') else False
@@ -90,6 +100,19 @@ class AcquirerLyra(models.Model):
             shasign = base64.b64encode(hmac.new(key.encode('utf-8'), sign.encode('utf-8'), sha256).digest()).decode('utf-8')
 
         return shasign
+
+    def _get_payment_config(self, amount):
+        if self.provider == 'lyramulti':
+            if (self.lyra_multi_first):
+                first = int(float(self.lyra_multi_first) / 100 * int(amount))
+            else:
+                first = int(float(amount) / float(self.lyra_multi_count))
+
+            payment_config = u'MULTI:first=' + str(first) + u';count=' + self.lyra_multi_count + u';period=' + self.lyra_multi_period
+        else:
+            payment_config = u'SINGLE'
+
+        return payment_config
 
     @api.multi
     def lyra_form_generate_values(self, values):
@@ -134,7 +157,7 @@ class AcquirerLyra(models.Model):
             'vads_ctx_mode': mode,
             'vads_page_action': u'PAYMENT',
             'vads_action_mode': u'INTERACTIVE',
-            'vads_payment_config': u'SINGLE',
+            'vads_payment_config': self._get_payment_config(amount),
             'vads_version': constants.LYRA_PARAMS.get('GATEWAY_VERSION'),
             'vads_url_return': urlparse.urljoin(base_url, LyraController._return_url),
             'vads_order_id': str(values.get('reference')),
@@ -191,9 +214,16 @@ class AcquirerLyra(models.Model):
         return lyra_tx_values
 
     @api.multi
+    def lyramulti_form_generate_values(self, values):
+        return self.lyra_form_generate_values(values)
+
+    @api.multi
     def lyra_get_form_action_url(self):
         return self.lyra_gateway_url
 
+    @api.multi
+    def lyramulti_get_form_action_url(self):
+        return self.lyra_gateway_url
 
 class TransactionLyra(models.Model):
     _inherit = 'payment.transaction'

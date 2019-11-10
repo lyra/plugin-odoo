@@ -1,6 +1,11 @@
+1.2.0, 2019-12-30
+=============
+- [multi] Adding payment in installments sub-module.
+
 1.1.1, 2019-12-16
 =============
 - Bug fix: incorrect payment amount rounding.
+
 
 1.1.0, 2019-06-17
 =============
