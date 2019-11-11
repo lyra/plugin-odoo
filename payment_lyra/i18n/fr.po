@@ -2,11 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Lyra Collect Payment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-03 14:43+0200\n"
-"PO-Revision-Date: 2019-11-11 14:52+0100\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2019-11-11 16:37+0100\n"
+"PO-Revision-Date: 2019-11-11 16:41+0100\n"
 "Language-Team: Lyra Network\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,382 +13,496 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: ..\n"
+"Last-Translator: \n"
+"Language: fr\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Chinese"
 msgstr "Chinois"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "German"
 msgstr "Allemand"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Spanish"
 msgstr "Espagnol"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "English"
 msgstr "Anglais"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "French"
 msgstr "Français"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Italian"
 msgstr "Italien"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Japanese"
 msgstr "Japonais"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Dutch"
 msgstr "Néerlandais"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Polish"
 msgstr "Polonais"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Portuguese"
 msgstr "Portugais"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Russian"
 msgstr "Russe"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Swedish"
 msgstr "Suédois"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/helpers/tools.py:23 code:addons/payment_lyra/models/payment.py:46
+#: code:addons/payment_lyra/helpers/tools.py:23
+#: code:addons/payment_lyra/models/payment.py:46
 msgid "Turkish"
 msgstr "Turc"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_sign_algo
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_sign_algo
 msgid ""
-"Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in "
-"the Lyra Expert Back Office."
+"Algorithm used to compute the payment form signature. Selected algorithm "
+"must be the same as one configured in the Lyra Expert Back Office."
 msgstr ""
-"Algorithme utilisé pour calculer la signature du formulaire de paiement. L'algorithme sélectionné doit être le "
-"même que celui configuré sur le Back Office Lyra Expert."
+"Algorithme utilisé pour calculer la signature du formulaire de paiement. "
+"L'algorithme sélectionné doit être le même que celui configuré sur le Back "
+"Office Lyra Expert."
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment.py:51
 msgid ""
-"The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, "
-"the feature will be available soon."
+"The HMAC-SHA-256 algorithm should not be activated if it is not yet "
+"available in the Lyra Expert Back Office, the feature will be available soon."
 msgstr ""
-"Le SHA-256 ne doit pas être activé si celui-ci n'est pas encore disponible depuis le Back Office Lyra Expert, "
-"la fonctionnalité sera disponible prochainement."
+"L'algorithme HMAC-SHA-256 ne doit pas être activé si celui-ci n'est pas "
+"encore  disponible depuis le Back Office Lyra Expert, la fonctionnalité sera "
+"disponible prochainement."
 
 #. module: payment_lyra
-#: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyra selection:payment.acquirer,provider:0
+#: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyra
+#: selection:payment.acquirer,provider:0
 msgid "Lyra Collect - Standard payment"
 msgstr "Lyra Collect - Paiement standard"
 
 #. module: payment_lyra
-#: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyramulti selection:payment.acquirer,provider:0
+#: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyramulti
+#: selection:payment.acquirer,provider:0
 msgid "Lyra Collect - Payment in installments"
 msgstr "Lyra Collect - Paiement en plusieurs fois"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_site_id
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_site_id
 msgid "Shop ID"
 msgstr "Identifiant boutique"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_site_id
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_site_id
 msgid "The identifier provided by Lyra Collect."
 msgstr "L'identifiant fourni par Lyra Collect."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_key_test
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_key_test
 msgid "Key in test mode"
 msgstr "Clé en mode test"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_key_test
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_key_test
-msgid "Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office)."
-msgstr "Clé fourni par Lyra Collect pour le mode test (disponible sur le Back Office Lyra Expert)."
+msgid ""
+"Key provided by Lyra Collect for test mode (available in Lyra Expert Back "
+"Office)."
+msgstr ""
+"Clé fourni par Lyra Collect pour le mode test (disponible sur le Back Office "
+"Lyra Expert)."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_key_prod
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_key_prod
 msgid "Key in production mode"
 msgstr "Clé en mode production"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_key_prod
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_key_prod
-msgid "Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode)."
-msgstr "Clé fournie par Lyra Collect (disponible sur le Back Office Lyra Expert après passage en production)."
+msgid ""
+"Key provided by Lyra Collect (available in Lyra Expert Back Office after "
+"enabling production mode)."
+msgstr ""
+"Clé fournie par Lyra Collect (disponible sur le Back Office Lyra Expert "
+"après passage en production)."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_sign_algo
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_sign_algo
 msgid "Signature algorithm"
 msgstr "Algorithme de signature"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_notify_url
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_notify_url
 msgid "Instant Payment Notification URL"
 msgstr "URL de notification"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_notify_url
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_notify_url
-msgid "URL to copy into your Lyra Expert Back Office > Settings > Notification rules."
-msgstr "URL à copier dans le Back Office Lyra Expert > Paramétrage > Règles de notifications."
+msgid ""
+"URL to copy into your Lyra Expert Back Office > Settings > Notification "
+"rules."
+msgstr ""
+"URL à copier dans le Back Office Lyra Expert > Paramétrage > Règles de "
+"notifications."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_gateway_url
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_gateway_url
 msgid "Payment page URL"
 msgstr "URL de la page de paiement"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_gateway_url
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_gateway_url
 msgid "Link to the payment page."
 msgstr "URL vers laquelle l'acheteur sera redirigé pour le paiement."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_language
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_language
 msgid "Default language"
 msgstr "Langue par défaut"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_language
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_language
 msgid "Default language on the payment page."
 msgstr "Sélectionner la langue par défaut à utiliser sur la page de paiement."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_available_languages
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_available_languages
 msgid "Available languages"
 msgstr "Langues disponibles"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_available_languages
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_available_languages
 msgid ""
-"Languages available on the payment page. If you do not select any, all the supported languages will be "
-"available."
+"Languages available on the payment page. If you do not select any, all the "
+"supported languages will be available."
 msgstr ""
-"Sélectionner les langues à proposer sur la page de paiement. Ne rien sélectionner pour utiliser la "
-"configuration de la plateforme."
+"Sélectionner les langues à proposer sur la page de paiement. Ne rien "
+"sélectionner pour utiliser la configuration de la plateforme."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_capture_delay
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_capture_delay
 msgid "Capture delay"
 msgstr "Délai avant remise en banque"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_capture_delay
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_capture_delay
-msgid "The number of days before the bank capture (adjustable in your Lyra Expert Back Office)."
-msgstr "Le nombre de jours avant la remise en banque (paramétrable sur votre Back Office Lyra Expert)."
+msgid ""
+"The number of days before the bank capture (adjustable in your Lyra Expert "
+"Back Office)."
+msgstr ""
+"Le nombre de jours avant la remise en banque (paramétrable sur votre Back "
+"Office Lyra Expert)."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_validation_mode
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_validation_mode
 msgid "Validation mode"
 msgstr "Mode de validation"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_validation_mode
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_validation_mode
-msgid "If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office."
-msgstr "En mode manuel, vous devrez confirmer les paiements dans le Back Office Lyra Expert."
+msgid ""
+"If manual is selected, you will have to confirm payments manually in your "
+"Lyra Expert Back Office."
+msgstr ""
+"En mode manuel, vous devrez confirmer les paiements dans le Back Office Lyra "
+"Expert."
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:59
+#: selection:payment.acquirer,lyra_validation_mode:0
 msgid "Lyra Expert Back Office Configuration"
 msgstr "Configuration Back Office Lyra Expert"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:59
+#: selection:payment.acquirer,lyra_validation_mode:0
 msgid "Automatic"
 msgstr "Automatique"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:59
+#: selection:payment.acquirer,lyra_validation_mode:0
 msgid "Manual"
 msgstr "Manuel"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_payment_cards
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_payment_cards
 msgid "Card types"
 msgstr "Types de carte"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_payment_cards
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_payment_cards
-msgid "The card type(s) that can be used for the payment. Select none to use gateway configuration."
+msgid ""
+"The card type(s) that can be used for the payment. Select none to use "
+"gateway configuration."
 msgstr ""
-"Le(s) type(s) de carte pouvant être utilisé(s) pour le paiement. Ne rien sélectionner pour utiliser la "
-"configuration de la plateforme."
+"Le(s) type(s) de carte pouvant être utilisé(s) pour le paiement. Ne rien "
+"sélectionner pour utiliser la configuration de la plateforme."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_threeds_min_amount
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_threeds_min_amount
 msgid "Disable 3DS"
 msgstr "Désactiver 3DS"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_threeds_min_amount
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_threeds_min_amount
 msgid ""
-"Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, "
-"refer to the module documentation."
+"Amount below which 3DS will be disabled. Needs subscription to selective 3DS "
+"option. For more information, refer to the module documentation."
 msgstr ""
-"Montant en dessous duquel 3DS sera désactivé. Nécessite la souscription à l'option 3DS sélectif. Pour plus "
-"d'informations, reportez-vous à la documentation du module."
+"Montant en dessous duquel 3DS sera désactivé. Nécessite la souscription à "
+"l'option 3DS sélectif. Pour plus d'informations, reportez-vous à la "
+"documentation du module."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_redirect_enabled
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_redirect_enabled
 msgid "Automatic redirection"
 msgstr "Redirection automatique"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_redirect_enabled
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_redirect_enabled
-msgid "If enabled, the buyer is automatically redirected to your site at the end of the payment."
-msgstr "Si activée, l'acheteur sera redirigé automatiquement vers votre site à la fin du paiement."
+msgid ""
+"If enabled, the buyer is automatically redirected to your site at the end of "
+"the payment."
+msgstr ""
+"Si activée, l'acheteur sera redirigé automatiquement vers votre site à la "
+"fin du paiement."
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:62
+#: selection:payment.acquirer,lyra_redirect_enabled:0
 msgid "Disabled"
 msgstr "Désactivée"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:62
+#: selection:payment.acquirer,lyra_redirect_enabled:0
 msgid "Enabled"
 msgstr "Activée"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_redirect_success_timeout
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_redirect_success_timeout
 msgid "Redirection timeout on success"
 msgstr "Temps avant redirection (succès)"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_redirect_success_timeout
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_redirect_success_timeout
 msgid ""
-"Time in seconds (0-300) before the buyer is automatically redirected to your website after a successful "
-"payment."
+"Time in seconds (0-300) before the buyer is automatically redirected to your "
+"website after a successful payment."
 msgstr ""
-"Temps en secondes (0-300) avant que l'acheteur ne soit redirigé automatiquement vers votre site lorsque le "
-"paiement a réussi."
+"Temps en secondes (0-300) avant que l'acheteur ne soit redirigé "
+"automatiquement vers votre site lorsque le paiement a réussi."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_redirect_success_message
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_redirect_success_message
 msgid "Redirection message on success"
 msgstr "Message avant redirection (succès)"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_redirect_success_message
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_redirect_success_message
-msgid "Message displayed on the payment page prior to redirection after a successful payment."
-msgstr "Message affiché sur la page de paiement avant redirection lorsque le paiement a réussi."
+msgid ""
+"Message displayed on the payment page prior to redirection after a "
+"successful payment."
+msgstr ""
+"Message affiché sur la page de paiement avant redirection lorsque le "
+"paiement a réussi."
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:64 code:addons/payment_lyra/models/payment.py:66
+#: code:addons/payment_lyra/models/payment.py:74
+#: code:addons/payment_lyra/models/payment.py:76
+#, python-format
 msgid "Redirection to shop in a few seconds..."
 msgstr "Redirection vers la boutique dans quelques instants..."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_redirect_error_timeout
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_redirect_error_timeout
 msgid "Redirection timeout on failure"
 msgstr "Temps avant redirection (échec)"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_redirect_error_timeout
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_redirect_error_timeout
 msgid ""
-"Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment."
+"Time in seconds (0-300) before the buyer is automatically redirected to your "
+"website after a declined payment."
 msgstr ""
-"Temps en secondes (0-300) avant que l'acheteur ne soit redirigé automatiquement vers votre site lorsque le "
-"paiement a échoué."
+"Temps en secondes (0-300) avant que l'acheteur ne soit redirigé "
+"automatiquement vers votre site lorsque le paiement a échoué."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_redirect_error_message
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_redirect_error_message
 msgid "Redirection message on failure"
 msgstr "Message avant redirection (échec)"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_redirect_error_message
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_redirect_error_message
-msgid "Message displayed on the payment page prior to redirection after a declined payment."
-msgstr "Message affiché sur la page de paiement avant redirection, lorsque le paiement a échoué."
+msgid ""
+"Message displayed on the payment page prior to redirection after a declined "
+"payment."
+msgstr ""
+"Message affiché sur la page de paiement avant redirection, lorsque le "
+"paiement a échoué."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_return_mode
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_return_mode
 msgid "Return mode"
 msgstr "Mode de retour"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_return_mode
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_return_mode
-msgid "Method that will be used for transmitting the payment result from the payment page to your shop."
-msgstr "Façon dont l'acheteur transmettra le résultat du paiement lors de son retour à la boutique."
+msgid ""
+"Method that will be used for transmitting the payment result from the "
+"payment page to your shop."
+msgstr ""
+"Façon dont l'acheteur transmettra le résultat du paiement lors de son retour "
+"à la boutique."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_count
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_multi_count
 msgid "Count"
 msgstr "Nombre"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_count
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_count
 msgid "Total number of payments."
 msgstr "Nombre total d'échéances"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_period
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_multi_period
 msgid "Period"
 msgstr "Période"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_period
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_period
 msgid "Delay (in days) between payments."
 msgstr "Délai entre deux échéances (en jours)."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_first
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_multi_first
 msgid "1st payment"
 msgstr "1er paiement"
 
 #. module: payment_lyra
+#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_first
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_first
-msgid "Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount."
+msgid ""
+"Amount of first payment, in percentage of total amount. If empty, all "
+"payments will have the same amount."
 msgstr ""
-"Montant de la première échéance en pourcentage du total. Si vide, toutes les échéances auront le même montant."
+"Montant de la première échéance en pourcentage du total. Si vide, toutes les "
+"échéances auront le même montant."
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_lyra_trans_status
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_trans_status
 msgid "Transaction status"
-msgstr "Statut de transaction"
+msgstr "Statut de la transaction"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_lyra_card_brand
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_card_brand
 msgid "Means of payment"
 msgstr "Moyen de paiement"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_lyra_card_number
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_card_number
 msgid "Card number"
 msgstr "Numéro de carte"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_lyra_expiration_date
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_expiration_date
 msgid "Expiration date"
 msgstr "Date d'expiration"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_lyra_auth_result
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_auth_result
 msgid "Authorization result"
 msgstr "Résultat d'autorisation"
 
 #. module: payment_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_lyra_raw_data
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_raw_data
 #: model_terms:ir.ui.view,arch_db:payment_lyra.transaction_form_lyra
+#: model:ir.ui.view,arch_db:payment_lyra.transaction_form_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_state_message
 msgid "Transaction log"
 msgstr "Log de la transaction"
 
@@ -412,7 +524,7 @@ msgstr "Certificat 3DS: "
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment.py:267
 msgid "NO"
-msgstr "NON"
+msgstr "Non"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment.py:314
@@ -421,25 +533,30 @@ msgstr "Voir le détail de la transaction pour plus d'information ({})."
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
+#: model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "PAYMENT GATEWAY ACCESS"
 msgstr "ACCÈS À LA PLATEFORME"
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
+#: model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "PAYMENT PAGE"
 msgstr "PAGE DE PAIEMENT"
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
+#: model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "SELECTIVE 3DS"
 msgstr "3DS SÉLECTIF"
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti
+#: model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti
 msgid "PAYMENT OPTIONS"
 msgstr "OPTIONS DE PAIEMENT"
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
+#: model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "RETURN TO SHOP"
 msgstr "RETOUR À LA BOUTIQUE"

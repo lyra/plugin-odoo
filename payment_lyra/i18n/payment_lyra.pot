@@ -232,17 +232,17 @@ msgid "If manual is selected, you will have to confirm payments manually in your
 msgstr ""
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:59
+#: selection:payment.acquirer,lyra_validation_mode:0
 msgid "Lyra Expert Back Office Configuration"
 msgstr ""
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:59
+#: selection:payment.acquirer,lyra_validation_mode:0
 msgid "Automatic"
 msgstr ""
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:59
+#: selection:payment.acquirer,lyra_validation_mode:0
 msgid "Manual"
 msgstr ""
 
@@ -283,12 +283,12 @@ msgid "If enabled, the buyer is automatically redirected to your site at the end
 msgstr ""
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:62
+#: selection:payment.acquirer,lyra_redirect_enabled:0
 msgid "Disabled"
 msgstr ""
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:62
+#: selection:payment.acquirer,lyra_redirect_enabled:0
 msgid "Enabled"
 msgstr ""
 
@@ -317,8 +317,9 @@ msgid "Message displayed on the payment page prior to redirection after a succes
 msgstr ""
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:64
-#: code:addons/payment_lyra/models/payment.py:66
+#: code:addons/payment_lyra/models/payment.py:74
+#: code:addons/payment_lyra/models/payment.py:76
+#, python-format
 msgid "Redirection to shop in a few seconds..."
 msgstr ""
 
@@ -395,12 +396,6 @@ msgid "Amount of first payment, in percentage of total amount. If empty, all pay
 msgstr ""
 
 #. module: payment_lyra
-#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_state_message
-#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__state_message
-msgid "Transaction log"
-msgstr ""
-
-#. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_lyra_trans_status
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_trans_status
 msgid "Transaction status"
@@ -435,6 +430,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_raw_data
 #: model_terms:ir.ui.view,arch_db:payment_lyra.transaction_form_lyra
 #: model:ir.ui.view,arch_db:payment_lyra.transaction_form_lyra
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_state_message
 msgid "Transaction log"
 msgstr ""
 
