@@ -84,8 +84,24 @@ class AcquirerLyra(models.Model):
     # Check if it's Odoo 10.
     lyra_odoo10 = True if parse_version(release.version) < parse_version('11') else False
 
+    # Compatibility betwen Odoo 13 and previous versions.
+    lyra_odoo13 = True if parse_version(release.version) >= parse_version('13') else False
+    
+    if lyra_odoo13:
+        image = fields.Char()
+        environment = fields.Char()
+    else:
+        image_128 = fields.Char()
+        state = fields.Char()
+
+    def _get_ctx_mode(self):
+        ctx_key = self.state if self.lyra_odoo13 else self.environment
+        ctx_value = 'TEST' if ctx_key == 'test' else 'PRODUCTION'
+
+        return ctx_value
+
     def _lyra_generate_sign(self, acquirer, values):
-        key = self.lyra_key_prod if self.environment == 'prod' else self.lyra_key_test
+        key = self.lyra_key_prod if self._get_ctx_mode() == 'PRODUCTION' else self.lyra_key_test
 
         sign = ''
         for k in sorted(values.keys()):
@@ -114,7 +130,6 @@ class AcquirerLyra(models.Model):
 
         return payment_config
 
-    @api.multi
     def lyra_form_generate_values(self, values):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
 
@@ -123,8 +138,6 @@ class AcquirerLyra(models.Model):
         midnight = now.replace(hour = 0, minute = 0, second = 0, microsecond = 0)
         delta = int((now - midnight).total_seconds() * 10)
         trans_id = str(delta).rjust(6, '0')
-
-        mode = u'PRODUCTION' if self.environment == 'prod' else u'TEST'
 
         threeds_mpi = u''
         if self.lyra_threeds_min_amount and float(self.lyra_threeds_min_amount) > values['amount']:
@@ -154,7 +167,7 @@ class AcquirerLyra(models.Model):
             'vads_currency': tools.find_currency(values['currency'].name),
             'vads_trans_date': str(datetime.utcnow().strftime("%Y%m%d%H%M%S")),
             'vads_trans_id': str(trans_id),
-            'vads_ctx_mode': mode,
+            'vads_ctx_mode': str(self._get_ctx_mode()),
             'vads_page_action': u'PAYMENT',
             'vads_action_mode': u'INTERACTIVE',
             'vads_payment_config': self._get_payment_config(amount),
@@ -213,15 +226,12 @@ class AcquirerLyra(models.Model):
         lyra_tx_values['lyra_signature'] = self._lyra_generate_sign(self, tx_values)
         return lyra_tx_values
 
-    @api.multi
     def lyramulti_form_generate_values(self, values):
         return self.lyra_form_generate_values(values)
 
-    @api.multi
     def lyra_get_form_action_url(self):
         return self.lyra_gateway_url
 
-    @api.multi
     def lyramulti_get_form_action_url(self):
         return self.lyra_gateway_url
 
@@ -239,7 +249,7 @@ class TransactionLyra(models.Model):
     # FORM RELATED METHODS
     # --------------------------------------------------
 
-    @api.model
+    #@api.model
     def _lyra_form_get_tx_from_data(self, data):
         shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
 

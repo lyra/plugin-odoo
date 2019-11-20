@@ -19,7 +19,6 @@ class LyraCard(models.Model):
     code = fields.Char()
     label = fields.Char()
 
-    @api.model_cr
     def init(self):
         cards = constants.LYRA_CARDS
 

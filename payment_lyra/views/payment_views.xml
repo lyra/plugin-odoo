@@ -21,27 +21,27 @@
                             <field name="lyra_site_id" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_key_test" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_key_prod" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_sign_algo" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" style="background-color: unset !important;" />
+                            <field name="lyra_sign_algo" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_notify_url" />
                             <field name="lyra_gateway_url" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}"/>
                         </group>
                         <group string="PAYMENT PAGE">
-                            <field name="lyra_language" attrs="{'required': [('provider', 'in', ('lyra'))]}" style="background-color: unset !important;" />
+                            <field name="lyra_language" attrs="{'required': [('provider', 'in', ('lyra'))]}" />
                             <field name="lyra_available_languages" widget="many2many_tags" options="{'no_create': True}" />
                             <field name="lyra_capture_delay" />
-                            <field name="lyra_validation_mode" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" style="background-color: unset !important;" />
+                            <field name="lyra_validation_mode" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_payment_cards" widget="many2many_tags" options="{'no_create': True}" />
                         </group>
                         <group name="lyra_selective_3ds" string="SELECTIVE 3DS">
                             <field name="lyra_threeds_min_amount" />
                         </group>
                         <group string="RETURN TO SHOP">
-                            <field name="lyra_redirect_enabled" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" style="background-color: unset !important;" />
+                            <field name="lyra_redirect_enabled" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_redirect_success_timeout" />
                             <field name="lyra_redirect_success_message" />
                             <field name="lyra_redirect_error_timeout" />
                             <field name="lyra_redirect_error_message" />
-                            <field name="lyra_return_mode" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" style="background-color: unset !important;" />
+                            <field name="lyra_return_mode" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                         </group>
                     </div>
                 </xpath>

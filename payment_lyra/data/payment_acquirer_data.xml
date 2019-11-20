@@ -13,16 +13,16 @@
         <record id="payment_acquirer_lyra" model="payment.acquirer">
             <field name="name"><![CDATA[Lyra Collect - Standard payment]]></field>
             <field name="image" type="base64" file="payment_lyra/static/src/img/logo.png" />
+            <field name="image_128" type="base64" file="payment_lyra/static/src/img/logo.png" />
             <field name="provider">lyra</field>
+            <field name="state">test</field>
             <field name="company_id" ref="base.main_company" />
             <field name="view_template_id" ref="lyra_acquirer_button" />
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
 
-            <field name="lyra_available_languages"></field>
             <field name="lyra_capture_delay"></field>
             <field name="lyra_validation_mode"> </field>
-            <field name="lyra_payment_cards"></field>
             <field name="lyra_threeds_min_amount"></field>
             <field name="lyra_redirect_enabled">0</field>
             <field name="lyra_redirect_success_timeout">5</field>
@@ -36,22 +36,21 @@
                     <li class="list-inline-item"><i class="fa fa-check" />eCommerce</li>
                 </ul>
             </field>
-            <!--field name="payment_icon_ids" eval='[(6, 0, [ref("lyra_icon_cards")])]'/-->
         </record>
 
         <record id="payment_acquirer_lyramulti" model="payment.acquirer">
             <field name="name"><![CDATA[Lyra Collect - Payment in installments]]></field>
             <field name="image" type="base64" file="payment_lyra/static/src/img/logo.png" />
+            <field name="image_128" type="base64" file="payment_lyra/static/src/img/logo.png" />
             <field name="provider">lyramulti</field>
+            <field name="state">test</field>
             <field name="company_id" ref="base.main_company" />
             <field name="view_template_id" ref="lyra_acquirer_button" />
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
 
-            <field name="lyra_available_languages"></field>
             <field name="lyra_capture_delay"></field>
             <field name="lyra_validation_mode"> </field>
-            <field name="lyra_payment_cards"></field>
             <field name="lyra_threeds_min_amount"></field>
             <field name="lyra_multi_count">3</field>
             <field name="lyra_multi_period">30</field>
@@ -68,7 +67,6 @@
                     <li class="list-inline-item"><i class="fa fa-check" />eCommerce</li>
                 </ul>
             </field>
-            <!--field name="payment_icon_ids" eval='[(6, 0, [ref("lyra_icon_cards_multi")])]'/-->
         </record>
     </data>
 </odoo>

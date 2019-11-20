@@ -19,7 +19,6 @@ class LyraLanguage(models.Model):
     code = fields.Char()
     label = fields.Char(translate=tools.lang_translate)
 
-    @api.model_cr
     def init(self):
         languages = constants.LYRA_LANGUAGES
 
