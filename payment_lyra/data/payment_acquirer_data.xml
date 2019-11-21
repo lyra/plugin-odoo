@@ -22,7 +22,7 @@
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
 
             <field name="lyra_capture_delay"></field>
-            <field name="lyra_validation_mode"> </field>
+            <field name="lyra_validation_mode">-1</field>
             <field name="lyra_threeds_min_amount"></field>
             <field name="lyra_redirect_enabled">0</field>
             <field name="lyra_redirect_success_timeout">5</field>
@@ -50,7 +50,7 @@
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
 
             <field name="lyra_capture_delay"></field>
-            <field name="lyra_validation_mode"> </field>
+            <field name="lyra_validation_mode">-1</field>
             <field name="lyra_threeds_min_amount"></field>
             <field name="lyra_multi_count">3</field>
             <field name="lyra_multi_period">30</field>

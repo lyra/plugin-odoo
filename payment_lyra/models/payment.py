@@ -66,7 +66,7 @@ class AcquirerLyra(models.Model):
     lyra_language = fields.Selection(string=_('Default language'), help=_('Default language on the payment page.'), default=constants.LYRA_PARAMS.get('LANGUAGE'), selection=_get_languages)
     lyra_available_languages = fields.Many2many('lyra.language', string=_('Available languages'), column1='code', column2='label', help=_('Languages available on the payment page. If you do not select any, all the supported languages will be available.'))
     lyra_capture_delay = fields.Char(string=_('Capture delay'), help=_('The number of days before the bank capture (adjustable in your Lyra Expert Back Office).'))
-    lyra_validation_mode = fields.Selection(string=_('Validation mode'), help=_('If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office.'), selection=[(' ', _('Lyra Expert Back Office Configuration')), ('0', _('Automatic')), ('1', _('Manual'))])
+    lyra_validation_mode = fields.Selection(string=_('Validation mode'), help=_('If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office.'), selection=[('-1', _('Lyra Expert Back Office Configuration')), ('0', _('Automatic')), ('1', _('Manual'))])
     lyra_payment_cards = fields.Many2many('lyra.card', string=_('Card types'), column1='code', column2='label', help=_('The card type(s) that can be used for the payment. Select none to use gateway configuration.'))
     lyra_threeds_min_amount = fields.Char(string=_('Disable 3DS'), help=_('Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, refer to the module documentation.'))
     lyra_redirect_enabled = fields.Selection(string=_('Automatic redirection'), help=_('If enabled, the buyer is automatically redirected to your site at the end of the payment.'), selection=[('0', _('Disabled')), ('1', _('Enabled'))])
@@ -157,6 +157,9 @@ class AcquirerLyra(models.Model):
         for value in self.lyra_payment_cards:
             payment_cards += value.code + ';'
 
+        #Validation mode
+        validation_mode = self.lyra_validation_mode if self.lyra_validation_mode != '-1' else ''
+
         # Enable redirection?
         self.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
 
@@ -179,7 +182,7 @@ class AcquirerLyra(models.Model):
             'vads_language': self.lyra_language or '',
             'vads_available_languages': available_languages,
             'vads_capture_delay': self.lyra_capture_delay or '',
-            'vads_validation_mode': self.lyra_validation_mode or '',
+            'vads_validation_mode': validation_mode,
             'vads_payment_cards': payment_cards,
             'vads_return_mode': str(self.lyra_return_mode),
             'vads_threeds_mpi': threeds_mpi,
