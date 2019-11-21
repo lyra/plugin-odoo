@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Odoo Lyra Collect Payment\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 16:37+0100\n"
-"PO-Revision-Date: 2019-11-11 16:41+0100\n"
+"PO-Revision-Date: 2019-11-21 13:56+0100\n"
 "Language-Team: Lyra Network\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -268,16 +268,19 @@ msgstr ""
 
 #. module: payment_lyra
 #: selection:payment.acquirer,lyra_validation_mode:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_validation_mode__-1
 msgid "Lyra Expert Back Office Configuration"
 msgstr "Configuration Back Office Lyra Expert"
 
 #. module: payment_lyra
 #: selection:payment.acquirer,lyra_validation_mode:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_validation_mode__0
 msgid "Automatic"
 msgstr "Automatique"
 
 #. module: payment_lyra
 #: selection:payment.acquirer,lyra_validation_mode:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_validation_mode__1
 msgid "Manual"
 msgstr "Manuel"
 
@@ -332,11 +335,13 @@ msgstr ""
 
 #. module: payment_lyra
 #: selection:payment.acquirer,lyra_redirect_enabled:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_redirect_enabled__0
 msgid "Disabled"
 msgstr "Désactivée"
 
 #. module: payment_lyra
 #: selection:payment.acquirer,lyra_redirect_enabled:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_redirect_enabled__1
 msgid "Enabled"
 msgstr "Activée"
 
