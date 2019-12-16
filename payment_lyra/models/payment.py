@@ -86,7 +86,7 @@ class AcquirerLyra(models.Model):
 
     # Compatibility betwen Odoo 13 and previous versions.
     lyra_odoo13 = True if parse_version(release.version) >= parse_version('13') else False
-    
+
     if lyra_odoo13:
         image = fields.Char()
         environment = fields.Char()
@@ -252,7 +252,7 @@ class TransactionLyra(models.Model):
     # FORM RELATED METHODS
     # --------------------------------------------------
 
-    #@api.model
+    @api.model
     def _lyra_form_get_tx_from_data(self, data):
         shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
 
