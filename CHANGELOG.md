@@ -7,7 +7,6 @@
 =============
 - Bug fix: incorrect payment amount rounding.
 
-
 1.1.0, 2019-06-17
 =============
 - Compatibility with Odoo 11 and 12 versions.
