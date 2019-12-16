@@ -108,7 +108,8 @@ class AcquirerLyra(models.Model):
             threeds_mpi = u'2'
 
         # Amount in cents.
-        amount = int(values['amount'] * math.pow(10, int(values['currency'].decimal_places)))
+        k = int(values['currency'].decimal_places)
+        amount = int(float_round(float_round(values['amount'], k) * (10 ** k), 0))
 
         # List of available languages.
         available_languages = ''
