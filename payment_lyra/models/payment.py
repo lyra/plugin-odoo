@@ -18,8 +18,8 @@ from pkg_resources import parse_version
 
 from odoo import models, api, release, fields, _
 from odoo.addons.payment.models.payment_acquirer import ValidationError
-from odoo.tools import float_round, DEFAULT_SERVER_DATE_FORMAT
-from odoo.tools.float_utils import float_compare, float_repr
+from odoo.tools import float_round
+from odoo.tools.float_utils import float_compare
 
 from ..controllers.main import LyraController
 from ..helpers import constants, tools
