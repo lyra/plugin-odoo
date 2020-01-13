@@ -12,6 +12,7 @@ from odoo import _
 # WARN: Do not modify code format here. This is managed by build files. 
 LYRA_PLUGIN_FEATURES = {
     'multi': True,
+    'restrictmulti': False,
     'qualif': False,
     'shatwo': True,
 }

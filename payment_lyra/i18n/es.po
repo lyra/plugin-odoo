@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Odoo Lyra Collect Payment\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 16:42+0100\n"
-"PO-Revision-Date: 2019-11-21 13:56+0100\n"
+"PO-Revision-Date: 2020-01-13 15:01+0100\n"
 "Language-Team: Lyra Network\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,6 +94,20 @@ msgstr "Sueco"
 #: code:addons/payment_lyra/models/payment.py:46
 msgid "Turkish"
 msgstr "Turco"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/models/payment.py:50
+msgid ""
+"ATTENTION: The payment in installments feature activation is subject to the "
+"prior agreement of Société Générale.<br />If you enable this feature while "
+"you have not the associated option, an error 10000 – "
+"INSTALLMENTS_NOT_ALLOWED or 07 - PAYMENT_CONFIG will occur and the buyer "
+"will not be able to pay."
+msgstr ""
+"ATENCIÓN: La activación de la función de pago en cuotas está sujeta al "
+"acuerdo previo de Societé Générale.<br />Si habilita esta función cuando no "
+"tiene la opción asociada, ocurrirá un error 10000 – INSTALLMENTS_NOT_ALLOWED "
+"o 07 - PAYMENT_CONFIG y el comprador no podrá pagar."
 
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_sign_algo
@@ -287,7 +301,7 @@ msgstr "Manual"
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_payment_cards
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_payment_cards
 msgid "Card types"
-msgstr ""
+msgstr "Tipos de tarjeta"
 
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_payment_cards
@@ -357,6 +371,8 @@ msgid ""
 "Time in seconds (0-300) before the buyer is automatically redirected to your "
 "website after a successful payment."
 msgstr ""
+"Tiempo en segundos (0-300) antes de que el comprador sea redirigido "
+"automáticamente a su sitio web después de un pago exitoso."
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_redirect_success_message

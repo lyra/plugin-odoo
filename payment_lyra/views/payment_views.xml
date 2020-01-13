@@ -17,7 +17,8 @@
             <field name="arch" type="xml">
                 <xpath expr='//group[@name="acquirer"]' position='after'>
                     <div attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}">
-                        <group string="PAYMENT GATEWAY ACCESS">
+                        <!--field name="lyra_multi_warning" widget="html" attrs="{'invisible': [('provider','!=','lyramulti'),('lyra_multi_warning','=','False')]}" /-->
+                        <group name="lyra_gateway_access" string="PAYMENT GATEWAY ACCESS">
                             <field name="lyra_site_id" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_key_test" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_key_prod" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
@@ -26,7 +27,7 @@
                             <field name="lyra_gateway_url" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}"/>
                         </group>
                         <group string="PAYMENT PAGE">
-                            <field name="lyra_language" attrs="{'required': [('provider', 'in', ('lyra'))]}" />
+                            <field name="lyra_language" attrs="{'required': [('provider', 'in', ('lyra','lyramulti'))]}" />
                             <field name="lyra_available_languages" widget="many2many_tags" options="{'no_create': True}" />
                             <field name="lyra_capture_delay" />
                             <field name="lyra_validation_mode" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
@@ -72,6 +73,11 @@
             <field name="model">payment.acquirer</field>
             <field name="inherit_id" ref="payment.acquirer_form" />
             <field name="arch" type="xml">
+                <xpath expr='//group[@name="lyra_gateway_access"]' position='before'>
+                    <div attrs="{'invisible': [('provider', '!=', 'lyramulti')]}">
+                        <field name="lyra_multi_warning" widget="html" attrs="{'invisible': [('lyra_multi_warning','=','False')]}" />
+                    </div>
+                </xpath>
                 <xpath expr='//group[@name="lyra_selective_3ds"]' position='after'>
                     <div attrs="{'invisible': [('provider', '!=', 'lyramulti')]}">
                         <group string="PAYMENT OPTIONS">

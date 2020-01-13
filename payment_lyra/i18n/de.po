@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Odoo Lyra Collect Payment\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-11 16:47+0100\n"
-"PO-Revision-Date: 2019-11-21 13:56+0100\n"
+"PO-Revision-Date: 2020-01-13 15:02+0100\n"
 "Language-Team: Lyra Network\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,11 +96,24 @@ msgid "Turkish"
 msgstr "Türkisch"
 
 #. module: payment_lyra
+#: code:addons/payment_lyra/models/payment.py:50
+msgid ""
+"ATTENTION: The payment in installments feature activation is subject to the "
+"prior agreement of Société Générale.<br />If you enable this feature while you "
+"have not the associated option, an error 10000 – INSTALLMENTS_NOT_ALLOWED or "
+"07 - PAYMENT_CONFIG will occur and the buyer will not be able to pay."
+msgstr ""
+"ATTENTION: The payment in installments feature activation is subject to the "
+"prior agreement of Société Générale.<br />If you enable this feature while you "
+"have not the associated option, an error 10000 – INSTALLMENTS_NOT_ALLOWED or "
+"07 - PAYMENT_CONFIG will occur and the buyer will not be able to pay."
+
+#. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_sign_algo
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_sign_algo
 msgid ""
-"Algorithm used to compute the payment form signature. Selected algorithm "
-"must be the same as one configured in the Lyra Expert Back Office."
+"Algorithm used to compute the payment form signature. Selected algorithm must "
+"be the same as one configured in the Lyra Expert Back Office."
 msgstr ""
 "Algorithmus zur Berechnung der Zahlungsformsignatur. Der ausgewählte "
 "Algorithmus muss derselbe sein, wie er im Lyra Expert Back Office."
@@ -108,12 +121,12 @@ msgstr ""
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment.py:51
 msgid ""
-"The HMAC-SHA-256 algorithm should not be activated if it is not yet "
-"available in the Lyra Expert Back Office, the feature will be available soon."
+"The HMAC-SHA-256 algorithm should not be activated if it is not yet available "
+"in the Lyra Expert Back Office, the feature will be available soon."
 msgstr ""
-"Der HMAC-SHA-256-Algorithmus sollte nicht aktiviert werden, wenn er noch "
-"nicht im Lyra Expert Back Office verfügbar ist. Die Funktion wird in Kürze "
-"verfügbar sein."
+"Der HMAC-SHA-256-Algorithmus sollte nicht aktiviert werden, wenn er noch nicht "
+"im Lyra Expert Back Office verfügbar ist. Die Funktion wird in Kürze verfügbar "
+"sein."
 
 #. module: payment_lyra
 #: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyra
@@ -187,8 +200,7 @@ msgstr "Benachrichtigung-URL"
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_notify_url
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_notify_url
 msgid ""
-"URL to copy into your Lyra Expert Back Office > Settings > Notification "
-"rules."
+"URL to copy into your Lyra Expert Back Office > Settings > Notification rules."
 msgstr ""
 "URL, die Sie in Ihre Lyra Expert Back Office kopieren sollen > Einstellung > "
 "Regeln der Benachrichtigungen."
@@ -230,8 +242,8 @@ msgid ""
 "Languages available on the payment page. If you do not select any, all the "
 "supported languages will be available."
 msgstr ""
-"Die Sprache auswählen, die auf die Bezahlungsseite vorgeschlagen werden. "
-"Wenn Sie keine auswählen, werden alle unterstützten Sprachen verfügbar."
+"Die Sprache auswählen, die auf die Bezahlungsseite vorgeschlagen werden. Wenn "
+"Sie keine auswählen, werden alle unterstützten Sprachen verfügbar."
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_capture_delay
@@ -259,8 +271,8 @@ msgstr "Bestätigungsmodus"
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_validation_mode
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_validation_mode
 msgid ""
-"If manual is selected, you will have to confirm payments manually in your "
-"Lyra Expert Back Office."
+"If manual is selected, you will have to confirm payments manually in your Lyra "
+"Expert Back Office."
 msgstr ""
 "Bei manueller Eingabe müssen Sie Zahlungen manuell in Ihrem Lyra Expert Back "
 "Office bestätigen."
@@ -293,8 +305,8 @@ msgstr "Art der Kreditkarten"
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_payment_cards
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_payment_cards
 msgid ""
-"The card type(s) that can be used for the payment. Select none to use "
-"gateway configuration."
+"The card type(s) that can be used for the payment. Select none to use gateway "
+"configuration."
 msgstr ""
 "Wählen Sie die zur Zahlung verfügbaren Kartentypen aus. Nichts auswählen, um "
 "die Einstellung der Zahlungsplattform zu benutzen."
@@ -329,8 +341,8 @@ msgid ""
 "If enabled, the buyer is automatically redirected to your site at the end of "
 "the payment."
 msgstr ""
-"Falls erlaubt, der Kaufer wurde automatisch am Ende des Zahlungsprozesses "
-"auf Ihre Webseite weitergeleitet."
+"Falls erlaubt, der Kaufer wurde automatisch am Ende des Zahlungsprozesses auf "
+"Ihre Webseite weitergeleitet."
 
 #. module: payment_lyra
 #: selection:payment.acquirer,lyra_redirect_enabled:0
@@ -370,8 +382,8 @@ msgstr "Erfolgreiche Meldung vor Umleitung"
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_redirect_success_message
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_redirect_success_message
 msgid ""
-"Message displayed on the payment page prior to redirection after a "
-"successful payment."
+"Message displayed on the payment page prior to redirection after a successful "
+"payment."
 msgstr ""
 "Meldung auf die Zahlungsseite vor Umleitung als die Zahlung ist erfolgreich."
 
@@ -395,8 +407,8 @@ msgid ""
 "Time in seconds (0-300) before the buyer is automatically redirected to your "
 "website after a declined payment."
 msgstr ""
-"Zeit in Sekunden (0-300) bevor der Käufer automatisch zu Ihrer Shop "
-"umgeleitet wird, als die Bezahlung verweigert wurde."
+"Zeit in Sekunden (0-300) bevor der Käufer automatisch zu Ihrer Shop umgeleitet "
+"wird, als die Bezahlung verweigert wurde."
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_redirect_error_message
@@ -424,11 +436,11 @@ msgstr "Übermittlungs-Modus"
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_return_mode
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_return_mode
 msgid ""
-"Method that will be used for transmitting the payment result from the "
-"payment page to your shop."
+"Method that will be used for transmitting the payment result from the payment "
+"page to your shop."
 msgstr ""
-"Methode, die für die Übermittlung des Zahlungsvorgang benützt wird, kommt "
-"aus der Bezahlungsseite zu Ihrem Geschäft."
+"Methode, die für die Übermittlung des Zahlungsvorgang benützt wird, kommt aus "
+"der Bezahlungsseite zu Ihrem Geschäft."
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_count
@@ -464,8 +476,8 @@ msgstr "1. Zahlung"
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_first
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_first
 msgid ""
-"Amount of first payment, in percentage of total amount. If empty, all "
-"payments will have the same amount."
+"Amount of first payment, in percentage of total amount. If empty, all payments "
+"will have the same amount."
 msgstr ""
 "Betrag der ersten Rate als Prozentsatz des Gesamtbetrags. Falls dies nicht "
 "angegeben ist, haben alle Raten den gleichen Betrag."
