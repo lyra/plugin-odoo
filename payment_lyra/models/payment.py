@@ -53,7 +53,7 @@ class AcquirerLyra(models.Model):
         if (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True):
             return message
         else:
-            return False
+            return ''
 
     sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office.')
 
@@ -87,7 +87,6 @@ class AcquirerLyra(models.Model):
     lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
 
     if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
-        lyra_multi_warning = fields.Html(default=_get_multi_warning, readonly=True)
         lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
         lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
         lyra_multi_first = fields.Char(string=_('1st payment'), help=_('Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount.'))
