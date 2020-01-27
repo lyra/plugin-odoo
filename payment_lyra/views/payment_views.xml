@@ -23,10 +23,10 @@
                             <field name="lyra_key_prod" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_sign_algo" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_notify_url" />
-                            <field name="lyra_gateway_url" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}"/>
+                            <field name="lyra_gateway_url" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                         </group>
                         <group string="PAYMENT PAGE">
-                            <field name="lyra_language" attrs="{'required': [('provider', 'in', ('lyra','lyramulti'))]}" />
+                            <field name="lyra_language" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_available_languages" widget="many2many_tags" options="{'no_create': True}" />
                             <field name="lyra_capture_delay" />
                             <field name="lyra_validation_mode" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
@@ -47,6 +47,36 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="acquirer_form_lyramulti" model="ir.ui.view">
+            <field name="name">acquirer.form.lyramulti</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form" />
+            <field name="arch" type="xml">
+                <xpath expr='//group[@name="lyra_gateway_access"]' position='before'>
+                    <field name="lyra_multi_warning" invisible="1"/>
+                    <div style="background: none repeat scroll 0 0 #FFFFE0; border: 1px solid #E6DB55; font-size: 13px; margin: 0 0 20px; padding: 10px;"
+                         attrs="{'invisible': ['|',('provider','!=','lyramulti'),('lyra_multi_warning','=','False')]}">
+                        <p>
+                            ATTENTION: The payment in installments feature activation is subject to the prior agreement of Société Générale.
+                        </p>
+                        <p>
+                            If you enable this feature while you have not the associated option, an error 10000 – INSTALLMENTS_NOT_ALLOWED or 07 - PAYMENT_CONFIG will occur and the buyer will not be able to pay.
+                        </p>
+                    </div>
+                </xpath>
+                <xpath expr='//group[@name="lyra_selective_3ds"]' position='after'>
+                    <div attrs="{'invisible': [('provider','!=','lyramulti')]}">
+                        <group string="PAYMENT OPTIONS">
+                            <field name="lyra_multi_count" attrs="{'required': [('provider','=','lyramulti')]}" />
+                            <field name="lyra_multi_period" attrs="{'required': [('provider','=','lyramulti')]}" />
+                            <field name="lyra_multi_first" />
+                        </group>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
         <record id="transaction_form_lyra" model="ir.ui.view">
             <field name="name">acquirer.transaction.form.lyra</field>
             <field name="model">payment.transaction</field>
@@ -62,35 +92,8 @@
 
                 <xpath expr="//form/sheet/group[last()]" position="after">
                     <group string="Transaction log" attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}">
-                        <field name="lyra_raw_data" nolabel="1"/>
+                        <field name="lyra_raw_data" nolabel="1" />
                     </group>
-                </xpath>
-            </field>
-        </record>
-        <record id="acquirer_form_lyramulti" model="ir.ui.view">
-            <field name="name">acquirer.form.lyramulti</field>
-            <field name="model">payment.acquirer</field>
-            <field name="inherit_id" ref="payment.acquirer_form" />
-            <field name="arch" type="xml">
-                <xpath expr='//group[@name="lyra_gateway_access"]' position='before'>
-                    <div style="background: none repeat scroll 0 0 #FFFFE0; border: 1px solid #E6DB55; font-size: 13px; margin: 0 0 20px; padding: 10px;" 
-                         attrs="{'invisible': [('provider', '!=', 'lyramulti')]}">
-                        <p>
-                            ATTENTION: The payment in installments feature activation is subject to the prior agreement of Société Générale.
-                        </p>
-                        <p>
-                            If you enable this feature while you have not the associated option, an error 10000 – INSTALLMENTS_NOT_ALLOWED or 07 - PAYMENT_CONFIG will occur and the buyer will not be able to pay.
-                        </p>
-                    </div>
-                </xpath>
-                <xpath expr='//group[@name="lyra_selective_3ds"]' position='after'>
-                    <div attrs="{'invisible': [('provider', '!=', 'lyramulti')]}">
-                        <group string="PAYMENT OPTIONS">
-                            <field name="lyra_multi_count" attrs="{'required': [('provider', '=', 'lyramulti')]}"/>
-                            <field name="lyra_multi_period" attrs="{'required': [('provider', '=', 'lyramulti')]}"/>
-                            <field name="lyra_multi_first" />
-                        </group>
-                    </div>
                 </xpath>
             </field>
         </record>

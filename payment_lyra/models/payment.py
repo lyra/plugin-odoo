@@ -42,18 +42,12 @@ class AcquirerLyra(models.Model):
 
     def _get_languages(self):
         languages = constants.LYRA_LANGUAGES
-
         return [(c, _(l)) for c, l in languages.items()]
-    
-    def _get_multi_warning(self):
-        message = ('<p style="background: none repeat scroll 0 0 #FFFFE0; border: 1px solid #E6DB55; font-size: 13px; margin: 0 0 20px; padding: 10px;">' + 
-            _('ATTENTION: The payment in installments feature activation is subject to the prior agreement of Société Générale.<br />If you enable this feature while you have not the associated option, an error 10000 – INSTALLMENTS_NOT_ALLOWED or 07 - PAYMENT_CONFIG will occur and the buyer will not be able to pay.') +
-            '</p>')
 
-        if (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True):
-            return message
-        else:
-            return ''
+    @api.depends('provider')
+    def _compute_multi_warning(self):
+        for acquirer in self:
+            acquirer.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (acquirer.provider == 'lyramulti') else False
 
     sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office.')
 
@@ -87,6 +81,8 @@ class AcquirerLyra(models.Model):
     lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
 
     if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
+        lyra_multi_warning = fields.Boolean(compute='_compute_multi_warning')
+
         lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
         lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
         lyra_multi_first = fields.Char(string=_('1st payment'), help=_('Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount.'))
