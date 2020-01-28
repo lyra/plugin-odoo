@@ -56,7 +56,7 @@
                 <xpath expr='//group[@name="lyra_gateway_access"]' position='before'>
                     <field name="lyra_multi_warning" invisible="1"/>
                     <div style="background: none repeat scroll 0 0 #FFFFE0; border: 1px solid #E6DB55; font-size: 13px; margin: 0 0 20px; padding: 10px;"
-                         attrs="{'invisible': ['|',('provider','!=','lyramulti'),('lyra_multi_warning','=','False')]}">
+                         attrs="{'invisible': ['|',('provider','!=','lyramulti'),('lyra_multi_warning','=',False)]}">
                         <p>
                             ATTENTION: The payment in installments feature activation is subject to the prior agreement of Société Générale.
                         </p>
