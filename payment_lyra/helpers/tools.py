@@ -16,7 +16,7 @@ def find_currency(iso):
         if currency[0] == iso:
             return currency[1];
 
-    return NUL
+    return None
 
 def lang_translate(callback, v):
     return _(v)

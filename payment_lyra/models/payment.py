@@ -149,6 +149,12 @@ class AcquirerLyra(models.Model):
         if self.lyra_threeds_min_amount and float(self.lyra_threeds_min_amount) > values['amount']:
             threeds_mpi = u'2'
 
+        # Check currency.
+        currency_num = tools.find_currency(values['currency'].name)
+        if currency_num is None:
+            _logger.error('The plugin cannot find a numeric code for the current shop currency {}.'.format(values['currency'].name))
+            raise ValidationError(_('The shop currency {} is not supported.').format(values['currency'].name))
+
         # Amount in cents.
         k = int(values['currency'].decimal_places)
         amount = int(float_round(float_round(values['amount'], k) * (10 ** k), 0))
@@ -173,7 +179,7 @@ class AcquirerLyra(models.Model):
         tx_values.update({
             'vads_site_id': self.lyra_site_id,
             'vads_amount': str(amount),
-            'vads_currency': tools.find_currency(values['currency'].name),
+            'vads_currency': currency_num,
             'vads_trans_date': str(datetime.utcnow().strftime("%Y%m%d%H%M%S")),
             'vads_trans_id': str(trans_id),
             'vads_ctx_mode': str(self._get_ctx_mode()),
@@ -297,7 +303,7 @@ class TransactionLyra(models.Model):
             invalid_parameters.append(('amount', amount, '{:.2f}'.format(self.amount)))
 
         currency_code = tools.find_currency(self.currency_id.name)
-        if int(data.get('vads_currency')) != int(currency_code):
+        if (currency_code is None) or (int(data.get('vads_currency')) != int(currency_code)):
             invalid_parameters.append(('currency', data.get('vads_currency'), currency_code))
 
         return invalid_parameters
