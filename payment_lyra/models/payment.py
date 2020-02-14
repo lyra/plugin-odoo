@@ -13,6 +13,7 @@ from hashlib import sha1, sha256
 import hmac
 import logging
 import math
+from os import path
 
 from pkg_resources import parse_version
 
@@ -20,6 +21,7 @@ from odoo import models, api, release, fields, _
 from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.tools import float_round
 from odoo.tools.float_utils import float_compare
+from odoo.tools import convert_xml_import
 
 from ..controllers.main import LyraController
 from ..helpers import constants, tools
@@ -45,16 +47,10 @@ class AcquirerLyra(models.Model):
         return [(c, _(l)) for c, l in languages.items()]
 
     @api.depends('provider')
-    def _compute_multi_avail(self):
-         for acquirer in self:
-            acquirer.lyra_multi_avail = (constants.LYRA_PLUGIN_FEATURES.get('multi') == True)
-        #return constants.LYRA_PLUGIN_FEATURES.get('multi') == True
-    
-    @api.depends('provider')
     def _compute_multi_warning(self):
         for acquirer in self:
             acquirer.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (acquirer.provider == 'lyramulti') else False
-    
+
     sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office.')
 
     if constants.LYRA_PLUGIN_FEATURES.get('shatwo') == False:
@@ -62,11 +58,8 @@ class AcquirerLyra(models.Model):
 
     providers = [('lyra', _('Lyra Collect - Standard payment'))]
 
-    #lyra_multi_avail = True if constants.LYRA_PLUGIN_FEATURES.get('multi') == True else False
-    lyra_multi_avail = fields.Boolean(compute='_compute_multi_avail')
-
-    #if constants.LYRA_PLUGIN_FEATURES.get('multi') == True:
-    providers.append(('lyramulti', _('Lyra Collect - Payment in installments')))
+    if constants.LYRA_PLUGIN_FEATURES.get('multi') == True:
+        providers.append(('lyramulti', _('Lyra Collect - Payment in installments')))
 
     provider = fields.Selection(selection_add=providers)
 
@@ -88,12 +81,12 @@ class AcquirerLyra(models.Model):
     lyra_redirect_error_timeout = fields.Char(string=_('Redirection timeout on failure'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment.'))
     lyra_redirect_error_message = fields.Char(string=_('Redirection message on failure'), help=_('Message displayed on the payment page prior to redirection after a declined payment.'), default=_('Redirection to shop in a few seconds...'))
     lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
-
-    #if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
     lyra_multi_warning = fields.Boolean(compute='_compute_multi_warning')
-    lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
-    lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
-    lyra_multi_first = fields.Char(string=_('1st payment'), help=_('Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount.'))
+
+    if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
+        lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
+        lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
+        lyra_multi_first = fields.Char(string=_('1st payment'), help=_('Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount.'))
 
     # Check if it's Odoo 10.
     lyra_odoo10 = True if parse_version(release.version) < parse_version('11') else False
@@ -107,6 +100,15 @@ class AcquirerLyra(models.Model):
     else:
         image_128 = fields.Char()
         state = fields.Char()
+
+    @api.model
+    def multi_add(self, filename):
+        file = path.join(path.dirname(path.dirname(path.abspath(__file__)))) + filename
+
+        if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
+            convert_xml_import(self._cr, 'payment_lyra', file)
+
+        return None
 
     def _get_ctx_mode(self):
         ctx_key = self.state if self.lyra_odoo13 else self.environment

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+# Copyright © Lyra Network.
+# This file is part of Lyra Collect plugin for Odoo. See COPYING.md for license details.
+#
+# Author:    Lyra Network (https://www.lyra.com)
+# Copyright: Copyright © Lyra Network
+# License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
+-->
+
+<odoo>
+    <data>
+        <record id="acquirer_form_lyramulti" model="ir.ui.view">
+            <field name="name">acquirer.form.lyramulti</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form" />
+            <field name="arch" type="xml">
+                <xpath expr='//group[@name="lyra_gateway_access"]' position='before'>
+                    <field name="lyra_multi_warning" invisible="1"/>
+                    <div style="background: none repeat scroll 0 0 #FFFFE0; border: 1px solid #E6DB55; font-size: 13px; margin: 0 0 20px; padding: 10px;"
+                         attrs="{'invisible': ['|',('provider','!=','lyramulti'),('lyra_multi_warning','=',False)]}">
+                        <p>
+                            ATTENTION: The payment in installments feature activation is subject to the prior agreement of Société Générale.
+                        </p>
+                        <p>
+                            If you enable this feature while you have not the associated option, an error 10000 – INSTALLMENTS_NOT_ALLOWED or 07 - PAYMENT_CONFIG will occur and the buyer will not be able to pay.
+                        </p>
+                    </div>
+                </xpath>
+                <xpath expr='//group[@name="lyra_selective_3ds"]' position='after'>
+                    <div attrs="{'invisible': [('provider','!=','lyramulti')]}">
+                        <group string="PAYMENT OPTIONS">
+                            <field name="lyra_multi_count" attrs="{'required': [('provider','=','lyramulti')]}" />
+                            <field name="lyra_multi_period" attrs="{'required': [('provider','=','lyramulti')]}" />
+                            <field name="lyra_multi_first" />
+                        </group>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
