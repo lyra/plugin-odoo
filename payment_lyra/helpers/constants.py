@@ -9,7 +9,10 @@
 
 from odoo import _
 
+# WARN: Do not modify code format here. This is managed by build files. 
 LYRA_PLUGIN_FEATURES = {
+    'multi': True,
+    'restrictmulti': False,
     'qualif': False,
     'shatwo': True,
 }
@@ -28,8 +31,8 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '1.1.1',
-    'CMS_IDENTIFIER': 'Odoo_10-12',
+    'PLUGIN_VERSION': '1.2.0',
+    'CMS_IDENTIFIER': 'Odoo_10-13',
 }
 
 LYRA_LANGUAGES = {
@@ -57,20 +60,29 @@ LYRA_CARDS = {
     'VISA_ELECTRON': u'Visa Electron',
     'VPAY': u'V PAY',
     'AMEX': u'American Express',
-    'CONECS': u'Titre-Restaurant Dématérialisé Conecs',
-    'APETIZ': u'Titre-Restaurant Dématérialisé Apetiz',
-    'CHQ_DEJ': u'Titre-Restaurant Dématérialisé Chèque Déjeuner',
-    'SODEXO': u'Titre-Restaurant Dématérialisé Sodexo',
-    'EDENRED': u'Ticket Restaurant',
-    'PAYPAL': u'PayPal',
-    'PAYPAL_SB': u'PayPal - Sandbox',
     'ALIPAY': u'Alipay',
+    'APETIZ': u'Titre-Restaurant Dématérialisé Apetiz',
+    'AURORE-MULTI': u'Cpay Aurore',
     'BANCONTACT': u'Bancontact Mistercash',
+    'CHQ_DEJ': u'Titre-Restaurant Dématérialisé Chèque Déjeuner',
+    'COFINOGA': u'Cofinoga',
+    'CONECS': u'Titre-Restaurant Dématérialisé Conecs',
+    'E_CV': u'e-Chèque-Vacances',
+    'EDENRED': u'Ticket Restaurant',
     'GIROPAY': u'Giropay',
     'IDEAL': u'iDEAL',
+    'ILLICADO': u'Carte Cadeau Illicado',
+    'ILLICADO_SB': u'Carte Cadeau Illicado - Sandbox',
+    'JCB': u'JCB',
     'MULTIBANCO': u'Multibanco',
     'MYBANK': u'MyBank',
+    'ONEY': u'FacilyPay Oney',
+    'ONEY_SANDBOX': u'FacilyPay Oney - Sandbox',
+    'PAYPAL': u'PayPal',
+    'PAYPAL_SB': u'PayPal - Sandbox',
     'PRZELEWY24': u'Przelewy24',
+    'SODEXO': u'Titre-Restaurant Dématérialisé Sodexo',
+    'SOFICARTE': u'Soficarte',
     'SOFORT_BANKING': u'Sofort',
     'UNION_PAY': u'UnionPay',
     'WECHAT': u'WeChat Pay',

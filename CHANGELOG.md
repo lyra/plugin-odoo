@@ -1,3 +1,8 @@
+1.2.0, 2020-02-03
+=============
+- Compatibility with Odoo 13 version.
+- [multi] Added payment in installments submodule.
+
 1.1.1, 2019-12-16
 =============
 - Bug fix: incorrect payment amount rounding.

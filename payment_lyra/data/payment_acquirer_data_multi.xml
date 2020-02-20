@@ -10,11 +10,11 @@
 
 <odoo>
     <data noupdate="1">
-        <record id="payment_acquirer_lyra" model="payment.acquirer">
-            <field name="name"><![CDATA[Lyra Collect - Standard payment]]></field>
+        <record id="payment_acquirer_lyramulti" model="payment.acquirer">
+            <field name="name"><![CDATA[Lyra Collect - Payment in installments]]></field>
             <field name="image" type="base64" file="payment_lyra/static/src/img/logo.png" />
             <field name="image_128" type="base64" file="payment_lyra/static/src/img/logo.png" />
-            <field name="provider">lyra</field>
+            <field name="provider">lyramulti</field>
             <field name="state">test</field>
             <field name="company_id" ref="base.main_company" />
             <field name="view_template_id" ref="lyra_acquirer_button" />
@@ -24,13 +24,16 @@
             <field name="lyra_capture_delay"></field>
             <field name="lyra_validation_mode">-1</field>
             <field name="lyra_threeds_min_amount"></field>
+            <field name="lyra_multi_count">3</field>
+            <field name="lyra_multi_period">30</field>
+            <field name="lyra_multi_first"></field>
             <field name="lyra_redirect_enabled">0</field>
             <field name="lyra_redirect_success_timeout">5</field>
             <field name="lyra_redirect_error_timeout">5</field>
             <field name="lyra_return_mode">GET</field>
 
             <field name="description" type="html">
-                <p><![CDATA[Accept payments with Lyra Collect secure payment gateway.]]></p>
+                <p><![CDATA[Accept payments in installments with Lyra Collect secure payment gateway.]]></p>
                 <ul class="list-inline">
                     <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
                     <li class="list-inline-item"><i class="fa fa-check" />eCommerce</li>
@@ -38,8 +41,4 @@
             </field>
         </record>
     </data>
-
-    <function model="payment.acquirer" name="multi_add">
-        <value>/data/payment_acquirer_data_multi.xml</value>
-    </function>
 </odoo>
