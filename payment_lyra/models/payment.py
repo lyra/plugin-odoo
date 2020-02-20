@@ -19,14 +19,15 @@ from pkg_resources import parse_version
 
 from odoo import models, api, release, fields, _
 from odoo.addons.payment.models.payment_acquirer import ValidationError
+from odoo.tools import convert_xml_import
 from odoo.tools import float_round
 from odoo.tools.float_utils import float_compare
-from odoo.tools import convert_xml_import
 
 from ..controllers.main import LyraController
 from ..helpers import constants, tools
 from .card import LyraCard
 from .language import LyraLanguage
+
 
 try:
     import urlparse
@@ -83,10 +84,9 @@ class AcquirerLyra(models.Model):
     lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
     lyra_multi_warning = fields.Boolean(compute='_compute_multi_warning')
 
-    if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
-        lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
-        lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
-        lyra_multi_first = fields.Char(string=_('1st payment'), help=_('Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount.'))
+    lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
+    lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
+    lyra_multi_first = fields.Char(string=_('1st payment'), help=_('Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount.'))
 
     # Check if it's Odoo 10.
     lyra_odoo10 = True if parse_version(release.version) < parse_version('11') else False
@@ -320,9 +320,9 @@ class TransactionLyra(models.Model):
 
     def _lyra_form_validate(self, data):
         lyra_statuses = {
-            'success': ['AUTHORISED', 'CAPTURED', 'CAPTURE_FAILED', 'ACCEPTED'],
-            'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION', 'WAITING_FOR_PAYMENT'],
-            'cancel': ['NOT_CREATED', 'ABANDONED']
+            'success': ['AUTHORISED', 'CAPTURED', 'ACCEPTED'],
+            'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION', 'WAITING_FOR_PAYMENT', 'PRE_AUTHORISED'],
+            'cancel': ['ABANDONED']
         }
 
         html_3ds = _('3DS authentication: ')

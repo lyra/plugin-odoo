@@ -37,11 +37,9 @@
                 </ul>
             </field>
         </record>
-
-        <function 
-            model="payment.acquirer" 
-            name="multi_add">
-            <value>/data/payment_acquirer_data_multi.xml</value>
-        </function>
     </data>
+
+    <function model="payment.acquirer" name="multi_add">
+        <value>/data/payment_acquirer_data_multi.xml</value>
+    </function>
 </odoo>

@@ -15,7 +15,7 @@
             <field name="model">payment.acquirer</field>
             <field name="inherit_id" ref="payment.acquirer_form" />
             <field name="arch" type="xml">
-                <xpath expr='//group[@name="acquirer"]' position='after'>
+                <xpath expr="//group[@name='acquirer']" position="after">
                     <div attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}">
                         <group name="lyra_gateway_access" string="PAYMENT GATEWAY ACCESS">
                             <field name="lyra_site_id" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
@@ -48,12 +48,6 @@
             </field>
         </record>
 
-        <function 
-            model="payment.acquirer" 
-            name="multi_add">
-            <value>/views/payment_views_multi.xml</value>
-        </function>
-
         <record id="transaction_form_lyra" model="ir.ui.view">
             <field name="name">acquirer.transaction.form.lyra</field>
             <field name="model">payment.transaction</field>
@@ -75,4 +69,8 @@
             </field>
         </record>
     </data>
+
+    <function model="payment.acquirer" name="multi_add">
+        <value>/views/payment_views_multi.xml</value>
+    </function>
 </odoo>
