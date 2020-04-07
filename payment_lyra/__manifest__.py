@@ -9,7 +9,7 @@
 
 {
     'name': 'Lyra Collect Payment Acquirer',
-    'version': '1.2.0',
+    'version': '1.3.0-beta1',
     'summary': 'Accept payments with Lyra Collect secure payment gateway.',
     'category': 'Accounting',
     'author': 'Lyra Network',
