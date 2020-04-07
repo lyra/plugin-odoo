@@ -7,7 +7,7 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
-from odoo import models, fields, api
+from odoo import models, fields
 from ..helpers import constants
 
 class LyraCard(models.Model):
@@ -19,7 +19,6 @@ class LyraCard(models.Model):
     code = fields.Char()
     label = fields.Char()
 
-    @api.model_cr
     def init(self):
         cards = constants.LYRA_CARDS
 
