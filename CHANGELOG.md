@@ -1,4 +1,4 @@
-1.2.0, 2020-03-16
+1.2.0, 2020-04-07
 =============
 - Compatibility with Odoo 13 version.
 - [multi] Added payment in installments submodule.
