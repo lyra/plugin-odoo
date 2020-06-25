@@ -9,7 +9,7 @@
 
 from odoo import _
 
-# WARN: Do not modify code format here. This is managed by build files. 
+# WARN: Do not modify code format here. This is managed by build files.
 LYRA_PLUGIN_FEATURES = {
     'multi': True,
     'restrictmulti': False,
@@ -98,4 +98,5 @@ LYRA_CURRENCIES = [
     ['USD', '840', 2],
     ['CHF', '756', 2],
     ['NOK', '578', 2],
+    ['XPF', '953', 0],
 ]
