@@ -41,7 +41,7 @@ Configuration
 * Click on button "Configure" of Lyra Collect module.
 * You can now enter your Lyra Collect credentials.
 
-Important
+IMPORTANT 
 ---------
 * You should select a Payment Journal in the "Configuration" tab of the Lyra Collect aquirer
   to start using this payment method.
