@@ -48,7 +48,7 @@ Important
 * If you have multiple Odoo databases on your server, do not forget to set dbfilter
   parameter in odoo.conf. *You must launch one database only per URL* because Lyra Collect
   have to send back payment notification on the right database. Otherwise it will
-  failed with a 404 error.
+  fail with a 404 error.
 
 Author
 =======
@@ -61,5 +61,5 @@ License
 Each Lyra Collect plugin source file included in this distribution is licensed under
 the Affero General Public License (AGPL 3.0).
 
-Please see LICENSE.txt for the full text of the AGPL 3.0 license. 
+Please see LICENSE.txt for the full text of the AGPL 3.0 license.
 It is also available through the world-wide-web at this URL: http://www.gnu.org/licenses/agpl.html.

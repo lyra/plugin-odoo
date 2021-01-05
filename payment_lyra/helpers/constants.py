@@ -9,7 +9,7 @@
 
 from odoo import _
 
-# WARN: Do not modify code format here. This is managed by build files. 
+# WARN: Do not modify code format here. This is managed by build files.
 LYRA_PLUGIN_FEATURES = {
     'multi': True,
     'restrictmulti': False,
@@ -31,8 +31,8 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '1.3.0-beta1',
-    'CMS_IDENTIFIER': 'Odoo_10-13',
+    'PLUGIN_VERSION': '1.2.1',
+    'CMS_IDENTIFIER': 'Odoo_10-14',
 }
 
 LYRA_LANGUAGES = {
