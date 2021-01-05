@@ -57,14 +57,22 @@ class AcquirerLyra(models.Model):
     if constants.LYRA_PLUGIN_FEATURES.get('shatwo') == False:
         sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon.')
 
+    # Compatibility betwen Odoo 14.
+    lyra_odoo14 = True if parse_version(release.version) >= parse_version('14') else False
+
     providers = [('lyra', _('Lyra Collect - Standard payment'))]
-    ondelete_policy = {'lyra': 'set default'}
+    if lyra_odoo14:
+        ondelete_policy = {'lyra': 'set default'}
 
     if constants.LYRA_PLUGIN_FEATURES.get('multi') == True:
         providers.append(('lyramulti', _('Lyra Collect - Payment in installments')))
-        ondelete_policy['lyramulti'] = 'set default'
+        if lyra_odoo14:
+            ondelete_policy['lyramulti'] = 'set default'
 
-    provider = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
+    if lyra_odoo14:
+        provider = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
+    else:
+        provider = fields.Selection(selection_add=providers)
 
     lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'))
     lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'))
