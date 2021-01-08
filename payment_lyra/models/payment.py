@@ -57,12 +57,22 @@ class AcquirerLyra(models.Model):
     if constants.LYRA_PLUGIN_FEATURES.get('shatwo') == False:
         sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon.')
 
+    # Compatibility betwen Odoo 14.
+    lyra_odoo14 = True if parse_version(release.version) >= parse_version('14') else False
+
     providers = [('lyra', _('Lyra Collect - Standard payment'))]
+    if lyra_odoo14:
+        ondelete_policy = {'lyra': 'set default'}
 
     if constants.LYRA_PLUGIN_FEATURES.get('multi') == True:
         providers.append(('lyramulti', _('Lyra Collect - Payment in installments')))
+        if lyra_odoo14:
+            ondelete_policy['lyramulti'] = 'set default'
 
-    provider = fields.Selection(selection_add=providers)
+    if lyra_odoo14:
+        provider = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
+    else:
+        provider = fields.Selection(selection_add=providers)
 
     lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'))
     lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'))
@@ -100,6 +110,8 @@ class AcquirerLyra(models.Model):
     else:
         image_128 = fields.Char()
         state = fields.Char()
+
+    lyra_redirect = False
 
     @api.model
     def multi_add(self, filename):
@@ -183,7 +195,7 @@ class AcquirerLyra(models.Model):
         validation_mode = self.lyra_validation_mode if self.lyra_validation_mode != '-1' else ''
 
         # Enable redirection?
-        self.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
+        AcquirerLyra.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
 
         tx_values = dict() # Values to sign in unicode.
         tx_values.update({
@@ -232,7 +244,7 @@ class AcquirerLyra(models.Model):
             'vads_ship_to_phone_num': values.get('partner_phone') and values.get('partner_phone')[0:31] or '',
         })
 
-        if self.lyra_redirect:
+        if AcquirerLyra.lyra_redirect:
             tx_values.update({
                 'vads_redirect_success_timeout': self.lyra_redirect_success_timeout or '',
                 'vads_redirect_success_message': self.lyra_redirect_success_message or '',
