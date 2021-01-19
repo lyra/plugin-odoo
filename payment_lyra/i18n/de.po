@@ -19,66 +19,79 @@ msgstr ""
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Chinese"
 msgstr "Chinesisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "German"
 msgstr "Deutsch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Spanish"
 msgstr "Spanisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "English"
 msgstr "Englisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "French"
 msgstr "Französisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Italian"
 msgstr "Italienisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Japanese"
 msgstr "Japanisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Dutch"
 msgstr "Holländisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Polish"
 msgstr "Polnisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Portuguese"
 msgstr "Portugiesisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Russian"
 msgstr "Russisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Swedish"
 msgstr "Schwedisch"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/helpers/tools.py:22 code:addons/payment_lyra/models/payment.py:45
+#, python-format
 msgid "Turkish"
 msgstr "Türkisch"
 
@@ -116,7 +129,7 @@ msgid "Lyra Collect - Standard payment"
 msgstr "Lyra Collect - Standardzahlung"
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:69
+#: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyra selection:payment.acquirer,provider:0
 msgid "Lyra Collect - Payment in installments"
 msgstr "Lyra Collect - Ratenzahlung"
 
@@ -324,7 +337,8 @@ msgid "Message displayed on the payment page prior to redirection after a succes
 msgstr "Meldung auf die Zahlungsseite vor Umleitung als die Zahlung ist erfolgreich."
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment.py:87 models/payment.py:89
+#: code:addons/payment_lyra/models/payment.py:87
+#: code:addons/payment_lyra/models/payment.py:89
 #, python-format
 msgid "Redirection to shop in a few seconds..."
 msgstr "Weiterleitung zum Shop in Kürze..."
