@@ -48,7 +48,7 @@ class AcquirerLyra(models.Model):
         return [(c, _(l)) for c, l in languages.items()]
 
     @api.depends('provider')
-    def _compute_lyra_multi_warning(self):
+    def _lyra_compute_multi_warning(self):
         for acquirer in self:
             acquirer.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (acquirer.provider == 'lyramulti') else False
 
@@ -92,7 +92,7 @@ class AcquirerLyra(models.Model):
     lyra_redirect_error_timeout = fields.Char(string=_('Redirection timeout on failure'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment.'))
     lyra_redirect_error_message = fields.Char(string=_('Redirection message on failure'), help=_('Message displayed on the payment page prior to redirection after a declined payment.'), default=_('Redirection to shop in a few seconds...'))
     lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
-    lyra_multi_warning = fields.Boolean(compute='_compute_lyra_multi_warning')
+    lyra_multi_warning = fields.Boolean(compute='_lyra_compute_multi_warning')
 
     lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
     lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
