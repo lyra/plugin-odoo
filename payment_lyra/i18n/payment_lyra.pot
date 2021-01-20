@@ -96,12 +96,12 @@ msgid "Turkish"
 msgstr ""
 
 #. module: payment_lyra
-#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti
+#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti
 msgid "ATTENTION: The payment in installments feature activation is subject to the prior agreement of Société Générale."
 msgstr ""
 
 #. module: payment_lyra
-#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti
+#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti
 msgid ""
 "If you enable this feature while you have not the associated option, an error 10000 – INSTALLMENTS_NOT_ALLOWED or 07 - PAYMENT_CONFIG will occur and the "
 "buyer will not be able to pay."
@@ -120,12 +120,14 @@ msgid "The HMAC-SHA-256 algorithm should not be activated if it is not yet avail
 msgstr ""
 
 #. module: payment_lyra
-#: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyra selection:payment.acquirer,provider:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__provider__lyra
+#: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyra
 msgid "Lyra Collect - Standard payment"
 msgstr ""
 
 #. module: payment_lyra
-#: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyramulti selection:payment.acquirer,provider:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__provider__lyramulti
+#: model:payment.acquirer,name:payment_lyra.payment_acquirer_lyramulti
 msgid "Lyra Collect - Payment in installments"
 msgstr ""
 
@@ -243,18 +245,17 @@ msgid "If manual is selected, you will have to confirm payments manually in your
 msgstr ""
 
 #. module: payment_lyra
-#: selection:payment.acquirer,lyra_validation_mode:0
 #: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_validation_mode__-1
 msgid "Lyra Expert Back Office Configuration"
 msgstr ""
 
 #. module: payment_lyra
-#: selection:payment.acquirer,lyra_validation_mode:0 model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_validation_mode__0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_validation_mode__0
 msgid "Automatic"
 msgstr ""
 
 #. module: payment_lyra
-#: selection:payment.acquirer,lyra_validation_mode:0 model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_validation_mode__1
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_validation_mode__1
 msgid "Manual"
 msgstr ""
 
@@ -295,13 +296,11 @@ msgid "If enabled, the buyer is automatically redirected to your site at the end
 msgstr ""
 
 #. module: payment_lyra
-#: selection:payment.acquirer,lyra_redirect_enabled:0
 #: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_redirect_enabled__0
 msgid "Disabled"
 msgstr ""
 
 #. module: payment_lyra
-#: selection:payment.acquirer,lyra_redirect_enabled:0
 #: model:ir.model.fields.selection,name:payment_lyra.selection__payment_acquirer__lyra_redirect_enabled__1
 msgid "Enabled"
 msgstr ""
@@ -448,8 +447,6 @@ msgstr ""
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_lyra_raw_data
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_raw_data
-#: model_terms:ir.ui.view,arch_db:payment_lyra.transaction_form_lyra model:ir.ui.view,arch_db:payment_lyra.transaction_form_lyra
-#: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction_state_message
 msgid "Transaction log"
 msgstr ""
 
@@ -484,26 +481,26 @@ msgid "See the transaction details for more information ({})."
 msgstr ""
 
 #. module: payment_lyra
-#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
+#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "PAYMENT GATEWAY ACCESS"
 msgstr ""
 
 #. module: payment_lyra
-#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
+#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "PAYMENT PAGE"
 msgstr ""
 
 #. module: payment_lyra
-#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
+#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "SELECTIVE 3DS"
 msgstr ""
 
 #. module: payment_lyra
-#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti
+#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti
 msgid "PAYMENT OPTIONS"
 msgstr ""
 
 #. module: payment_lyra
-#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra model:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
+#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "RETURN TO SHOP"
 msgstr ""
