@@ -1,3 +1,7 @@
+1.2.1, 2020-01-21
+=============
+- Compatibility with Odoo 14 version.
+
 1.2.0, 2020-04-07
 =============
 - Compatibility with Odoo 13 version.
