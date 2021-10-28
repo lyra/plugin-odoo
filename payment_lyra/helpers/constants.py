@@ -31,8 +31,8 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '1.2.1',
-    'CMS_IDENTIFIER': 'Odoo_10-14',
+    'PLUGIN_VERSION': '1.2.2',
+    'CMS_IDENTIFIER': 'Odoo_10-15',
 }
 
 LYRA_LANGUAGES = {
