@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+# Copyright © Lyra Network.
+# This file is part of Lyra Collect plugin for Odoo. See COPYING.md for license details.
+#
+# Author:    Lyra Network (https://www.lyra.com)
+# Copyright: Copyright © Lyra Network
+# License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
+-->
+
+<odoo>
+    <template id="lyra_acquirer_button">
+        <form t-att-action="api_url" method="post">
+            <input type="hidden" name="vads_site_id" t-att-value="vads_site_id" />
+            <input type="hidden" name="vads_amount" t-att-value="vads_amount" />
+            <input type="hidden" name="vads_currency" t-att-value="vads_currency" />
+            <input type="hidden" name="vads_trans_date" t-att-value="vads_trans_date" />
+            <input type="hidden" name="vads_trans_id" t-att-value="vads_trans_id" />
+
+            <input type="hidden" name="vads_ctx_mode" t-att-value="vads_ctx_mode" />
+            <input type="hidden" name="vads_page_action" t-att-value="vads_page_action" />
+            <input type="hidden" name="vads_action_mode" t-att-value="vads_action_mode" />
+            <input type="hidden" name="vads_payment_config" t-att-value="vads_payment_config" />
+            <input type="hidden" name="vads_version" t-att-value="vads_version" />
+            <input type="hidden" name="vads_return_mode" t-att-value="vads_return_mode" />
+            <input type="hidden" name="vads_order_id" t-att-value="vads_order_id" />
+            <input type="hidden" name="vads_contrib" t-att-value="vads_contrib" />
+            <input type="hidden" name="signature" t-att-value="lyra_signature" />
+
+            <input type="hidden" name="vads_language" t-att-value="vads_language" />
+            <input type="hidden" name="vads_available_languages" t-att-value="vads_available_languages" />
+            <input type="hidden" name="vads_capture_delay" t-att-value="vads_capture_delay" />
+            <input type="hidden" name="vads_validation_mode" t-att-value="vads_validation_mode" />
+            <input type="hidden" name="vads_payment_cards" t-att-value="vads_payment_cards" />
+            <input type="hidden" name="vads_threeds_mpi" t-att-value="vads_threeds_mpi" />
+
+            <t t-if="vads_redirect_success_timeout">
+                <input type="hidden" name="vads_redirect_success_timeout" t-att-value="vads_redirect_success_timeout" />
+                <input type="hidden" name="vads_redirect_success_message" t-att-value="vads_redirect_success_message" />
+                <input type="hidden" name="vads_redirect_error_timeout" t-att-value="vads_redirect_error_timeout" />
+                <input type="hidden" name="vads_redirect_error_message" t-att-value="vads_redirect_error_message" />
+            </t>
+
+            <!-- Customer info. -->
+            <input type="hidden" name="vads_cust_id" t-att-value="vads_cust_id" />
+            <input type="hidden" name="vads_cust_first_name" t-att-value="vads_cust_first_name" />
+            <input type="hidden" name="vads_cust_last_name" t-att-value="vads_cust_last_name" />
+            <input type="hidden" name="vads_cust_address" t-att-value="vads_cust_address" />
+            <input type="hidden" name="vads_cust_zip" t-att-value="vads_cust_zip" />
+            <input type="hidden" name="vads_cust_city" t-att-value="vads_cust_city" />
+            <input type="hidden" name="vads_cust_state" t-att-value="vads_cust_state" />
+            <input type="hidden" name="vads_cust_country" t-att-value="vads_cust_country" />
+            <input type="hidden" name="vads_cust_email" t-att-value="vads_cust_email" />
+            <input type="hidden" name="vads_cust_phone" t-att-value="vads_cust_phone" />
+
+            <!-- Shipping info. -->
+            <input type="hidden" name="vads_ship_to_first_name" t-att-value="vads_ship_to_first_name" />
+            <input type="hidden" name="vads_ship_to_last_name" t-att-value="vads_ship_to_last_name" />
+            <input type="hidden" name="vads_ship_to_street" t-att-value="vads_ship_to_street" />
+            <input type="hidden" name="vads_ship_to_city" t-att-value="vads_ship_to_city" />
+            <input type="hidden" name="vads_ship_to_zip" t-att-value="vads_ship_to_zip" />
+            <input type="hidden" name="vads_ship_to_state" t-att-value="vads_ship_to_state" />
+            <input type="hidden" name="vads_ship_to_country" t-att-value="vads_ship_to_country" />
+            <input type="hidden" name="vads_ship_to_phone_num" t-att-value="vads_ship_to_phone_num" />
+
+            <!-- URLs. --> 
+            <input type="hidden" name="vads_url_return" t-att-value="vads_url_return" />
+        </form>
+    </template>
+</odoo>

@@ -28,11 +28,15 @@ from ..helpers import constants, tools
 from .card import LyraCard
 from .language import LyraLanguage
 
-
 try:
     import urlparse
 except ImportError:
     import urllib.parse as urlparse
+
+try:
+    from odoo.addons.payment import utils as payment_utils
+except ImportError:
+    pass
 
 _logger = logging.getLogger(__name__)
 
@@ -74,6 +78,14 @@ class AcquirerLyra(models.Model):
     else:
         provider = fields.Selection(selection_add=providers)
 
+    lyra_odoo15 = True if parse_version(release.version) >= parse_version('15') else False
+
+    # Compatibility with Odoo 15.
+    if lyra_odoo15:
+        view_template_id = fields.Char()
+    else:
+        redirect_form_view_id = fields.Many2one(string="Redirect Form Template", comodel_name='ir.ui.view',help="The template rendering a form submitted to redirect the user when making a payment", domain=[('type', '=', 'qweb')])
+
     lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'))
     lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'))
     lyra_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRA_PARAMS.get('KEY_PROD'))
@@ -114,11 +126,35 @@ class AcquirerLyra(models.Model):
     lyra_redirect = False
 
     @api.model
-    def multi_add(self, filename):
-        file = path.join(path.dirname(path.dirname(path.abspath(__file__)))) + filename
+    def _get_compatible_acquirers(self, *args, currency_id=None, **kwargs):
+        """ Override of payment to unlist Lyra Collect acquirers when the currency is not supported. """
+        acquirers = super()._get_compatible_acquirers(*args, currency_id=currency_id, **kwargs)
 
+        currency = self.env['res.currency'].browse(currency_id).exists()
+        if currency and tools.find_currency(currency.name) is None:
+            acquirers = acquirers.filtered(
+                lambda a: a.provider not in ['lyra', 'lyramulti']
+            )
+
+        return acquirers
+
+    @api.model
+    def multi_add(self, filename):
         if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
+            file = path.join(path.dirname(path.dirname(path.abspath(__file__)))) + filename
             convert_xml_import(self._cr, 'payment_lyra', file)
+
+        return None
+
+    @api.model
+    def view_add(self, filename):
+        if self.lyra_odoo15:
+            filename = filename + u'_odoo15.xml'
+        else:
+            filename = filename + u'_bc.xml'
+
+        file = path.join(path.dirname(path.dirname(path.abspath(__file__)))) + filename
+        convert_xml_import(self._cr, 'payment_lyra', file)
 
         return None
 
@@ -172,13 +208,18 @@ class AcquirerLyra(models.Model):
             threeds_mpi = u'2'
 
         # Check currency.
-        currency_num = tools.find_currency(values['currency'].name)
+        if 'currency' in values:
+            currency = values['currency']
+        else:
+            currency = self.env['res.currency'].browse(values['currency_id']).exists()
+
+        currency_num = tools.find_currency(currency.name)
         if currency_num is None:
-            _logger.error('The plugin cannot find a numeric code for the current shop currency {}.'.format(values['currency'].name))
-            raise ValidationError(_('The shop currency {} is not supported.').format(values['currency'].name))
+            _logger.error('The plugin cannot find a numeric code for the current shop currency {}.'.format(currency.name))
+            raise ValidationError(_('The shop currency {} is not supported.').format(currency.name))
 
         # Amount in cents.
-        k = int(values['currency'].decimal_places)
+        k = int(currency.decimal_places)
         amount = int(float_round(float_round(values['amount'], k) * (10 ** k), 0))
 
         # List of available languages.
@@ -196,7 +237,7 @@ class AcquirerLyra(models.Model):
 
         # Enable redirection?
         AcquirerLyra.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
-
+        
         tx_values = dict() # Values to sign in unicode.
         tx_values.update({
             'vads_site_id': self.lyra_site_id,
@@ -219,30 +260,34 @@ class AcquirerLyra(models.Model):
             'vads_validation_mode': validation_mode,
             'vads_payment_cards': payment_cards,
             'vads_return_mode': str(self.lyra_return_mode),
-            'vads_threeds_mpi': threeds_mpi,
-
-            # Customer info.
-            'vads_cust_id': str(values.get('billing_partner_id')) or '',
-            'vads_cust_first_name': values.get('billing_partner_first_name') and values.get('billing_partner_first_name')[0:62] or '',
-            'vads_cust_last_name': values.get('billing_partner_last_name') and values.get('billing_partner_last_name')[0:62] or '',
-            'vads_cust_address': values.get('billing_partner_address') and values.get('billing_partner_address')[0:254] or '',
-            'vads_cust_zip': values.get('billing_partner_zip') and values.get('billing_partner_zip')[0:62] or '',
-            'vads_cust_city': values.get('billing_partner_city') and values.get('billing_partner_city')[0:62] or '',
-            'vads_cust_state': values.get('billing_partner_state').code and values.get('billing_partner_state').code[0:62] or '',
-            'vads_cust_country': values.get('billing_partner_country').code and values.get('billing_partner_country').code.upper() or '',
-            'vads_cust_email': values.get('billing_partner_email') and values.get('billing_partner_email')[0:126] or '',
-            'vads_cust_phone': values.get('billing_partner_phone') and values.get('billing_partner_phone')[0:31] or '',
-
-            # Shipping info.
-            'vads_ship_to_first_name': values.get('partner_first_name') and values.get('partner_first_name')[0:62] or '',
-            'vads_ship_to_last_name': values.get('partner_last_name') and values.get('partner_last_name')[0:62] or '',
-            'vads_ship_to_street': values.get('partner_address') and values.get('partner_address')[0:254] or '',
-            'vads_ship_to_zip': values.get('partner_zip') and values.get('partner_zip')[0:62] or '',
-            'vads_ship_to_city': values.get('partner_city') and values.get('partner_city')[0:62] or '',
-            'vads_ship_to_state': values.get('partner_state').code and values.get('partner_state').code[0:62] or '',
-            'vads_ship_to_country': values.get('partner_country').code and values.get('partner_country').code.upper() or '',
-            'vads_ship_to_phone_num': values.get('partner_phone') and values.get('partner_phone')[0:31] or '',
+            'vads_threeds_mpi': threeds_mpi
         })
+
+        # Odoo < v15
+        if not self.lyra_odoo15:
+            # Customer info.
+            tx_values.update({
+                'vads_cust_id': str(values.get('billing_partner_id')) or '',
+                'vads_cust_first_name': values.get('billing_partner_first_name') and values.get('billing_partner_first_name')[0:62] or '',
+                'vads_cust_last_name': values.get('billing_partner_last_name') and values.get('billing_partner_last_name')[0:62] or '',
+                'vads_cust_address': values.get('billing_partner_address') and values.get('billing_partner_address')[0:254] or '',
+                'vads_cust_zip': values.get('billing_partner_zip') and values.get('billing_partner_zip')[0:62] or '',
+                'vads_cust_city': values.get('billing_partner_city') and values.get('billing_partner_city')[0:62] or '',
+                'vads_cust_state': values.get('billing_partner_state').code and values.get('billing_partner_state').code[0:62] or '',
+                'vads_cust_country': values.get('billing_partner_country').code and values.get('billing_partner_country').code.upper() or '',
+                'vads_cust_email': values.get('billing_partner_email') and values.get('billing_partner_email')[0:126] or '',
+                'vads_cust_phone': values.get('billing_partner_phone') and values.get('billing_partner_phone')[0:31] or '',
+
+                # Shipping info.
+                'vads_ship_to_first_name': values.get('partner_first_name') and values.get('partner_first_name')[0:62] or '',
+                'vads_ship_to_last_name': values.get('partner_last_name') and values.get('partner_last_name')[0:62] or '',
+                'vads_ship_to_street': values.get('partner_address') and values.get('partner_address')[0:254] or '',
+                'vads_ship_to_zip': values.get('partner_zip') and values.get('partner_zip')[0:62] or '',
+                'vads_ship_to_city': values.get('partner_city') and values.get('partner_city')[0:62] or '',
+                'vads_ship_to_state': values.get('partner_state').code and values.get('partner_state').code[0:62] or '',
+                'vads_ship_to_country': values.get('partner_country').code and values.get('partner_country').code.upper() or '',
+                'vads_ship_to_phone_num': values.get('partner_phone') and values.get('partner_phone')[0:31] or ''
+            })
 
         if AcquirerLyra.lyra_redirect:
             tx_values.update({
@@ -282,9 +327,60 @@ class TransactionLyra(models.Model):
     lyra_auth_result = fields.Char(_('Authorization result'))
     lyra_raw_data = fields.Text(string=_('Transaction log'), readonly=True)
 
+    if parse_version(release.version) >= parse_version('15'):
+        lyra_html_3ds = fields.Char('3D Secure HTML')
+
+    lyra_statuses = {
+        'success': ['AUTHORISED', 'CAPTURED', 'ACCEPTED'],
+        'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION', 'WAITING_FOR_PAYMENT', 'PRE_AUTHORISED'],
+        'cancel': ['ABANDONED']
+    }
+
     # --------------------------------------------------
     # FORM RELATED METHODS
     # --------------------------------------------------
+
+    ### Odoo 15
+    def _get_specific_rendering_values(self, processing_values):
+        res = super()._get_specific_rendering_values(processing_values)
+        if self.provider not in ['lyra', 'lyramulti']:
+            return res
+
+        values = self.acquirer_id.lyra_form_generate_values(processing_values)
+
+        for key in values.keys():
+            if key.startswith('vads_') and values[key] != '':
+               values[key] = values[key].decode('utf-8')
+
+        partner_first_name, partner_last_name = payment_utils.split_partner_name(self.partner_name)
+
+        if self.acquirer_id.lyra_odoo15:
+            values.update({
+                'vads_cust_id': str(self.partner_id.id) or '',
+                'vads_cust_first_name': partner_first_name or '',
+                'vads_cust_last_name': partner_last_name or '',
+                'vads_cust_address': self.partner_address or '',
+                'vads_cust_zip': self.partner_zip or '',
+                'vads_cust_city': self.partner_city or '',
+                'vads_cust_state': self.partner_state_id.name or '',
+                'vads_cust_country': self.partner_country_id.code or '',
+                'vads_cust_email': self.partner_email or '',
+                'vads_cust_phone': self.partner_phone or '',
+
+                 # Shipping info.
+                'vads_ship_to_first_name': '',
+                'vads_ship_to_last_name': '',
+                'vads_ship_to_street': '',
+                'vads_ship_to_zip': '',
+                'vads_ship_to_city': '',
+                'vads_ship_to_state': '',
+                'vads_ship_to_country': '',
+                'vads_ship_to_phone_num': ''
+            })
+
+        values['lyra_signature'] = self.acquirer_id._lyra_generate_sign(self, values)
+        values['api_url'] = self.acquirer_id.lyra_get_form_action_url()
+        return values
 
     @api.model
     def _lyra_form_get_tx_from_data(self, data):
@@ -315,6 +411,14 @@ class TransactionLyra(models.Model):
 
         return tx
 
+    @api.model
+    def _get_tx_from_feedback_data(self, provider, data):
+        tx = super()._get_tx_from_feedback_data(provider, data)
+        if provider != 'lyra':
+            return tx
+
+        return self._lyra_form_get_tx_from_data(data)
+
     def _lyra_form_get_invalid_parameters(self, data):
         invalid_parameters = []
 
@@ -331,12 +435,6 @@ class TransactionLyra(models.Model):
         return invalid_parameters
 
     def _lyra_form_validate(self, data):
-        lyra_statuses = {
-            'success': ['AUTHORISED', 'CAPTURED', 'ACCEPTED'],
-            'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION', 'WAITING_FOR_PAYMENT', 'PRE_AUTHORISED'],
-            'cancel': ['ABANDONED']
-        }
-
         html_3ds = _('3DS authentication: ')
         if data.get('vads_threeds_status') == 'Y':
             html_3ds += _('YES')
@@ -359,11 +457,11 @@ class TransactionLyra(models.Model):
         }
 
         # Set validation date.
-        key = 'date' if hasattr(self, 'date')  else 'date_validate'
+        key = 'date' if hasattr(self, 'date') else 'date_validate'
         values[key] = fields.Datetime.now()
 
         status = data.get('vads_trans_status')
-        if status in lyra_statuses['success']:
+        if status in self.lyra_statuses['success']:
             values.update({
                 'state': 'done',
             })
@@ -371,7 +469,7 @@ class TransactionLyra(models.Model):
             self.write(values)
 
             return True
-        elif status in lyra_statuses['pending']:
+        elif status in self.lyra_statuses['pending']:
             values.update({
                 'state': 'pending',
             })
@@ -379,7 +477,7 @@ class TransactionLyra(models.Model):
             self.write(values)
 
             return True
-        elif status in lyra_statuses['cancel']:
+        elif status in self.lyra_statuses['cancel']:
             self.write({
                 'state_message': 'Payment for transaction #%s is cancelled (%s).' % (self.reference, data.get('vads_result')),
                 'state': 'cancel',
@@ -402,3 +500,68 @@ class TransactionLyra(models.Model):
             self.write(values)
 
             return False
+
+    def _process_feedback_data(self, data):
+        super()._process_feedback_data(data)
+        if self.provider != 'lyra':
+            return
+
+        self.acquirer_reference = data.get('vads_order_id')
+
+        html_3ds = _('3DS authentication: ')
+        if data.get('vads_threeds_status') == 'Y':
+            html_3ds += _('YES')
+            html_3ds += '<br />' + _('3DS certificate: ') + data.get('vads_threeds_cavv')
+        else:
+            html_3ds += _('NO')
+
+        expiry = ''
+        if data.get('vads_expiry_month') and data.get('vads_expiry_year'):
+            expiry = data.get('vads_expiry_month').zfill(2) + '/' + data.get('vads_expiry_year')
+
+        values = {
+            'acquirer_reference': data.get('vads_trans_uuid'),
+            'lyra_raw_data': '{}'.format(data),
+            'lyra_html_3ds': html_3ds,
+            'lyra_trans_status': data.get('vads_trans_status'),
+            'lyra_card_brand': data.get('vads_card_brand'),
+            'lyra_card_number': data.get('vads_card_number'),
+            'lyra_expiration_date': expiry,
+        }
+
+        status = data.get('vads_trans_status')
+        if status in self.lyra_statuses['success']:
+            self.write(values)
+            self._set_done()
+
+            return True
+        elif status in self.lyra_statuses['pending']:
+            self.write(values)
+            self._set_pending()
+
+            return True
+        elif status in lyra_statuses['cancel']:
+            self.write({
+                'state_message': 'Payment for transaction #%s is cancelled (%s).' % (self.reference, data.get('vads_result')),
+            })
+
+            self._set_canceled()
+
+            return False
+        else:
+            auth_result = data.get('vads_auth_result')
+            auth_message = _('See the transaction details for more information ({}).').format(auth_result)
+
+            error_msg = 'Lyra Collect payment error, transaction status: {}, authorization result: {}.'.format(status, auth_result)
+            _logger.info(error_msg)
+
+            values.update({
+                'state_message': 'Payment for transaction #%s is refused (%s).' % (self.reference, data.get('vads_result')),
+                'lyra_auth_result': auth_message,
+            })
+
+            self.write(values)
+            self._set_error()
+
+            return False
+
