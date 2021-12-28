@@ -61,30 +61,16 @@ class AcquirerLyra(models.Model):
     if constants.LYRA_PLUGIN_FEATURES.get('shatwo') == False:
         sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon.')
 
-    # Compatibility with Odoo 14.
-    lyra_odoo14 = True if parse_version(release.version) >= parse_version('14') else False
-
     providers = [('lyra', _('Lyra Collect - Standard payment'))]
-    if lyra_odoo14:
-        ondelete_policy = {'lyra': 'set default'}
+    ondelete_policy = {'lyra': 'set default'}
 
     if constants.LYRA_PLUGIN_FEATURES.get('multi') == True:
         providers.append(('lyramulti', _('Lyra Collect - Payment in installments')))
-        if lyra_odoo14:
-            ondelete_policy['lyramulti'] = 'set default'
+        ondelete_policy['lyramulti'] = 'set default'
 
-    if lyra_odoo14:
-        provider = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
-    else:
-        provider = fields.Selection(selection_add=providers)
+    provider = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
 
-    lyra_odoo15 = True if parse_version(release.version) >= parse_version('15') else False
-
-    # Compatibility with Odoo 15.
-    if lyra_odoo15:
-        view_template_id = fields.Char()
-    else:
-        redirect_form_view_id = fields.Many2one(string="Redirect Form Template", comodel_name='ir.ui.view',help="The template rendering a form submitted to redirect the user when making a payment", domain=[('type', '=', 'qweb')])
+    view_template_id = fields.Char()
 
     lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'))
     lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'))
@@ -110,18 +96,8 @@ class AcquirerLyra(models.Model):
     lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
     lyra_multi_first = fields.Char(string=_('1st payment'), help=_('Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount.'))
 
-    # Check if it's Odoo 10.
-    lyra_odoo10 = True if parse_version(release.version) < parse_version('11') else False
-
-    # Compatibility betwen Odoo 13 and previous versions.
-    lyra_odoo13 = True if parse_version(release.version) >= parse_version('13') else False
-
-    if lyra_odoo13:
-        image = fields.Char()
-        environment = fields.Char()
-    else:
-        image_128 = fields.Char()
-        state = fields.Char()
+    image = fields.Char()
+    environment = fields.Char()
 
     lyra_redirect = False
 
@@ -146,20 +122,8 @@ class AcquirerLyra(models.Model):
 
         return None
 
-    @api.model
-    def view_add(self, filename):
-        if self.lyra_odoo15:
-            filename = filename + u'_odoo15.xml'
-        else:
-            filename = filename + u'_bc.xml'
-
-        file = path.join(path.dirname(path.dirname(path.abspath(__file__)))) + filename
-        convert_xml_import(self._cr, 'payment_lyra', file)
-
-        return None
-
     def _get_ctx_mode(self):
-        ctx_key = self.state if self.lyra_odoo13 else self.environment
+        ctx_key = self.state
         ctx_value = 'TEST' if ctx_key == 'test' else 'PRODUCTION'
 
         return ctx_value
@@ -237,7 +201,7 @@ class AcquirerLyra(models.Model):
 
         # Enable redirection?
         AcquirerLyra.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
-        
+
         tx_values = dict() # Values to sign in unicode.
         tx_values.update({
             'vads_site_id': self.lyra_site_id,
@@ -262,32 +226,6 @@ class AcquirerLyra(models.Model):
             'vads_return_mode': str(self.lyra_return_mode),
             'vads_threeds_mpi': threeds_mpi
         })
-
-        # Odoo < v15
-        if not self.lyra_odoo15:
-            # Customer info.
-            tx_values.update({
-                'vads_cust_id': str(values.get('billing_partner_id')) or '',
-                'vads_cust_first_name': values.get('billing_partner_first_name') and values.get('billing_partner_first_name')[0:62] or '',
-                'vads_cust_last_name': values.get('billing_partner_last_name') and values.get('billing_partner_last_name')[0:62] or '',
-                'vads_cust_address': values.get('billing_partner_address') and values.get('billing_partner_address')[0:254] or '',
-                'vads_cust_zip': values.get('billing_partner_zip') and values.get('billing_partner_zip')[0:62] or '',
-                'vads_cust_city': values.get('billing_partner_city') and values.get('billing_partner_city')[0:62] or '',
-                'vads_cust_state': values.get('billing_partner_state').code and values.get('billing_partner_state').code[0:62] or '',
-                'vads_cust_country': values.get('billing_partner_country').code and values.get('billing_partner_country').code.upper() or '',
-                'vads_cust_email': values.get('billing_partner_email') and values.get('billing_partner_email')[0:126] or '',
-                'vads_cust_phone': values.get('billing_partner_phone') and values.get('billing_partner_phone')[0:31] or '',
-
-                # Shipping info.
-                'vads_ship_to_first_name': values.get('partner_first_name') and values.get('partner_first_name')[0:62] or '',
-                'vads_ship_to_last_name': values.get('partner_last_name') and values.get('partner_last_name')[0:62] or '',
-                'vads_ship_to_street': values.get('partner_address') and values.get('partner_address')[0:254] or '',
-                'vads_ship_to_zip': values.get('partner_zip') and values.get('partner_zip')[0:62] or '',
-                'vads_ship_to_city': values.get('partner_city') and values.get('partner_city')[0:62] or '',
-                'vads_ship_to_state': values.get('partner_state').code and values.get('partner_state').code[0:62] or '',
-                'vads_ship_to_country': values.get('partner_country').code and values.get('partner_country').code.upper() or '',
-                'vads_ship_to_phone_num': values.get('partner_phone') and values.get('partner_phone')[0:31] or ''
-            })
 
         if AcquirerLyra.lyra_redirect:
             tx_values.update({
@@ -317,6 +255,16 @@ class AcquirerLyra(models.Model):
     def lyramulti_get_form_action_url(self):
         return self.lyra_gateway_url
 
+    def _get_default_payment_method_id(self):
+        self.ensure_one()
+        if self.provider != 'lyra' and self.provider != 'lyramulti':
+            return super()._get_default_payment_method_id()
+
+        if self.provider == 'lyra':
+            return self.env.ref('payment_lyra.payment_method_lyra').id
+        if self.provider == 'lyramulti':
+            return self.env.ref('payment_lyra.payment_method_lyramulti').id
+
 class TransactionLyra(models.Model):
     _inherit = 'payment.transaction'
 
@@ -327,8 +275,7 @@ class TransactionLyra(models.Model):
     lyra_auth_result = fields.Char(_('Authorization result'))
     lyra_raw_data = fields.Text(string=_('Transaction log'), readonly=True)
 
-    if parse_version(release.version) >= parse_version('15'):
-        lyra_html_3ds = fields.Char('3D Secure HTML')
+    lyra_html_3ds = fields.Char('3D Secure HTML')
 
     lyra_statuses = {
         'success': ['AUTHORISED', 'CAPTURED', 'ACCEPTED'],
@@ -354,29 +301,28 @@ class TransactionLyra(models.Model):
 
         partner_first_name, partner_last_name = payment_utils.split_partner_name(self.partner_name)
 
-        if self.acquirer_id.lyra_odoo15:
-            values.update({
-                'vads_cust_id': str(self.partner_id.id) or '',
-                'vads_cust_first_name': partner_first_name or '',
-                'vads_cust_last_name': partner_last_name or '',
-                'vads_cust_address': self.partner_address or '',
-                'vads_cust_zip': self.partner_zip or '',
-                'vads_cust_city': self.partner_city or '',
-                'vads_cust_state': self.partner_state_id.name or '',
-                'vads_cust_country': self.partner_country_id.code or '',
-                'vads_cust_email': self.partner_email or '',
-                'vads_cust_phone': self.partner_phone or '',
+        values.update({
+            'vads_cust_id': str(self.partner_id.id) or '',
+            'vads_cust_first_name': partner_first_name or '',
+            'vads_cust_last_name': partner_last_name or '',
+            'vads_cust_address': self.partner_address or '',
+            'vads_cust_zip': self.partner_zip or '',
+            'vads_cust_city': self.partner_city or '',
+            'vads_cust_state': self.partner_state_id.name or '',
+            'vads_cust_country': self.partner_country_id.code or '',
+            'vads_cust_email': self.partner_email or '',
+            'vads_cust_phone': self.partner_phone or '',
 
-                 # Shipping info.
-                'vads_ship_to_first_name': '',
-                'vads_ship_to_last_name': '',
-                'vads_ship_to_street': '',
-                'vads_ship_to_zip': '',
-                'vads_ship_to_city': '',
-                'vads_ship_to_state': '',
-                'vads_ship_to_country': '',
-                'vads_ship_to_phone_num': ''
-            })
+            # Shipping info.
+            'vads_ship_to_first_name': '',
+            'vads_ship_to_last_name': '',
+            'vads_ship_to_street': '',
+            'vads_ship_to_zip': '',
+            'vads_ship_to_city': '',
+            'vads_ship_to_state': '',
+            'vads_ship_to_country': '',
+            'vads_ship_to_phone_num': ''
+        })
 
         values['lyra_signature'] = self.acquirer_id._lyra_generate_sign(self, values)
         values['api_url'] = self.acquirer_id.lyra_get_form_action_url()

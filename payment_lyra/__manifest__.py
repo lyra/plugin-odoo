@@ -9,9 +9,9 @@
 
 {
     'name': 'Lyra Collect Payment Acquirer',
-    'version': '1.2.2',
+    'version': '2.0.0',
     'summary': 'Accept payments with Lyra Collect secure payment gateway.',
-    'category': 'Accounting',
+    'category': 'Accounting/Payment Acquirers',
     'author': 'Lyra Network',
     'website': 'https://www.lyra.com/',
     'license': 'AGPL-3',
@@ -23,5 +23,6 @@
         'security/ir.model.access.csv',
     ],
     'images': ['static/description/icon.png'],
-    'installable': True,
+    'application': True,
+    'installable': True
 }
