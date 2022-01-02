@@ -486,7 +486,7 @@ class TransactionLyra(models.Model):
             self._set_pending()
 
             return True
-        elif status in lyra_statuses['cancel']:
+        elif status in self.lyra_statuses['cancel']:
             self.write({
                 'state_message': 'Payment for transaction #%s is cancelled (%s).' % (self.reference, data.get('vads_result')),
             })
@@ -507,7 +507,7 @@ class TransactionLyra(models.Model):
             })
 
             self.write(values)
-            self._set_error()
+            self._set_error('Payment for transaction #%s is refused (%s).' % (self.reference, data.get('vads_result')))
 
             return False
 
