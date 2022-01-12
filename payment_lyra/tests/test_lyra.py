@@ -80,7 +80,7 @@ class LyraTest(LyraCommon):
             "vads_action_mode": "INTERACTIVE",
             "vads_available_languages": "",
             "vads_capture_delay": "",
-            "vads_contrib": "Odoo_10-14_1.2.1/15.0",
+            "vads_contrib": "Odoo_15_2.0.0/15.0",
             "vads_ctx_mode": "TEST",
             "vads_currency": "978",
             "vads_cust_address": "Huge Street 2/543",

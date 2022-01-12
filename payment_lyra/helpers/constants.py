@@ -20,8 +20,8 @@ LYRA_PARAMS = {
     "SIGN_ALGO": "SHA-256",
     "LANGUAGE": "en",
     "GATEWAY_VERSION": "V2",
-    "PLUGIN_VERSION": "1.2.1",
-    "CMS_IDENTIFIER": "Odoo_10-14",
+    "PLUGIN_VERSION": "2.0.0",
+    "CMS_IDENTIFIER": "Odoo_15",
 }
 
 # https://payzen.io/en-EN/form-payment/reference/vads-language.html
@@ -130,14 +130,82 @@ LYRA_CARDS = {
     "WECHAT": "WeChat",
 }
 
+# https://payzen.io/en-EN/form-payment/reference/vads-currency.html
 LYRA_CURRENCIES = [
-    ["EUR", "978", 2],
-    ["GBP", "826", 2],
+    # Argentine Peso
+    ["ARS", "032", 2],
+    # Australian Dollar
+    ["AUD", "036", 2],
+    # Cambodian Riel
+    ["KHR", "116", 0],
+    # Canadian Dollar
     ["CAD", "124", 2],
-    ["JPY", "392", 0],
+    # Chinese Yuan (Renminbi)
+    ["CNY", "156", 1],
+    # Colombian Peso
+    ["COP", "170", 2],
+    # Czech Crown
+    ["CZK", "203", 2],
+    # Danish Crown
     ["DKK", "208", 2],
-    ["PLN", "985", 2],
-    ["USD", "840", 2],
-    ["CHF", "756", 2],
+    # Hong Kong Dollar
+    ["HKD", "344", 2],
+    # Hungarian Forint
+    ["HUF", "348", 2],
+    # Indian Rupee
+    ["INR", "356", 2],
+    # Indonesian Rupiah
+    ["IDR", "360", 2],
+    # Japanese Yen
+    ["JPY", "392", 0],
+    # South Korean Won
+    ["KRW", "410", 0],
+    # Kuwaiti Dinar
+    ["KWD", "414", 3],
+    # Malaysian Ringgit
+    ["MYR", "458", 2],
+    # Mexican Peso
+    ["MXN", "484", 2],
+    # Moroccan Dirham
+    ["MAD", "504", 2],
+    # New Zealand dollar
+    ["NZD", "554", 2],
+    # Norwegian Crown
     ["NOK", "578", 2],
+    # Peruvian Sol
+    ["PEN", "604", 2],
+    # Philippine Peso
+    ["PHP", "608", 2],
+    # Russian Ruble
+    ["RUB", "643", 2],
+    # Singapore Dollar
+    ["SGD", "702", 2],
+    # South-African Rand
+    ["ZAR", "710", 2],
+    # Swedish Crown
+    ["SEK", "752", 2],
+    # Swiss Franc
+    ["CHF", "756", 2],
+    # Thai Baht
+    ["THB", "764", 2],
+    # Tunisian Dinar
+    ["TND", "788", 3],
+    # Pound Sterling
+    ["GBP", "826", 2],
+    # US Dollar
+    ["USD", "840", 2],
+    # Taiwan New Dollar
+    ["TWD", "901", 2],
+    # New Turkish Lira
+    ["TRY", "949", 2],
+    # West African CFA franc
+    ["XOF", "952", 0],
+    # CFP Franc
+    ["XPF", "953", 0],
+    # Euro
+    ["EUR", "978", 2],
+    # Polish Zloty
+    ["PLN", "985", 2],
+    # Brazilian Real
+    ["BRL", "986", 2],
 ]
