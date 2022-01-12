@@ -11,15 +11,39 @@
 <odoo>
     <data noupdate="1">
         <record id="payment_acquirer_lyra" model="payment.acquirer">
-            <field name="name"><![CDATA[Lyra Collect - Standard payment]]></field>
-            <field name="image" type="base64" file="payment_lyra/static/src/img/logo.png" />
-            <field name="image_128" type="base64" file="payment_lyra/static/src/img/logo.png" />
+            <field name="name">PayZen - Standard payment</field>
             <field name="provider">lyra</field>
-            <field name="state">test</field>
-            <field name="company_id" ref="base.main_company" />
-            <field name="view_template_id" ref="lyra_acquirer_button" />
-            <field name="environment">test</field>
-            <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
+            <field name="image_128" type="base64" file="payment_lyra/static/src/img/logo.png" />
+            <field name="redirect_form_view_id" ref="redirect_form"/>
+            <field name="support_authorization">False</field>
+            <field name="support_fees_computation">True</field>
+            <field name="support_refund"></field>
+            <field name="support_tokenization">False</field>
+            <field name="display_as">Credit Card (powered by Lyra)</field>
+            <field name="payment_icon_ids"
+               eval="[(6, 0, [
+                   ref('payment.payment_icon_cc_visa'),
+                   ref('payment.payment_icon_cc_american_express'),
+                   ref('payment.payment_icon_cc_diners_club_intl'),
+                   ref('payment.payment_icon_cc_discover'),
+                   ref('payment.payment_icon_cc_jcb'),
+                   ref('payment.payment_icon_cc_maestro'),
+                   ref('payment.payment_icon_cc_mastercard'),
+                   ref('payment.payment_icon_cc_unionpay'),
+                   ref('payment.payment_icon_cc_bancontact'),
+                   ref('payment.payment_icon_cc_giropay'),
+                   ref('payment.payment_icon_cc_ideal'),
+                   ref('payment.payment_icon_paypal'),
+                   ref('payment.payment_icon_sepa'),
+               ])]"/>
+            <field name="pre_msg"><![CDATA[<p>You will be redirected to the PayZen website after clicking on the payment button.</p>]]></field>
+            <field name="description" type="html">
+                <p><![CDATA[Accept payments with Lyra Collect secure payment gateway.]]></p>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
+                    <li class="list-inline-item"><i class="fa fa-check" />eCommerce</li>
+                </ul>
+            </field>
 
             <field name="lyra_capture_delay"></field>
             <field name="lyra_validation_mode">-1</field>
@@ -28,18 +52,14 @@
             <field name="lyra_redirect_success_timeout">5</field>
             <field name="lyra_redirect_error_timeout">5</field>
             <field name="lyra_return_mode">GET</field>
-
-            <field name="description" type="html">
-                <p><![CDATA[Accept payments with Lyra Collect secure payment gateway.]]></p>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
-                    <li class="list-inline-item"><i class="fa fa-check" />eCommerce</li>
-                </ul>
-            </field>
         </record>
     </data>
 
-    <function model="payment.acquirer" name="multi_add">
-        <value>/data/payment_acquirer_data_multi.xml</value>
-    </function>
+
+    <record id="payment_method_lyra" model="account.payment.method">
+        <field name="name">Lyra</field>
+        <field name="code">lyra</field>
+        <field name="payment_type">inbound</field>
+    </record>
+
 </odoo>

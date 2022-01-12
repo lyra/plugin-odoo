@@ -10,11 +10,12 @@
 from odoo import models, fields
 from ..helpers import constants
 
+
 class LyraCard(models.Model):
-    _name = 'lyra.card'
-    _description = 'Lyra Collect payment card'
-    _rec_name = 'label'
-    _order = 'label'
+    _name = "lyra.card"
+    _description = "Lyra Collect payment card"
+    _rec_name = "label"
+    _order = "label"
 
     code = fields.Char()
     label = fields.Char()
@@ -23,7 +24,7 @@ class LyraCard(models.Model):
         cards = constants.LYRA_CARDS
 
         for c, l in cards.items():
-            card = self.search([('code', '=', c)])
+            card = self.search([("code", "=", c)])
 
             if not card:
-                self.create({'code': c, 'label': l})
+                self.create({"code": c, "label": l})

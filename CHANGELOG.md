@@ -1,3 +1,8 @@
+2.0.0, 2022-01-05
+=============
+
+- Migrate to Odoo 15 version.
+
 1.2.1, 2020-01-21
 =============
 - Compatibility with Odoo 14 version.

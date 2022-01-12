@@ -10,11 +10,12 @@
 from odoo import models, fields
 from ..helpers import constants, tools
 
+
 class LyraLanguage(models.Model):
-    _name = 'lyra.language'
-    _description = 'Lyra Collect language'
-    _rec_name = 'label'
-    _order = 'label'
+    _name = "lyra.language"
+    _description = "Lyra Collect language"
+    _rec_name = "label"
+    _order = "label"
 
     code = fields.Char()
     label = fields.Char(translate=tools.lang_translate)
@@ -23,7 +24,7 @@ class LyraLanguage(models.Model):
         languages = constants.LYRA_LANGUAGES
 
         for c, l in languages.items():
-            lang = self.search([('code', '=', c)])
+            lang = self.search([("code", "=", c)])
 
             if not lang:
-                self.create({'code': c, 'label': l})
+                self.create({"code": c, "label": l})

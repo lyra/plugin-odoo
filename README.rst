@@ -3,7 +3,7 @@
    :alt: License: AGPL v3
 
 ===================================================
-Lyra Collect plugin for Odoo
+Lyra Collect plugin for Odoo v15.0
 ===================================================
 
 Lyra Collect plugin for Odoo is an open source plugin that links Odoo based e-commerce websites to Lyra Collect
@@ -50,10 +50,24 @@ Important
   have to send back payment notification on the right database. Otherwise it will
   fail with a 404 error.
 
+Running test
+============
+
+In order to run all tests it requires accounting plan to be installed you
+can use `l10n_generic_coa` module for that::
+
+  odoo -i payment_lyra,l10n_generic_coa --stop-after-init --test-enable
+
+
 Author
 =======
 
 * Lyra Network (https://www.lyra.com/)
+
+Contributor
+===========
+
+* Pierre Verkest
 
 License
 =======

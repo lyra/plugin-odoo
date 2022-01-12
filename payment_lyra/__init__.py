@@ -9,3 +9,13 @@
 
 from . import controllers
 from . import models
+
+try:
+    from odoo.addons.payment import reset_payment_acquirer
+except Exception:
+    pass
+
+
+def uninstall_hook(cr, registry):
+    if reset_payment_acquirer:
+        reset_payment_acquirer(cr, registry, "lyra")
