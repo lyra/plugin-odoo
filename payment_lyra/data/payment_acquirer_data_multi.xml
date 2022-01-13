@@ -17,7 +17,6 @@
             <field name="provider">lyramulti</field>
             <field name="state">test</field>
             <field name="company_id" ref="base.main_company" />
-            <field name="view_template_id" ref="lyra_acquirer_button" />
             <field name="redirect_form_view_id" ref="lyra_acquirer_button"/>
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
