@@ -19,8 +19,8 @@
                     <div attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}">
                         <group name="lyra_gateway_access" string="PAYMENT GATEWAY ACCESS">
                             <field name="lyra_site_id" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_key_test" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_key_prod" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
+                            <field name="lyra_key_test" autocomplete="off" password="True" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
+                            <field name="lyra_key_prod" autocomplete="off"  password="True" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_sign_algo" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_notify_url" />
                             <field name="lyra_gateway_url" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
