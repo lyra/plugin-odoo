@@ -8,11 +8,16 @@
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
 LYRA_PARAMS = {
-    "GATEWAY_CODE": "Lyra",
-    "GATEWAY_NAME": "Lyra Collect",
-    "BACKOFFICE_NAME": "Lyra Expert",
-    "SUPPORT_EMAIL": "support-ecommerce@lyra-collect.com",
-    "GATEWAY_URL": "https://secure.lyra.com/vads-payment/",
+    'GATEWAY_CODE': 'PayZen',
+    'GATEWAY_NAME': 'PayZen',
+    'BACKOFFICE_NAME': 'PayZen',
+    'SUPPORT_EMAIL': 'support@payzen.eu',
+    'GATEWAY_URL': 'https://secure.payzen.eu/vads-payment/',
+    # "GATEWAY_CODE": "Lyra",
+    # "GATEWAY_NAME": "Lyra Collect",
+    # "BACKOFFICE_NAME": "Lyra Expert",
+    # "SUPPORT_EMAIL": "support-ecommerce@lyra-collect.com",
+    # "GATEWAY_URL": "https://secure.lyra.com/vads-payment/",
     "SITE_ID": "12345678",
     "KEY_TEST": "1111111111111111",
     "KEY_PROD": "2222222222222222",

@@ -6,7 +6,7 @@ from odoo.tools import mute_logger
 
 from .common import LyraCommon
 from ..controllers.main import LyraController
-
+from ..helpers.constants import LYRA_PARAMS
 from odoo.addons.payment.tests.http_common import PaymentHttpCommon
 
 
@@ -131,7 +131,7 @@ class LyraTest(LyraCommon):
             processing_values["redirect_form_html"]
         )
 
-        self.assertEqual(form_info["action"], "https://secure.lyra.com/vads-payment/")
+        self.assertEqual(form_info["action"], LYRA_PARAMS.get("GATEWAY_URL"))
         self.maxDiff = None
         # assertDictContainsSubset is deprecated from version 3.2 and
         # self.assertDictContainsSubset(
