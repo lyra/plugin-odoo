@@ -48,7 +48,7 @@ class AcquirerLyra(models.Model):
         return [(c, _(l)) for c, l in languages.items()]
 
     @api.depends('provider')
-    def _compute_multi_warning(self):
+    def _lyra_compute_multi_warning(self):
         for acquirer in self:
             acquirer.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (acquirer.provider == 'lyramulti') else False
 
@@ -57,12 +57,22 @@ class AcquirerLyra(models.Model):
     if constants.LYRA_PLUGIN_FEATURES.get('shatwo') == False:
         sign_algo_help += _('The HMAC-SHA-256 algorithm should not be activated if it is not yet available in the Lyra Expert Back Office, the feature will be available soon.')
 
+    # Compatibility with Odoo 14.
+    lyra_odoo14 = True if parse_version(release.version) >= parse_version('14') else False
+
     providers = [('lyra', _('Lyra Collect - Standard payment'))]
+    if lyra_odoo14:
+        ondelete_policy = {'lyra': 'set default'}
 
     if constants.LYRA_PLUGIN_FEATURES.get('multi') == True:
         providers.append(('lyramulti', _('Lyra Collect - Payment in installments')))
+        if lyra_odoo14:
+            ondelete_policy['lyramulti'] = 'set default'
 
-    provider = fields.Selection(selection_add=providers)
+    if lyra_odoo14:
+        provider = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
+    else:
+        provider = fields.Selection(selection_add=providers)
 
     lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'))
     lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'))
@@ -82,7 +92,7 @@ class AcquirerLyra(models.Model):
     lyra_redirect_error_timeout = fields.Char(string=_('Redirection timeout on failure'), help=_('Time in seconds (0-300) before the buyer is automatically redirected to your website after a declined payment.'))
     lyra_redirect_error_message = fields.Char(string=_('Redirection message on failure'), help=_('Message displayed on the payment page prior to redirection after a declined payment.'), default=_('Redirection to shop in a few seconds...'))
     lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
-    lyra_multi_warning = fields.Boolean(compute='_compute_multi_warning')
+    lyra_multi_warning = fields.Boolean(compute='_lyra_compute_multi_warning')
 
     lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
     lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
@@ -100,6 +110,8 @@ class AcquirerLyra(models.Model):
     else:
         image_128 = fields.Char()
         state = fields.Char()
+
+    lyra_redirect = False
 
     @api.model
     def multi_add(self, filename):
@@ -183,7 +195,7 @@ class AcquirerLyra(models.Model):
         validation_mode = self.lyra_validation_mode if self.lyra_validation_mode != '-1' else ''
 
         # Enable redirection?
-        self.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
+        AcquirerLyra.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
 
         tx_values = dict() # Values to sign in unicode.
         tx_values.update({
@@ -232,7 +244,7 @@ class AcquirerLyra(models.Model):
             'vads_ship_to_phone_num': values.get('partner_phone') and values.get('partner_phone')[0:31] or '',
         })
 
-        if self.lyra_redirect:
+        if AcquirerLyra.lyra_redirect:
             tx_values.update({
                 'vads_redirect_success_timeout': self.lyra_redirect_success_timeout or '',
                 'vads_redirect_success_message': self.lyra_redirect_success_message or '',
