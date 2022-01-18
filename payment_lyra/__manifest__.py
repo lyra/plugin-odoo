@@ -22,7 +22,7 @@
         'data/payment_acquirer_data.xml',
         'security/ir.model.access.csv',
     ],
-    'images': ['static/description/lyra_icon.png'],
+    'images': ['static/description/icon.png'],
     'application': True,
     'installable': True
 }
