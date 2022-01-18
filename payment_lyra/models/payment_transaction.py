@@ -44,8 +44,7 @@ class TransactionLyra(models.Model):
 
     ### Odoo 15
     def _get_specific_rendering_values(self, processing_values):
-        """ Override of payment to return Lyra-specific rendering values.
-        """
+        """ Override of payment to return Lyra-specific rendering values."""
         res = super()._get_specific_rendering_values(processing_values)
         if self.provider not in ['lyra', 'lyramulti']:
             return res
@@ -89,11 +88,7 @@ class TransactionLyra(models.Model):
         return values
 
     @api.model
-    def _get_tx_from_feedback_data(self, provider, data):
-        tx = super()._get_tx_from_feedback_data(provider, data)
-        if provider != 'lyra' and self.provider != 'lyramulti':
-            return tx
-
+    def _lyra_form_get_tx_from_data(self, data):
         shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
 
         if not reference or not shasign or not status:
@@ -120,6 +115,14 @@ class TransactionLyra(models.Model):
             raise ValidationError(error_msg)
 
         return tx
+
+    @api.model
+    def _get_tx_from_feedback_data(self, provider, data):
+        tx = super()._get_tx_from_feedback_data(provider, data)
+        if provider != 'lyra' and self.provider != 'lyramulti':
+            return tx
+
+        return self._lyra_form_get_tx_from_data(data)
 
     def _process_feedback_data(self, data):
         super()._process_feedback_data(data)
