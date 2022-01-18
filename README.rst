@@ -3,7 +3,7 @@
    :alt: License: AGPL v3
 
 ===================================================
-Lyra Collect plugin for Odoo
+Lyra Collect best plugin for Odoo
 ===================================================
 
 Lyra Collect plugin for Odoo is an open source plugin that links Odoo based e-commerce websites to Lyra Collect
@@ -41,7 +41,7 @@ Configuration
 * Click on button "Configure" of Lyra Collect module.
 * You can now enter your Lyra Collect credentials.
 
-Important
+IMPORTANT
 ---------
 * You should select a Payment Journal in the "Configuration" tab of the Lyra Collect aquirer
   to start using this payment method.
