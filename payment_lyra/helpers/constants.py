@@ -31,8 +31,8 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '1.2.1',
-    'CMS_IDENTIFIER': 'Odoo_10-14',
+    'PLUGIN_VERSION': '2.0.0',
+    'CMS_IDENTIFIER': 'Odoo_15',
 }
 
 LYRA_LANGUAGES = {
@@ -111,4 +111,5 @@ LYRA_CURRENCIES = [
     ['USD', '840', 2],
     ['CHF', '756', 2],
     ['NOK', '578', 2],
+    ['SEK', '752', 2],
 ]

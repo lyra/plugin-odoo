@@ -27,27 +27,21 @@ class LyraController(http.Controller):
         return_url = post.pop('return_url', '')
 
         if not return_url:
-            if result:
-                old_version = True if parse_version(release.version) < parse_version('12') else False
-                return_url = '/shop/payment/validate' if old_version else '/payment/process'
-            else:
-                return_url = '/shop/cart'
+            return_url = '/payment/process' if result else '/shop/cart'
 
         return return_url
 
-    @http.route('/payment/lyra/return', type='http', auth='none', methods=['POST', 'GET'], csrf=False)
+    @http.route('/payment/lyra/return', type='http', auth='public', methods=['POST', 'GET'], csrf=False)
     def lyra_return(self, **post):
-        _logger.info('Lyra Collect: entering form_feedback with post data %s', pprint.pformat(post))
-
         # Check payment result and create transaction.
-        result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyra')
-        return_url = self._get_return_url(result, **post)
-        return werkzeug.utils.redirect(return_url)
+        _logger.info('Lyra Collect: entering _handle_feedback with post data %s', pprint.pformat(post))
+        request.env['payment.transaction'].sudo()._handle_feedback_data('lyra', post)
+        return request.redirect('/payment/status')
 
-    @http.route('/payment/lyra/ipn', type='http', auth='none', methods=['POST'], csrf=False)
+    @http.route('/payment/lyra/ipn', type='http', auth='public', methods=['POST'], csrf=False)
     def lyra_ipn(self, **post):
-        _logger.info('Lyra Collect: entering IPN form_feedback with post data %s', pprint.pformat(post))
-
         # Check payment result and create transaction.
-        result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyra')
+        _logger.info('Lyra Collect: entering IPN _handle_feedback with post data %s', pprint.pformat(post))
+        result = request.env['payment.transaction'].sudo()._handle_feedback_data('lyra', post)
+
         return 'Accepted payment, order has been updated.' if result else 'Payment failure, order has been cancelled.'

@@ -13,7 +13,7 @@
         <record id="acquirer_form_lyramulti" model="ir.ui.view">
             <field name="name">acquirer.form.lyramulti</field>
             <field name="model">payment.acquirer</field>
-            <field name="inherit_id" ref="payment.acquirer_form" />
+            <field name="inherit_id" ref="payment.payment_acquirer_form" />
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='lyra_gateway_access']" position="before">
                     <field name="lyra_multi_warning" invisible="1"/>
