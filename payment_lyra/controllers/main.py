@@ -16,7 +16,6 @@ import werkzeug
 from odoo import http, release
 from odoo.http import request
 
-
 _logger = logging.getLogger(__name__)
 
 class LyraController(http.Controller):

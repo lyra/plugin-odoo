@@ -194,7 +194,7 @@ class AcquirerLyra(models.Model):
         for value in self.lyra_payment_cards:
             payment_cards += value.code + ';'
 
-        #Validation mode
+        # Validation mode.
         validation_mode = self.lyra_validation_mode if self.lyra_validation_mode != '-1' else ''
 
         # Enable redirection?
@@ -256,4 +256,3 @@ class AcquirerLyra(models.Model):
             return self.env.ref('payment_lyra.payment_method_lyra').id
         if self.provider == 'lyramulti':
             return self.env.ref('payment_lyra.payment_method_lyramulti').id
-

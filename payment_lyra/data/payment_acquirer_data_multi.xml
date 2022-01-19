@@ -17,7 +17,7 @@
             <field name="provider">lyramulti</field>
             <field name="state">test</field>
             <field name="company_id" ref="base.main_company" />
-            <field name="redirect_form_view_id" ref="lyra_acquirer_button"/>
+            <field name="redirect_form_view_id" ref="lyra_acquirer_button" />
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
 
@@ -35,7 +35,7 @@
             <field name="description" type="html">
                 <p><![CDATA[Accept payments in installments with Lyra Collect secure payment gateway.]]></p>
                 <ul class="list-inline">
-                    <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
+                    <li class="list-inline-item"><i class="fa fa-check" />Online Payment</li>
                     <li class="list-inline-item"><i class="fa fa-check" />eCommerce</li>
                 </ul>
             </field>

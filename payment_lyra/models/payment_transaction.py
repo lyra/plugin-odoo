@@ -42,7 +42,7 @@ class TransactionLyra(models.Model):
     # FORM RELATED METHODS
     # --------------------------------------------------
 
-    ### Odoo 15
+    # Odoo 15.
     def _get_specific_rendering_values(self, processing_values):
         """ Override of payment to return Lyra-specific rendering values."""
         res = super()._get_specific_rendering_values(processing_values)
@@ -187,4 +187,3 @@ class TransactionLyra(models.Model):
             self._set_error('Payment for transaction #%s is refused (%s).' % (self.reference, data.get('vads_result')))
 
             return False
-
