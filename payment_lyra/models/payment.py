@@ -282,6 +282,12 @@ class TransactionLyra(models.Model):
     lyra_auth_result = fields.Char(_('Authorization result'))
     lyra_raw_data = fields.Text(string=_('Transaction log'), readonly=True)
 
+    provider = fields.Char(compute='_compute_provider')
+
+    @api.one
+    def _compute_provider(self):
+        self.provider =  self.acquirer_id.provider
+
     # --------------------------------------------------
     # FORM RELATED METHODS
     # --------------------------------------------------
