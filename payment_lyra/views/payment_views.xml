@@ -54,7 +54,7 @@
             <field name="inherit_id" ref="payment.transaction_form" />
             <field name="arch" type="xml">
                 <field name="acquirer_reference" position="after">
-                    <field name="provider"/>
+                    <field name="provider" />
                     <field name="lyra_trans_status" attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}" />
                     <field name="lyra_card_brand" attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}" />
                     <field name="lyra_card_number" attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}" />

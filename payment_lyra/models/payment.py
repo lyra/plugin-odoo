@@ -286,7 +286,7 @@ class TransactionLyra(models.Model):
 
     @api.one
     def _compute_provider(self):
-        self.provider =  self.acquirer_id.provider
+        self.provider = self.acquirer_id.provider
 
     # --------------------------------------------------
     # FORM RELATED METHODS
