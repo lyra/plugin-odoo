@@ -1,3 +1,7 @@
+1.2.2, 2022-01-20
+=============
+- Fix provider for payment transaction view.
+
 1.2.1, 2020-01-21
 =============
 - Compatibility with Odoo 14 version.
