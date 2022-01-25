@@ -386,7 +386,7 @@ msgstr "Anzahl"
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_count
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_count
 msgid "Installments number"
-msgstr "Installments number"
+msgstr "Gesamtanzahl der Raten."
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_period
