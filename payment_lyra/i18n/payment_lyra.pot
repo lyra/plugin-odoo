@@ -274,13 +274,13 @@ msgstr ""
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_threeds_min_amount
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_threeds_min_amount
-msgid "Disable 3DS"
+msgid "Manage 3DS"
 msgstr ""
 
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_threeds_min_amount
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_threeds_min_amount
-msgid "Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, refer to the module documentation."
+msgid "Amount below which customer could be exempt from strong authentication. Needs subscription to « Selective 3DS1 » or « Frictionless 3DS2 » options. For more information, refer to the module documentation."
 msgstr ""
 
 #. module: payment_lyra
@@ -399,13 +399,13 @@ msgstr ""
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_first
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_multi_first
-msgid "1st payment"
+msgid "1st installment"
 msgstr ""
 
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_first
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_first
-msgid "Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount."
+msgid "Amount of first installment, in percentage of total amount. If empty, all installments will have the same amount."
 msgstr ""
 
 #. module: payment_lyra
@@ -492,7 +492,7 @@ msgstr ""
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
-msgid "SELECTIVE 3DS"
+msgid "CUSTOM 3DS"
 msgstr ""
 
 #. module: payment_lyra
