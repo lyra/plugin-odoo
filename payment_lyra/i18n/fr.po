@@ -362,7 +362,7 @@ msgstr "Nombre"
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_count model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_count
 msgid "Total number of payments."
-msgstr "Nombre total d'échéances."
+msgstr "Nombre d'échéances"
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_period
@@ -372,7 +372,7 @@ msgstr "Période"
 
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_period model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_period
-msgid "Delay (in days) between payments."
+msgid "Delay (in days) between installments."
 msgstr "Délai entre deux échéances (en jours)."
 
 #. module: payment_lyra

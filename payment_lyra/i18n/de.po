@@ -385,8 +385,8 @@ msgstr "Anzahl"
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_count
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_count
-msgid "Total number of payments."
-msgstr "Gesamtanzahl der Raten."
+msgid "Installments number"
+msgstr "Installments number"
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_period
@@ -397,7 +397,7 @@ msgstr "Zeitraum"
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_period
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_period
-msgid "Delay (in days) between payments."
+msgid "Delay (in days) between installments."
 msgstr "Zeitraum zwischen zwei Raten (in Tagen)."
 
 #. module: payment_lyra

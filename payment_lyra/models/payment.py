@@ -94,7 +94,7 @@ class AcquirerLyra(models.Model):
     lyra_return_mode = fields.Selection(string=_('Return mode'), help=_('Method that will be used for transmitting the payment result from the payment page to your shop.'), selection=[('GET', 'GET'), ('POST', 'POST')])
     lyra_multi_warning = fields.Boolean(compute='_lyra_compute_multi_warning')
 
-    lyra_multi_count = fields.Char(string=_('Count'), help=_('Total number of payments.'))
+    lyra_multi_count = fields.Char(string=_('Count'), help=_('Installments number'))
     lyra_multi_period = fields.Char(string=_('Period'), help=_('Delay (in days) between payments.'))
     lyra_multi_first = fields.Char(string=_('1st installment'), help=_('Amount of first installment, in percentage of total amount. If empty, all installments will have the same amount.'))
 

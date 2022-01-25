@@ -385,8 +385,8 @@ msgstr "Conteo"
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_count
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_count
-msgid "Total number of payments."
-msgstr "Número total de pagos."
+msgid "Installments number"
+msgstr "Número de cuotas"
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_period
@@ -397,8 +397,8 @@ msgstr "Periodo"
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_period
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_period
-msgid "Delay (in days) between payments."
-msgstr "Plazo (en días) entre pagos."
+msgid "Delay (in days) between installments."
+msgstr "Plazo (en días) entre vencimientos."
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_first
