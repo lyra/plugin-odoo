@@ -278,8 +278,8 @@ msgstr "Wählen Sie die zur Zahlung verfügbaren Kartentypen aus. Nichts auswäh
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_threeds_min_amount
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_threeds_min_amount
-msgid "Disable 3DS"
-msgstr "3DS deaktivieren"
+msgid "Manage 3DS"
+msgstr "Manage 3DS"
 
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_threeds_min_amount
@@ -387,7 +387,7 @@ msgstr "Anzahl"
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_count
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_count
-msgid "Total number of payments."
+msgid "Installments number"
 msgstr "Gesamtanzahl der Raten."
 
 #. module: payment_lyra
@@ -399,20 +399,20 @@ msgstr "Zeitraum"
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_period
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_period
-msgid "Delay (in days) between payments."
+msgid "Delay (in days) between installments."
 msgstr "Zeitraum zwischen zwei Raten (in Tagen)."
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_first
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_multi_first
-msgid "1st payment"
-msgstr "1. Zahlung"
+msgid "1st installment"
+msgstr "1. Rate"
 
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_first
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_first
-msgid "Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount."
-msgstr "Betrag der ersten Rate als Prozentsatz des Gesamtbetrags. Falls dies nicht angegeben ist, haben alle Raten den gleichen Betrag."
+msgid "Amount of first installment, in percentage of total amount. If empty, all installments will have the same amount."
+msgstr "Betrag der ersten Rate insgesamtes Prozent. Falls dies nicht angegeben ist, haben alle Raten den gleichen Betrag."
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment.py:164
@@ -498,8 +498,8 @@ msgstr "ZAHLUNGSSEITE"
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
-msgid "SELECTIVE 3DS"
-msgstr "SELEKTIVES 3DS"
+msgid "CUSTOM 3DS"
+msgstr "CUSTOM 3DS"
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti
