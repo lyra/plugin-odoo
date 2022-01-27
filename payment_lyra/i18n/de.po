@@ -510,3 +510,11 @@ msgstr "ZAHLUNGSOPTIONEN"
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "RETURN TO SHOP"
 msgstr "ÜBERMITTLUNGSOPTIONEN"
+
+#. module: payment_lyra
+#: model_terms:payment.acquirer,pre_msg:payment_lyra.payment_acquirer_lyra
+#: model_terms:payment.acquirer,pre_msg:payment_lyra.payment_acquirer_lyramulti
+msgid ""
+"You will be redirected to the Lyra Collect website after clicking on the "
+"payment button."
+msgstr "Sie werden nach dem Klicken auf die Zahlungsschaltfläche auf die Website von Lyra Collect weitergeleitet."
