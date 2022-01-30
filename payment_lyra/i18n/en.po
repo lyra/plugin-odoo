@@ -399,8 +399,10 @@ msgid "Delay (in days) between installments."
 msgstr "Delay (in days) between installments."
 
 #. module: payment_lyra
-#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_first
+#: code:addons/payment_lyra/models/payment_acquirer.py:0
+#: code:addons/payment_lyra/models/payment_acquirer.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_multi_first
+#, python-format
 msgid "1st installment"
 msgstr "1st installment"
 
