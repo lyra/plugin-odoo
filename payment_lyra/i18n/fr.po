@@ -265,7 +265,7 @@ msgstr "Gérer le 3DS"
 
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_threeds_min_amount model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_threeds_min_amount
-msgid "Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, refer to the module documentation."
+msgid "Amount below which customer could be exempt from strong authentication. Needs subscription to « Selective 3DS1 » or « Frictionless 3DS2 » options. For more information, refer to the module documentation."
 msgstr "Montant en dessous duquel 3DS sera désactivé. Nécessite la souscription à l'option 3DS sélectif. Pour plus d'informations, reportez-vous à la documentation du module."
 
 #. module: payment_lyra
