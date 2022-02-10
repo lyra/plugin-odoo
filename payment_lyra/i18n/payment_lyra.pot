@@ -738,3 +738,94 @@ msgid ""
 "You will be redirected to the Lyra Collect website after clicking on the "
 "payment button."
 msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Chinese"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "German"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Spanish"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "English"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "French"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Italian"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Japanese"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Dutch"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Polish"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Portuguese"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Russian"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Swedish"
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Turkish"
+msgstr ""

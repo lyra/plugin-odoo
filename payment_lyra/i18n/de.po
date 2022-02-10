@@ -26,7 +26,7 @@ msgstr "1. Rate"
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_html_3ds
 msgid "3D Secure HTML"
-msgstr ""
+msgstr "3D Secure HTML"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment_transaction.py:0
@@ -48,6 +48,8 @@ msgid ""
 "ATTENTION: The payment in installments feature activation is subject to the "
 "prior agreement of Société Générale."
 msgstr ""
+"ATTENTION: The payment in installments feature activation is subject to the "
+"prior agreement of Société Générale."
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment_acquirer.py:0
@@ -71,6 +73,9 @@ msgid ""
 "Needs subscription to «Selective 3DS1» or «Frictionless 3DS2» options. For "
 "more information, refer to the module documentation."
 msgstr ""
+"Amount below which customer could be exempt from strong authentication. "
+"Needs subscription to «Selective 3DS1» or «Frictionless 3DS2» options. For "
+"more information, refer to the module documentation."
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment_acquirer.py:0
@@ -631,7 +636,7 @@ msgstr "Weitere Informationen finden Sie in den Transaktionsdetails ({})."
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_site_id
 #, python-format
 msgid "Shop ID"
-msgstr ""
+msgstr "Shop ID"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment_acquirer.py:0
@@ -657,7 +662,7 @@ msgstr ""
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__provider
 msgid "The Payment Service Provider to use with this acquirer"
-msgstr ""
+msgstr "The Payment Service Provider to use with this acquirer"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment_acquirer.py:0
@@ -775,3 +780,94 @@ msgid ""
 msgstr ""
 "Sie werden nach dem Klicken auf die Zahlungsschaltfläche auf die Website von"
 " Lyra Collect weitergeleitet."
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Chinese"
+msgstr "Chinesisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "German"
+msgstr "Deutsch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Spanish"
+msgstr "Spanisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "English"
+msgstr "Englisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "French"
+msgstr "Französisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Italian"
+msgstr "Italienisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Japanese"
+msgstr "Japanisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Dutch"
+msgstr "Holländisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Polish"
+msgstr "Polnisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Portuguese"
+msgstr "Portugiesisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Russian"
+msgstr "Russisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Swedish"
+msgstr "Schwedisch"
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/helpers/tools.py:0
+#: code:addons/payment_lyra/helpers/tools.py:0
+#, python-format
+msgid "Turkish"
+msgstr "Türkisch"
