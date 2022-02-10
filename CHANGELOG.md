@@ -1,4 +1,4 @@
-1.2.2, 2022-01-20
+1.2.2, 2022-02-10
 =============
 - Fix provider for payment transaction view.
 
