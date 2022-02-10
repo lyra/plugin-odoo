@@ -278,16 +278,14 @@ msgstr "El tipo(s) de tarjeta que se puede usar para el pago. No haga ninguna se
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_threeds_min_amount
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_threeds_min_amount
-msgid "Disable 3DS"
-msgstr "Deshabilitar 3DS"
+msgid "Manage 3DS"
+msgstr "Gestionar el 3DS"
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_threeds_min_amount
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_threeds_min_amount
-msgid "Amount below which 3DS will be disabled. Needs subscription to selective 3DS option. For more information, refer to the module documentation."
-msgstr ""
-"Monto por debajo del cual se deshabilitará 3DS. Requiere suscripción a la opción 3DS selectivo. Para más información, consulte la documentación del "
-"módulo."
+msgid "Amount below which customer could be exempt from strong authentication. Needs subscription to « Selective 3DS1 » or « Frictionless 3DS2 » options. For more information, refer to the module documentation."
+msgstr "Monto por debajo del cual el comprador podría estar exento de de la autenticación fuerte. Requiere suscripción a la opción « Selective 3DS1 » o a la opción « Frictionless 3DS2 ». Para más información, consulte la documentación del módulo."
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_redirect_enabled
@@ -387,8 +385,8 @@ msgstr "Conteo"
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_count
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_count
-msgid "Total number of payments."
-msgstr "Número total de pagos."
+msgid "Installments number"
+msgstr "Número de cuotas"
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_period
@@ -399,20 +397,20 @@ msgstr "Periodo"
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_period
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_period
-msgid "Delay (in days) between payments."
-msgstr "Plazo (en días) entre pagos."
+msgid "Delay (in days) between installments."
+msgstr "Plazo (en días) entre vencimientos."
 
 #. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer_lyra_multi_first
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_multi_first
-msgid "1st payment"
-msgstr "Primer pago"
+msgid "1st installment"
+msgstr "Primer vencimiento"
 
 #. module: payment_lyra
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer_lyra_multi_first
 #: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_multi_first
-msgid "Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount."
-msgstr "Monto del primer pago, en porcentaje del monto total. Si está vacío, todos los pagos tendrán el mismo monto."
+msgid "Amount of first installment, in percentage of total amount. If empty, all installments will have the same amount."
+msgstr "Monto del primer vencimiento, en porcentaje del monto total. Si está vacío, todos los vencimientos tendrán el mismo monto."
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment.py:164
@@ -498,8 +496,8 @@ msgstr "PÁGINA DE PAGO"
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
-msgid "SELECTIVE 3DS"
-msgstr "3DS SELECTIVO"
+msgid "CUSTOM 3DS"
+msgstr "3DS PERSONALIZADO"
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyramulti

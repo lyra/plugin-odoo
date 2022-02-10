@@ -1,3 +1,7 @@
+1.2.2, 2022-02-10
+=============
+- Fix provider for payment transaction view.
+
 1.2.1, 2020-01-21
 =============
 - Compatibility with Odoo 14 version.
@@ -17,7 +21,7 @@
 - Added Spanish translation.
 - Enable signature algorithm selection (SHA-1 or HMAC-SHA-256).
 - Added various configuration options.
-- Improve payment details dislay.
+- Improve payment details display.
 - [technical] Manage enabled/disabled features by plugin variant.
 
 1.0.0, 2017-05-01
