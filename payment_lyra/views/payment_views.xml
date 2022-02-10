@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
 # Copyright © Lyra Network.
 # This file is part of Lyra Collect plugin for Odoo. See COPYING.md for license details.
 #
@@ -32,7 +32,7 @@
                             <field name="lyra_validation_mode" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_payment_cards" widget="many2many_tags" options="{'no_create': True}" />
                         </group>
-                        <group name="lyra_selective_3ds" string="SELECTIVE 3DS">
+                        <group name="lyra_selective_3ds" string="CUSTOM 3DS">
                             <field name="lyra_threeds_min_amount" />
                         </group>
                         <group string="RETURN TO SHOP">
@@ -54,6 +54,7 @@
             <field name="inherit_id" ref="payment.transaction_form" />
             <field name="arch" type="xml">
                 <field name="acquirer_reference" position="after">
+                    <field name="provider" />
                     <field name="lyra_trans_status" attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}" />
                     <field name="lyra_card_brand" attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}" />
                     <field name="lyra_card_number" attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}" />
