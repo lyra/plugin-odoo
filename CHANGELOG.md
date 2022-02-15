@@ -1,6 +1,6 @@
 1.2.3, 2022-02-15
 =============
-- Bug fix: fix AttributeError during plugin installation..
+- Bug fix: AttributeError during plugin installation.
 
 1.2.2, 2022-02-10
 =============
