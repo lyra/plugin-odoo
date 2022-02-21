@@ -284,7 +284,7 @@ class TransactionLyra(models.Model):
 
     provider = fields.Char(compute='_compute_provider')
 
-    @api.one
+    @api.model
     def _compute_provider(self):
         self.provider = self.acquirer_id.provider
 
