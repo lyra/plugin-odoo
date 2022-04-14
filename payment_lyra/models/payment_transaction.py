@@ -7,13 +7,13 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
+from datetime import datetime
 import logging
 import math
-from datetime import datetime
 
 from odoo import models, api, release, fields, _
-from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.addons.payment import utils as payment_utils
+from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.tools.float_utils import float_compare
 
 from ..helpers import tools
@@ -44,7 +44,7 @@ class TransactionLyra(models.Model):
 
     # Odoo 15.
     def _get_specific_rendering_values(self, processing_values):
-        """ Override of payment to return Lyra-specific rendering values."""
+        """ Override of payment to return Lyra specific rendering values. """
         res = super()._get_specific_rendering_values(processing_values)
         if self.provider not in ['lyra', 'lyramulti']:
             return res
@@ -57,9 +57,6 @@ class TransactionLyra(models.Model):
 
         partner_first_name, partner_last_name = payment_utils.split_partner_name(self.partner_name)
 
-        partner_shipping_id = self.sale_order_ids[0].partner_shipping_id
-        partner_shipping_first_name, partner_shipping_last_name = payment_utils.split_partner_name(partner_shipping_id.name) if partner_shipping_id else ('', '')
-
         values.update({
             'vads_cust_id': str(self.partner_id.id) or '',
             'vads_cust_first_name': partner_first_name or '',
@@ -67,21 +64,27 @@ class TransactionLyra(models.Model):
             'vads_cust_address': self.partner_address or '',
             'vads_cust_zip': self.partner_zip or '',
             'vads_cust_city': self.partner_city or '',
-            'vads_cust_state': self.partner_state_id.name or '',
+            'vads_cust_state': self.partner_state_id.code or '',
             'vads_cust_country': self.partner_country_id.code or '',
             'vads_cust_email': self.partner_email or '',
             'vads_cust_phone': self.partner_phone or '',
-
-            # Shipping info.
-            'vads_ship_to_first_name': partner_shipping_first_name if partner_shipping_id else '',
-            'vads_ship_to_last_name': partner_shipping_last_name if partner_shipping_id else '',
-            'vads_ship_to_street': partner_shipping_id.street if partner_shipping_id else '',
-            'vads_ship_to_zip': partner_shipping_id.zip if partner_shipping_id else '',
-            'vads_ship_to_city': partner_shipping_id.city if partner_shipping_id else '',
-            'vads_ship_to_state': partner_shipping_id.state_id.name if partner_shipping_id else '',
-            'vads_ship_to_country': partner_shipping_id.country_id.code if partner_shipping_id else '',
-            'vads_ship_to_phone_num': partner_shipping_id.phone if partner_shipping_id else ''
         })
+
+        partner_shipping_id = self.sale_order_ids[0].partner_shipping_id
+        if partner_shipping_id:
+            # Set shipping info.
+            partner_shipping_first_name, partner_shipping_last_name = payment_utils.split_partner_name(partner_shipping_id.name) or ('', '')
+
+            values.update({
+                'vads_ship_to_first_name': partner_shipping_first_name or '',
+                'vads_ship_to_last_name': partner_shipping_last_name or '',
+                'vads_ship_to_street': partner_shipping_id.street or '',
+                'vads_ship_to_zip': partner_shipping_id.zip or '',
+                'vads_ship_to_city': partner_shipping_id.city or '',
+                'vads_ship_to_state': partner_shipping_id.state_id.code or '',
+                'vads_ship_to_country': partner_shipping_id.country_id.code or '',
+                'vads_ship_to_phone_num': partner_shipping_id.phone or ''
+            })
 
         values['lyra_signature'] = self.acquirer_id._lyra_generate_sign(self, values)
         values['api_url'] = self.acquirer_id.lyra_get_form_action_url()
