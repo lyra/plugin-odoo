@@ -1,3 +1,7 @@
+2.0.2, 2022-06-07
+=============
+- Update list of supported payment means.
+
 2.0.1, 2022-04-14
 =============
 - Fix the management of empty customer state.
