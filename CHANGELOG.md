@@ -1,3 +1,7 @@
+2.0.3, 2022-06-14
+=============
+- Fix invoice payment with payment links.
+
 2.0.2, 2022-06-07
 =============
 - Update list of supported payment means.

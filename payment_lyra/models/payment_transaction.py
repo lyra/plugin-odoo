@@ -42,7 +42,6 @@ class TransactionLyra(models.Model):
     # FORM RELATED METHODS
     # --------------------------------------------------
 
-    # Odoo 15.
     def _get_specific_rendering_values(self, processing_values):
         """ Override of payment to return Lyra specific rendering values. """
         res = super()._get_specific_rendering_values(processing_values)
@@ -59,32 +58,49 @@ class TransactionLyra(models.Model):
 
         values.update({
             'vads_cust_id': str(self.partner_id.id) or '',
-            'vads_cust_first_name': partner_first_name or '',
-            'vads_cust_last_name': partner_last_name or '',
-            'vads_cust_address': self.partner_address or '',
-            'vads_cust_zip': self.partner_zip or '',
-            'vads_cust_city': self.partner_city or '',
-            'vads_cust_state': self.partner_state_id.code or '',
-            'vads_cust_country': self.partner_country_id.code or '',
-            'vads_cust_email': self.partner_email or '',
-            'vads_cust_phone': self.partner_phone or '',
+            'vads_cust_first_name': partner_first_name and partner_first_name[0:62] or '',
+            'vads_cust_last_name': partner_last_name and partner_last_name[0:62] or '',
+            'vads_cust_address': self.partner_address and self.partner_address[0:254] or '',
+            'vads_cust_zip': self.partner_zip and self.partner_zip[0:62] or '',
+            'vads_cust_city': self.partner_city and self.partner_city[0:62] or '',
+            'vads_cust_state': self.partner_state_id.code and self.partner_state_id.code[0:62] or '',
+            'vads_cust_country': self.partner_country_id.code and self.partner_country_id.code.upper() or '',
+            'vads_cust_email': self.partner_email and self.partner_email[0:126] or '',
+            'vads_cust_phone': self.partner_phone and self.partner_phone[0:31] or '',
         })
 
-        partner_shipping_id = self.sale_order_ids[0].partner_shipping_id
-        if partner_shipping_id:
-            # Set shipping info.
-            partner_shipping_first_name, partner_shipping_last_name = payment_utils.split_partner_name(partner_shipping_id.name) or ('', '')
+        # Set shipping info.
+        try:
+            shipping_address = self.sale_order_ids[0].partner_shipping_id
 
-            values.update({
-                'vads_ship_to_first_name': partner_shipping_first_name or '',
-                'vads_ship_to_last_name': partner_shipping_last_name or '',
-                'vads_ship_to_street': partner_shipping_id.street or '',
-                'vads_ship_to_zip': partner_shipping_id.zip or '',
-                'vads_ship_to_city': partner_shipping_id.city or '',
-                'vads_ship_to_state': partner_shipping_id.state_id.code or '',
-                'vads_ship_to_country': partner_shipping_id.country_id.code or '',
-                'vads_ship_to_phone_num': partner_shipping_id.phone or ''
-            })
+            partner_shipping_first_name, partner_shipping_last_name = payment_utils.split_partner_name(shipping_address.name) or ('', '')
+            partner_ship_to_street = shipping_address.street and shipping_address.street[0:62] or ''
+            partner_ship_to_zip = shipping_address.zip and shipping_address.zip[0:62] or ''
+            partner_ship_to_city = shipping_address.city and shipping_address.city[0:62] or ''
+            partner_ship_to_state = shipping_address.state_id.name and shipping_address.state_id.name[0:62] or ''
+            partner_ship_to_country = shipping_address.country_id.code and shipping_address.country_id.code.upper() or ''
+            partner_ship_to_phone_num = shipping_address.phone and shipping_address.phone[0:31] or ''
+
+        except Exception:
+            partner_shipping_first_name = values['vads_cust_first_name']
+            partner_shipping_last_name = values['vads_cust_last_name']
+            partner_ship_to_street = values['vads_cust_address'] and values['vads_cust_address'][0:62] or ''
+            partner_ship_to_zip = values['vads_cust_zip']
+            partner_ship_to_city = values['vads_cust_city']
+            partner_ship_to_state = values['vads_cust_state']
+            partner_ship_to_country = values['vads_cust_country']
+            partner_ship_to_phone_num = values['vads_cust_phone']
+
+        values.update({
+            'vads_ship_to_first_name': partner_shipping_first_name and partner_shipping_first_name[0:62] or '',
+            'vads_ship_to_last_name': partner_shipping_last_name and partner_shipping_last_name[0:62] or '',
+            'vads_ship_to_street': partner_ship_to_street,
+            'vads_ship_to_zip': partner_ship_to_zip,
+            'vads_ship_to_city': partner_ship_to_city,
+            'vads_ship_to_state': partner_ship_to_state,
+            'vads_ship_to_country': partner_ship_to_country,
+            'vads_ship_to_phone_num': partner_ship_to_phone_num
+        })
 
         values['lyra_signature'] = self.acquirer_id._lyra_generate_sign(self, values)
         values['api_url'] = self.acquirer_id.lyra_get_form_action_url()
@@ -92,7 +108,7 @@ class TransactionLyra(models.Model):
 
     @api.model
     def _lyra_form_get_tx_from_data(self, data):
-        shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
+        shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_ext_info_order_ref') or data.get('vads_order_id')
 
         if not reference or not shasign or not status:
             error_msg = 'Lyra Collect : received bad data {}'.format(data)
@@ -132,7 +148,7 @@ class TransactionLyra(models.Model):
         if self.provider != 'lyra' and self.provider != 'lyramulti':
             return
 
-        self.acquirer_reference = data.get('vads_order_id')
+        self.acquirer_reference = data.get('vads_ext_info_order_ref') or data.get('vads_order_id')
 
         html_3ds = _('3DS authentication: ')
         if data.get('vads_threeds_status') == 'Y':
