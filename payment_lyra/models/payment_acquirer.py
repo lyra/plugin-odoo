@@ -27,16 +27,10 @@ from ..controllers.main import LyraController
 from ..helpers import constants, tools
 from .card import LyraCard
 from .language import LyraLanguage
+from odoo.addons.payment import utils as payment_utils
 
-try:
-    import urlparse
-except ImportError:
-    import urllib.parse as urlparse
-
-try:
-    from odoo.addons.payment import utils as payment_utils
-except ImportError:
-    pass
+import urllib.parse as urlparse
+import re
 
 _logger = logging.getLogger(__name__)
 
@@ -200,6 +194,8 @@ class AcquirerLyra(models.Model):
         # Enable redirection?
         AcquirerLyra.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
 
+        order_id = re.sub("[^0-9a-zA-Z_-]+", "", values.get('reference'))
+
         tx_values = dict() # Values to sign in unicode.
         tx_values.update({
             'vads_site_id': self.lyra_site_id,
@@ -213,7 +209,8 @@ class AcquirerLyra(models.Model):
             'vads_payment_config': self._get_payment_config(amount),
             'vads_version': constants.LYRA_PARAMS.get('GATEWAY_VERSION'),
             'vads_url_return': urlparse.urljoin(base_url, LyraController._return_url),
-            'vads_order_id': str(values.get('reference')),
+            'vads_order_id': str(order_id),
+            'vads_ext_info_order_ref': str(values.get('reference')),
             'vads_contrib': constants.LYRA_PARAMS.get('CMS_IDENTIFIER') + u'_' + constants.LYRA_PARAMS.get('PLUGIN_VERSION') + u'/' + release.version,
 
             'vads_language': self.lyra_language or '',
@@ -241,7 +238,6 @@ class AcquirerLyra(models.Model):
 
             lyra_tx_values[key] = tx_values[key].encode('utf-8')
 
-        lyra_tx_values['lyra_signature'] = self._lyra_generate_sign(self, tx_values)
         return lyra_tx_values
 
     def lyra_get_form_action_url(self):

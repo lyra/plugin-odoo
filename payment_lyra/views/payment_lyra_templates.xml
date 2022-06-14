@@ -24,6 +24,7 @@
             <input type="hidden" name="vads_version" t-att-value="vads_version" />
             <input type="hidden" name="vads_return_mode" t-att-value="vads_return_mode" />
             <input type="hidden" name="vads_order_id" t-att-value="vads_order_id" />
+            <input type="hidden" name="vads_ext_info_order_ref" t-att-value="vads_ext_info_order_ref" />
             <input type="hidden" name="vads_contrib" t-att-value="vads_contrib" />
             <input type="hidden" name="signature" t-att-value="lyra_signature" />
 
