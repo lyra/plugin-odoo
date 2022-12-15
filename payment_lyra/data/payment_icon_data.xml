@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright © Lyra Network.
+# This file is part of Lyra Collect plugin for Odoo. See COPYING.md for license details.
+#
+# Author:    Lyra Network (https://www.lyra.com)
+# Copyright: Copyright © Lyra Network
+# License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
+-->
+
+<odoo>
+
+    <record id="payment_icon_cc_lyracb" model="payment.icon">
+        <field name="sequence">10</field>
+        <field name="name">Lyra CB</field>
+        <field name="image" type="base64" file="payment_lyra/static/src/img/cb.png"/>
+    </record>
+
+    <record id="payment_icon_cc_lyravisa" model="payment.icon">
+        <field name="sequence">20</field>
+        <field name="name">Lyra Visa</field>
+        <field name="image" type="base64" file="payment_lyra/static/src/img/visa.png"/>
+    </record>
+
+    <record id="payment_icon_cc_lyramastercard" model="payment.icon">
+        <field name="sequence">30</field>
+        <field name="name">Lyra MasterCard</field>
+        <field name="image" type="base64" file="payment_lyra/static/src/img/mastercard.png"/>
+    </record>
+
+</odoo>

@@ -10,41 +10,41 @@
 
 <odoo>
     <data noupdate="1">
-        <record id="payment_acquirer_lyramulti" model="payment.acquirer">
-            <field name="name"><![CDATA[Lyra Collect - Payment in installments]]></field>
+        <record id="payment_provider_lyra" model="payment.provider">
+            <field name="name"><![CDATA[Lyra Collect - Standard payment]]></field>
+            <field name="display_as">Payment by credit card</field>
+            <field name="payment_icon_ids"
+                eval="[(6, 0, [
+                    ref('payment_lyra.payment_icon_cc_lyracb'),
+                    ref('payment_lyra.payment_icon_cc_lyravisa'),
+                    ref('payment_lyra.payment_icon_cc_lyramastercard'),
+                ])]"/>
             <field name="image" type="base64" file="payment_lyra/static/src/img/logo.png" />
             <field name="image_128" type="base64" file="payment_lyra/static/src/img/logo.png" />
-            <field name="provider">lyramulti</field>
+            <field name="code">lyra</field>
             <field name="state">test</field>
             <field name="company_id" ref="base.main_company" />
-            <field name="redirect_form_view_id" ref="lyra_acquirer_button" />
+            <field name="redirect_form_view_id" ref="lyra_provider_button" />
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
 
             <field name="lyra_capture_delay"></field>
             <field name="lyra_validation_mode">-1</field>
             <field name="lyra_threeds_min_amount"></field>
-            <field name="lyra_multi_count">3</field>
-            <field name="lyra_multi_period">30</field>
-            <field name="lyra_multi_first"></field>
             <field name="lyra_redirect_enabled">0</field>
             <field name="lyra_redirect_success_timeout">5</field>
             <field name="lyra_redirect_error_timeout">5</field>
             <field name="lyra_return_mode">GET</field>
-
-            <field name="description" type="html">
-                <p><![CDATA[Accept payments in installments with Lyra Collect secure payment gateway.]]></p>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><i class="fa fa-check" />Online Payment</li>
-                    <li class="list-inline-item"><i class="fa fa-check" />eCommerce</li>
-                </ul>
-            </field>
         </record>
 
-        <record id="payment_method_lyramulti" model="account.payment.method">
-            <field name="name">Lyra Collect Multi</field>
-            <field name="code">lyramulti</field>
+        <record id="payment_method_lyra" model="account.payment.method">
+            <field name="name">Lyra Collect</field>
+            <field name="code">lyra</field>
             <field name="payment_type">inbound</field>
         </record>
     </data>
+
+    <function model="payment.provider" name="multi_add">
+        <value>/data/payment_provider_data_multi.xml</value>
+    </function>
 </odoo>

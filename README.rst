@@ -31,13 +31,13 @@ can choose one of these instructions:
 
 In your Odoo administrator interface, browse to "Applications" tab, delete "Applications" filter from
 search field and search for "lyra" keyword. Click "Install" (or "Upgrade") button of the "Lyra Collect
-Payment Acquirer" module.
+Payment Provider" module.
 
 Configuration
 =============
 
 * Go to "Website Admin" tab.
-* In "Configuration" section, expand "eCommerce" menu than click on "Payment Acquirers" entry.
+* In "Configuration" section, expand "eCommerce" menu than click on "Payment Providers" entry.
 * Click on button "Configure" of Lyra Collect module.
 * You can now enter your Lyra Collect credentials.
 

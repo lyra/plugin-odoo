@@ -31,8 +31,8 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '2.0.3',
-    'CMS_IDENTIFIER': 'Odoo_15',
+    'PLUGIN_VERSION': '3.0.0',
+    'CMS_IDENTIFIER': 'Odoo_16',
 }
 
 LYRA_LANGUAGES = {
@@ -133,7 +133,6 @@ LYRA_CARDS = {
             'ONEY_3X_4X': u'Paiement en 3 ou 4 fois Oney',
     'ONEY_ENSEIGNE': u'Cartes enseignes Oney',
             'PAYDIREKT': u'Paydirekt',
-    'PAYLIB': u'Paylib',
     'PAYPAL': u'PayPal',
     'PAYPAL_SB': u'PayPal Sandbox',
             'PICWIC': u'Carte Picwic',
