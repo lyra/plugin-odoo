@@ -18,7 +18,7 @@ from os import path
 from pkg_resources import parse_version
 
 from odoo import models, api, release, fields, _
-from odoo.addons.payment.models.payment_acquirer import ValidationError
+from odoo.exceptions import ValidationError
 from odoo.tools import convert_xml_import
 from odoo.tools import float_round
 from odoo.tools.float_utils import float_compare
@@ -34,8 +34,8 @@ import re
 
 _logger = logging.getLogger(__name__)
 
-class AcquirerLyra(models.Model):
-    _inherit = 'payment.acquirer'
+class ProviderLyra(models.Model):
+    _inherit = 'payment.provider'
 
     def _get_notify_url(self):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
@@ -45,10 +45,9 @@ class AcquirerLyra(models.Model):
         languages = constants.LYRA_LANGUAGES
         return [(c, _(l)) for c, l in languages.items()]
 
-    @api.depends('provider')
     def _lyra_compute_multi_warning(self):
-        for acquirer in self:
-            acquirer.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (acquirer.provider == 'lyramulti') else False
+        for provider in self:
+            provider.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (provider.code == 'lyramulti') else False
 
     sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office.')
 
@@ -62,7 +61,7 @@ class AcquirerLyra(models.Model):
         providers.append(('lyramulti', _('Lyra Collect - Payment in installments')))
         ondelete_policy['lyramulti'] = 'set default'
 
-    provider = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
+    code = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
 
     lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'))
     lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'))
@@ -94,17 +93,17 @@ class AcquirerLyra(models.Model):
     lyra_redirect = False
 
     @api.model
-    def _get_compatible_acquirers(self, *args, currency_id=None, **kwargs):
-        """ Override of payment to unlist Lyra Collect acquirers when the currency is not supported. """
-        acquirers = super()._get_compatible_acquirers(*args, currency_id=currency_id, **kwargs)
+    def _get_compatible_providers(self, *args, currency_id=None, **kwargs):
+        """ Override of payment to unlist Lyra Collect providers when the currency is not supported. """
+        providers = super()._get_compatible_providers(*args, currency_id=currency_id, **kwargs)
 
         currency = self.env['res.currency'].browse(currency_id).exists()
-        if currency and tools.find_currency(currency.name) is None:
-            acquirers = acquirers.filtered(
-                lambda a: a.provider not in ['lyra', 'lyramulti']
+        if currency and currency.name and tools.find_currency(currency.name) is None:
+            providers = providers.filtered(
+                lambda p: p.code not in ['lyra', 'lyramulti']
             )
 
-        return acquirers
+        return providers
 
     @api.model
     def multi_add(self, filename):
@@ -120,7 +119,7 @@ class AcquirerLyra(models.Model):
 
         return ctx_value
 
-    def _lyra_generate_sign(self, acquirer, values):
+    def _lyra_generate_sign(self, provider, values):
         key = self.lyra_key_prod if self._get_ctx_mode() == 'PRODUCTION' else self.lyra_key_test
 
         sign = ''
@@ -138,7 +137,7 @@ class AcquirerLyra(models.Model):
         return shasign
 
     def _get_payment_config(self, amount):
-        if self.provider == 'lyramulti':
+        if self.code == 'lyramulti':
             if (self.lyra_multi_first):
                 first = int(float(self.lyra_multi_first) / 100 * int(amount))
             else:
@@ -192,7 +191,7 @@ class AcquirerLyra(models.Model):
         validation_mode = self.lyra_validation_mode if self.lyra_validation_mode != '-1' else ''
 
         # Enable redirection?
-        AcquirerLyra.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
+        ProviderLyra.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
 
         order_id = re.sub("[^0-9a-zA-Z_-]+", "", values.get('reference'))
 
@@ -222,7 +221,7 @@ class AcquirerLyra(models.Model):
             'vads_threeds_mpi': threeds_mpi
         })
 
-        if AcquirerLyra.lyra_redirect:
+        if ProviderLyra.lyra_redirect:
             tx_values.update({
                 'vads_redirect_success_timeout': self.lyra_redirect_success_timeout or '',
                 'vads_redirect_success_message': self.lyra_redirect_success_message or '',
@@ -245,10 +244,10 @@ class AcquirerLyra(models.Model):
 
     def _get_default_payment_method_id(self):
         self.ensure_one()
-        if self.provider != 'lyra' and self.provider != 'lyramulti':
+        if self.code != 'lyra' and self.code != 'lyramulti':
             return super()._get_default_payment_method_id()
 
-        if self.provider == 'lyra':
+        if self.code == 'lyra':
             return self.env.ref('payment_lyra.payment_method_lyra').id
-        if self.provider == 'lyramulti':
+        if self.code == 'lyramulti':
             return self.env.ref('payment_lyra.payment_method_lyramulti').id

@@ -13,7 +13,7 @@ import math
 
 from odoo import models, api, release, fields, _
 from odoo.addons.payment import utils as payment_utils
-from odoo.addons.payment.models.payment_acquirer import ValidationError
+from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_compare
 
 from ..helpers import tools
@@ -45,10 +45,10 @@ class TransactionLyra(models.Model):
     def _get_specific_rendering_values(self, processing_values):
         """ Override of payment to return Lyra specific rendering values. """
         res = super()._get_specific_rendering_values(processing_values)
-        if self.provider not in ['lyra', 'lyramulti']:
+        if self.provider_code not in ['lyra', 'lyramulti']:
             return res
 
-        values = self.acquirer_id.lyra_form_generate_values(processing_values)
+        values = self.provider_id.lyra_form_generate_values(processing_values)
 
         for key in values.keys():
             if key.startswith('vads_') and values[key] != '':
@@ -102,16 +102,15 @@ class TransactionLyra(models.Model):
             'vads_ship_to_phone_num': partner_ship_to_phone_num
         })
 
-        values['lyra_signature'] = self.acquirer_id._lyra_generate_sign(self, values)
-        values['api_url'] = self.acquirer_id.lyra_get_form_action_url()
+        values['lyra_signature'] = self.provider_id._lyra_generate_sign(self, values)
+        values['api_url'] = self.provider_id.lyra_get_form_action_url()
         return values
 
-    @api.model
-    def _lyra_form_get_tx_from_data(self, data):
-        shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_ext_info_order_ref') or data.get('vads_order_id')
+    def _lyra_get_tx_from_notification_data(self, notification_data):
+        shasign, status, reference = notification_data.get('signature'), notification_data.get('vads_trans_status'), notification_data.get('vads_ext_info_order_ref') or notification_data.get('vads_order_id')
 
         if not reference or not shasign or not status:
-            error_msg = 'Lyra Collect : received bad data {}'.format(data)
+            error_msg = 'Lyra Collect : received bad data {}'.format(notification_data)
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
@@ -127,82 +126,72 @@ class TransactionLyra(models.Model):
             raise ValidationError(error_msg)
 
         # Verify shasign.
-        shasign_check = tx.acquirer_id._lyra_generate_sign('out', data)
+        shasign_check = tx.provider_id._lyra_generate_sign('out', notification_data)
         if shasign_check.upper() != shasign.upper():
-            error_msg = 'Lyra Collect: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, data)
+            error_msg = 'Lyra Collect: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, notification_data)
             _logger.info(error_msg)
             raise ValidationError(error_msg)
 
         return tx
 
-    @api.model
-    def _get_tx_from_feedback_data(self, provider, data):
-        tx = super()._get_tx_from_feedback_data(provider, data)
-        if provider != 'lyra' and self.provider != 'lyramulti':
+    def _get_tx_from_notification_data(self, provider_code, notification_data):
+        tx = super()._get_tx_from_notification_data(provider_code, notification_data)
+        if provider_code != 'lyra' and self.provider_code != 'lyramulti':
             return tx
 
-        return self._lyra_form_get_tx_from_data(data)
+        return self._lyra_get_tx_from_notification_data(notification_data)
 
-    def _process_feedback_data(self, data):
-        super()._process_feedback_data(data)
-        if self.provider != 'lyra' and self.provider != 'lyramulti':
+    def _process_notification_data(self, notification_data):
+        super()._process_notification_data(notification_data)
+        if self.provider_code != 'lyra' and self.provider_code != 'lyramulti':
             return
 
-        self.acquirer_reference = data.get('vads_ext_info_order_ref') or data.get('vads_order_id')
+        self.provider_reference = notification_data.get('vads_ext_info_order_ref') or notification_data.get('vads_order_id')
 
         html_3ds = _('3DS authentication: ')
-        if data.get('vads_threeds_status') == 'Y':
+        if notification_data.get('vads_threeds_status') == 'Y':
             html_3ds += _('YES')
-            html_3ds += '<br />' + _('3DS certificate: ') + data.get('vads_threeds_cavv')
+            html_3ds += '<br />' + _('3DS certificate: ') + notification_data.get('vads_threeds_cavv')
         else:
             html_3ds += _('NO')
 
         expiry = ''
-        if data.get('vads_expiry_month') and data.get('vads_expiry_year'):
-            expiry = data.get('vads_expiry_month').zfill(2) + '/' + data.get('vads_expiry_year')
+        if notification_data.get('vads_expiry_month') and notification_data.get('vads_expiry_year'):
+            expiry = notification_data.get('vads_expiry_month').zfill(2) + '/' + notification_data.get('vads_expiry_year')
 
         values = {
-            'acquirer_reference': data.get('vads_trans_uuid'),
-            'lyra_raw_data': '{}'.format(data),
+            'provider_reference': notification_data.get('vads_trans_uuid'),
+            'lyra_raw_data': '{}'.format(notification_data),
             'lyra_html_3ds': html_3ds,
-            'lyra_trans_status': data.get('vads_trans_status'),
-            'lyra_card_brand': data.get('vads_card_brand'),
-            'lyra_card_number': data.get('vads_card_number'),
+            'lyra_trans_status': notification_data.get('vads_trans_status'),
+            'lyra_card_brand': notification_data.get('vads_card_brand'),
+            'lyra_card_number': notification_data.get('vads_card_number'),
             'lyra_expiration_date': expiry,
         }
 
-        status = data.get('vads_trans_status')
+        status = notification_data.get('vads_trans_status')
         if status in self.lyra_statuses['success']:
             self.write(values)
             self._set_done()
-
-            return True
         elif status in self.lyra_statuses['pending']:
             self.write(values)
             self._set_pending()
-
-            return True
         elif status in self.lyra_statuses['cancel']:
             self.write({
-                'state_message': 'Payment for transaction #%s is cancelled (%s).' % (self.reference, data.get('vads_result')),
+                'state_message': 'Payment for transaction #%s is cancelled (%s).' % (self.reference, notification_data.get('vads_result')),
             })
-
             self._set_canceled()
-
-            return False
         else:
-            auth_result = data.get('vads_auth_result')
+            auth_result = notification_data.get('vads_auth_result')
             auth_message = _('See the transaction details for more information ({}).').format(auth_result)
 
             error_msg = 'Lyra Collect payment error, transaction status: {}, authorization result: {}.'.format(status, auth_result)
             _logger.info(error_msg)
 
             values.update({
-                'state_message': 'Payment for transaction #%s is refused (%s).' % (self.reference, data.get('vads_result')),
+                'state_message': 'Payment for transaction #%s is refused (%s).' % (self.reference, notification_data.get('vads_result')),
                 'lyra_auth_result': auth_message,
             })
 
             self.write(values)
-            self._set_error('Payment for transaction #%s is refused (%s).' % (self.reference, data.get('vads_result')))
-
-            return False
+            self._set_error('Payment for transaction #%s is refused (%s).' % (self.reference, notification_data.get('vads_result')))

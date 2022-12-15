@@ -9,7 +9,7 @@
 -->
 
 <odoo>
-    <template id="lyra_acquirer_button">
+    <template id="lyra_provider_button">
         <form t-att-action="api_url" method="post">
             <input type="hidden" name="vads_site_id" t-att-value="vads_site_id" />
             <input type="hidden" name="vads_amount" t-att-value="vads_amount" />
