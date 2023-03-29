@@ -38,7 +38,7 @@
         </record>
 
         <record id="payment_method_lyra" model="account.payment.method">
-            <field name="name">Lyra Collect</field>
+            <field name="name"><![CDATA[Lyra Collect]]></field>
             <field name="code">lyra</field>
             <field name="payment_type">inbound</field>
         </record>
