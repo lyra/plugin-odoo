@@ -242,10 +242,10 @@ class ProviderLyra(models.Model):
     def lyra_get_form_action_url(self):
         return self.lyra_gateway_url
 
-    def _get_default_payment_method_id(self):
+    def _get_default_payment_method_id(self, code):
         self.ensure_one()
         if self.code != 'lyra' and self.code != 'lyramulti':
-            return super()._get_default_payment_method_id()
+            return super()._get_default_payment_method_id(self, code)
 
         if self.code == 'lyra':
             return self.env.ref('payment_lyra.payment_method_lyra').id
