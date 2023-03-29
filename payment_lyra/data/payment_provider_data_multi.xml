@@ -41,7 +41,7 @@
         </record>
 
         <record id="payment_method_lyramulti" model="account.payment.method">
-            <field name="name">Lyra Collect Multi</field>
+            <field name="name"><![CDATA[Lyra Collect Multi]]></field>
             <field name="code">lyramulti</field>
             <field name="payment_type">inbound</field>
         </record>
