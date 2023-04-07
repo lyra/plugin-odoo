@@ -144,9 +144,10 @@ class TransactionLyra(models.Model):
         return self._lyra_form_get_tx_from_data(data)
 
     def _process_feedback_data(self, data):
-        super()._process_feedback_data(data)
+        feedback_data = super()._process_feedback_data(data)
         if self.provider != 'lyra' and self.provider != 'lyramulti':
-            return
+            # @bdmibra
+            return feedback_data
 
         self.acquirer_reference = data.get('vads_ext_info_order_ref') or data.get('vads_order_id')
 
