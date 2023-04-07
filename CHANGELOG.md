@@ -1,3 +1,7 @@
+2.0.4, 2023-04-07
+=============
+- Fix return of method _process_feedback_data.
+
 2.0.3, 2022-06-14
 =============
 - Fix invoice payment with payment links.
