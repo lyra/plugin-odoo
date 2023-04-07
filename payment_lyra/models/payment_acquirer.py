@@ -25,8 +25,6 @@ from odoo.tools.float_utils import float_compare
 
 from ..controllers.main import LyraController
 from ..helpers import constants, tools
-from .card import LyraCard
-from .language import LyraLanguage
 from odoo.addons.payment import utils as payment_utils
 
 import urllib.parse as urlparse
