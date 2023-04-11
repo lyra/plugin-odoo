@@ -1,3 +1,9 @@
+1.2.5, 2023-04-11
+=============
+- Fix invoice payment with payment links.
+- Update list of supported payment means.
+- Update list of supported currencies.
+
 1.2.4, 2022-05-06
 =============
 - Update list of supported payment means.

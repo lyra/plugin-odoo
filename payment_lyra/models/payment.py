@@ -34,6 +34,8 @@ try:
 except ImportError:
     import urllib.parse as urlparse
 
+import re
+
 _logger = logging.getLogger(__name__)
 
 class AcquirerLyra(models.Model):
@@ -197,6 +199,8 @@ class AcquirerLyra(models.Model):
         # Enable redirection?
         AcquirerLyra.lyra_redirect = True if str(self.lyra_redirect_enabled) == '1' else False
 
+        order_id = re.sub("[^0-9a-zA-Z_-]+", "", values.get('reference'))
+
         tx_values = dict() # Values to sign in unicode.
         tx_values.update({
             'vads_site_id': self.lyra_site_id,
@@ -210,7 +214,8 @@ class AcquirerLyra(models.Model):
             'vads_payment_config': self._get_payment_config(amount),
             'vads_version': constants.LYRA_PARAMS.get('GATEWAY_VERSION'),
             'vads_url_return': urlparse.urljoin(base_url, LyraController._return_url),
-            'vads_order_id': str(values.get('reference')),
+            'vads_order_id': str(order_id),
+            'vads_ext_info_order_ref': str(values.get('reference')),
             'vads_contrib': constants.LYRA_PARAMS.get('CMS_IDENTIFIER') + u'_' + constants.LYRA_PARAMS.get('PLUGIN_VERSION') + u'/' + release.version,
 
             'vads_language': self.lyra_language or '',
@@ -294,7 +299,7 @@ class TransactionLyra(models.Model):
 
     @api.model
     def _lyra_form_get_tx_from_data(self, data):
-        shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_order_id')
+        shasign, status, reference = data.get('signature'), data.get('vads_trans_status'), data.get('vads_ext_info_order_ref') or data.get('vads_order_id')
 
         if not reference or not shasign or not status:
             error_msg = 'Lyra Collect : received bad data {}'.format(data)
