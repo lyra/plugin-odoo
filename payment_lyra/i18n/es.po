@@ -472,6 +472,11 @@ msgstr "NO"
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.provider_form_lyra
+msgid "MODULE INFORMATION"
+msgstr "INFORMACIÓN DEL MÓDULO"
+
+#. module: payment_lyra
+#: model_terms:ir.ui.view,arch_db:payment_lyra.provider_form_lyra
 msgid "PAYMENT GATEWAY ACCESS"
 msgstr "ACCESO AL PORTAL DE PAGO"
 
@@ -580,6 +585,13 @@ msgstr ""
 #, python-format
 msgid "See the transaction details for more information ({})."
 msgstr "Vea los detalles de la transacción para más información ({})."
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/models/payment_acquirer.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_doc
+#, python-format
+msgid "Click to view the module configuration documentation"
+msgstr "Haga clic para ver la documentación de la configuración del módulo"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment_acquirer.py:0

@@ -49,6 +49,15 @@ class ProviderLyra(models.Model):
         for provider in self:
             provider.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (provider.code == 'lyramulti') else False
 
+    def lyra_get_doc_field_value():
+        docs_uri = constants.LYRA_ONLINE_DOC_URI
+        doc_field_html = ''
+        for lang, doc_uri in docs_uri.items():
+            html = '<a href="%s%s">%s</a> '%(doc_uri,'odoo16/sitemap.html', constants.LYRA_DOCUMENTATION.get(lang))
+            doc_field_html += html
+
+        return doc_field_html
+
     sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office.')
 
     if constants.LYRA_PLUGIN_FEATURES.get('shatwo') == False:
@@ -63,6 +72,7 @@ class ProviderLyra(models.Model):
 
     code = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
 
+    lyra_doc = fields.Html(string=_('Click to view the module configuration documentation'), default=lyra_get_doc_field_value(), readonly=True)
     lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'))
     lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'))
     lyra_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRA_PARAMS.get('KEY_PROD'))
