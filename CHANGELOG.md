@@ -1,3 +1,8 @@
+3.0.2, 2023-06-06
+=============
+- Add documentation management field.
+- Minor code fixes.
+
 3.0.1, 2023-03-29
 =============
 - Bug fix: Fix arguments of the method _get_default_payment_method_id.

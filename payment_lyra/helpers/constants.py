@@ -31,7 +31,7 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '3.0.1',
+    'PLUGIN_VERSION': '3.0.2',
     'CMS_IDENTIFIER': 'Odoo_16',
 }
 
@@ -171,3 +171,17 @@ LYRA_CURRENCIES = [
             ['SEK', '752', 2],
     ['USD', '840', 2],
 ]
+
+LYRA_ONLINE_DOC_URI = {
+            'fr': 'https://docs.lyra.com/fr/collect/plugins/',
+            'en': 'https://docs.lyra.com/en/collect/plugins/',
+            'es': 'https://docs.lyra.com/es-ES/collect/plugins/',
+}
+
+LYRA_DOCUMENTATION = {
+    'fr': 'Français',
+    'en': 'English',
+    'es': 'Español',
+    'de': 'Deutsch',
+    'pt': 'Português',
+}
