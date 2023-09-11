@@ -22,12 +22,12 @@ from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.tools import convert_xml_import
 from odoo.tools import float_round
 from odoo.tools.float_utils import float_compare
+from odoo.http import request
 
 from ..controllers.main import LyraController
 from ..helpers import constants, tools
 from .card import LyraCard
 from .language import LyraLanguage
-
 
 try:
     import urlparse
@@ -161,7 +161,7 @@ class AcquirerLyra(models.Model):
         return payment_config
 
     def lyra_form_generate_values(self, values):
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        host_url = request.httprequest.host_url
 
         # trans_id is the number of 1/10 seconds from midnight.
         now = datetime.now()
@@ -213,7 +213,7 @@ class AcquirerLyra(models.Model):
             'vads_action_mode': u'INTERACTIVE',
             'vads_payment_config': self._get_payment_config(amount),
             'vads_version': constants.LYRA_PARAMS.get('GATEWAY_VERSION'),
-            'vads_url_return': urlparse.urljoin(base_url, LyraController._return_url),
+            'vads_url_return': urlparse.urljoin(host_url, LyraController._return_url),
             'vads_order_id': str(order_id),
             'vads_ext_info_order_ref': str(values.get('reference')),
             'vads_contrib': constants.LYRA_PARAMS.get('CMS_IDENTIFIER') + u'_' + constants.LYRA_PARAMS.get('PLUGIN_VERSION') + u'/' + release.version,
