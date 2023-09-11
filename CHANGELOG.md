@@ -1,3 +1,8 @@
+1.2.6, 2023-09-11
+=============
+- Bug Fix: Fix client return to shop in case of multi-site.
+- Update list of supported payment means.
+
 1.2.5, 2023-04-11
 =============
 - Fix invoice payment with payment links.
