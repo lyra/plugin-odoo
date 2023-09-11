@@ -32,7 +32,7 @@
             <field name="description" type="html">
                 <p><![CDATA[Accept payments with Lyra Collect secure payment gateway.]]></p>
                 <ul class="list-inline">
-                    <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
+                    <li class="list-inline-item"><i class="fa fa-check" />Online Payment</li>
                     <li class="list-inline-item"><i class="fa fa-check" />eCommerce</li>
                 </ul>
             </field>
