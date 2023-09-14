@@ -35,6 +35,7 @@
             <field name="lyra_redirect_success_timeout">5</field>
             <field name="lyra_redirect_error_timeout">5</field>
             <field name="lyra_return_mode">GET</field>
+            <field name="module_id" ref="base.module_payment_lyra"/>
         </record>
 
         <record id="payment_method_lyra" model="account.payment.method">
