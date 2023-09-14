@@ -1,3 +1,8 @@
+3.0.3, 2023-09-14
+=============
+- Bug Fix: Fix client return to shop in case of multi-site.
+- Update list of supported payment means.
+
 3.0.2, 2023-06-06
 =============
 - Add documentation management field.
