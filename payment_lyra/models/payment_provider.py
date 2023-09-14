@@ -22,6 +22,7 @@ from odoo.exceptions import ValidationError
 from odoo.tools import convert_xml_import
 from odoo.tools import float_round
 from odoo.tools.float_utils import float_compare
+from odoo.http import request
 
 from ..controllers.main import LyraController
 from ..helpers import constants, tools
@@ -160,7 +161,7 @@ class ProviderLyra(models.Model):
         return payment_config
 
     def lyra_form_generate_values(self, values):
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        base_url = request.httprequest.host_url
 
         # trans_id is the number of 1/10 seconds from midnight.
         now = datetime.now()
