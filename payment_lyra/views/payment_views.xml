@@ -17,6 +17,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='acquirer']" position="after">
                     <div attrs="{'invisible': [('provider','not in',('lyra','lyramulti'))]}">
+                        <group name="lyra_module_information" string="MODULE INFORMATION">
+                            <field name="lyra_doc" />
+                        </group>
                         <group name="lyra_gateway_access" string="PAYMENT GATEWAY ACCESS">
                             <field name="lyra_site_id" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_key_test" autocomplete="off" attrs="{'required': [('provider','in',('lyra','lyramulti'))]}" />

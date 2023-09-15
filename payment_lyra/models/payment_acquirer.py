@@ -22,6 +22,7 @@ from odoo.addons.payment.models.payment_acquirer import ValidationError
 from odoo.tools import convert_xml_import
 from odoo.tools import float_round
 from odoo.tools.float_utils import float_compare
+from odoo.http import request
 
 from ..controllers.main import LyraController
 from ..helpers import constants, tools
@@ -48,6 +49,15 @@ class AcquirerLyra(models.Model):
         for acquirer in self:
             acquirer.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (acquirer.provider == 'lyramulti') else False
 
+    def lyra_get_doc_field_value():
+        docs_uri = constants.LYRA_ONLINE_DOC_URI
+        doc_field_html = ''
+        for lang, doc_uri in docs_uri.items():
+            html = '<a href="%s%s">%s</a> '%(doc_uri,'odoo15/sitemap.html', constants.LYRA_DOCUMENTATION.get(lang))
+            doc_field_html += html
+
+        return doc_field_html
+
     sign_algo_help = _('Algorithm used to compute the payment form signature. Selected algorithm must be the same as one configured in the Lyra Expert Back Office.')
 
     if constants.LYRA_PLUGIN_FEATURES.get('shatwo') == False:
@@ -62,6 +72,7 @@ class AcquirerLyra(models.Model):
 
     provider = fields.Selection(selection_add=providers, ondelete = ondelete_policy)
 
+    lyra_doc = fields.Html(string=_('Click to view the module configuration documentation'), default=lyra_get_doc_field_value(), readonly=True)
     lyra_site_id = fields.Char(string=_('Shop ID'), help=_('The identifier provided by Lyra Collect.'), default=constants.LYRA_PARAMS.get('SITE_ID'))
     lyra_key_test = fields.Char(string=_('Key in test mode'), help=_('Key provided by Lyra Collect for test mode (available in Lyra Expert Back Office).'), default=constants.LYRA_PARAMS.get('KEY_TEST'), readonly=constants.LYRA_PLUGIN_FEATURES.get('qualif'))
     lyra_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRA_PARAMS.get('KEY_PROD'))
@@ -149,7 +160,7 @@ class AcquirerLyra(models.Model):
         return payment_config
 
     def lyra_form_generate_values(self, values):
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        base_url = request.httprequest.host_url
 
         # trans_id is the number of 1/10 seconds from midnight.
         now = datetime.now()
