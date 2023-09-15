@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0-20211124\n"
+"Project-Id-Version: Odoo Server 15.0-20230914\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-30 10:30+0000\n"
-"PO-Revision-Date: 2022-01-30 10:30+0000\n"
+"POT-Creation-Date: 2023-09-14 10:30+0000\n"
+"PO-Revision-Date: 2023-09-14 10:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -483,6 +483,11 @@ msgstr ""
 
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
+msgid "MODULE INFORMATION"
+msgstr ""
+
+#. module: payment_lyra
+#: model_terms:ir.ui.view,arch_db:payment_lyra.acquirer_form_lyra
 msgid "PAYMENT GATEWAY ACCESS"
 msgstr ""
 
@@ -601,6 +606,14 @@ msgstr ""
 #: code:addons/payment_lyra/models/payment_transaction.py:0
 #, python-format
 msgid "See the transaction details for more information ({})."
+msgstr ""
+
+#. module: payment_lyra
+#: code:addons/payment_lyra/models/payment_acquirer.py:0
+#: code:addons/payment_lyra/models/payment_acquirer.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_doc
+#, python-format
+msgid "Click to view the module configuration documentation"
 msgstr ""
 
 #. module: payment_lyra
