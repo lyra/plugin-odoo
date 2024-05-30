@@ -120,7 +120,7 @@ class ProviderLyra(models.Model):
     def multi_add(self, filename):
         if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
             file = path.join(path.dirname(path.dirname(path.abspath(__file__)))) + filename
-            convert_xml_import(self._cr, 'payment_lyra', file)
+            convert_xml_import(self.env, 'payment_lyra', file)
 
         return None
 
@@ -253,12 +253,26 @@ class ProviderLyra(models.Model):
     def lyra_get_form_action_url(self):
         return self.lyra_gateway_url
 
-    def _get_default_payment_method_id(self, code):
-        self.ensure_one()
+    def _get_default_payment_method_codes(self):
         if self.code != 'lyra' and self.code != 'lyramulti':
-            return super()._get_default_payment_method_id(self, code)
+            return super()._get_default_payment_method_codes()
 
-        if self.code == 'lyra':
-            return self.env.ref('payment_lyra.payment_method_lyra').id
-        if self.code == 'lyramulti':
-            return self.env.ref('payment_lyra.payment_method_lyramulti').id
+        return self.code
+
+    def get_lyra_currencies(self):
+        first_elements = []
+        for currency in constants.LYRA_CURRENCIES:
+            first_element = currency[0]
+            first_elements.append(first_element)
+
+        return first_elements
+
+    def _get_supported_currencies(self):
+        """ Override of `payment` to return the supported currencies. """
+        supported_currencies = super()._get_supported_currencies()
+        if self.code in ['lyra', 'lyramulti']:
+            supported_currencies = supported_currencies.filtered(
+                lambda c: c.name in self.get_lyra_currencies()
+            )
+
+        return supported_currencies
