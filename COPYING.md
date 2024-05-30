@@ -1,4 +1,4 @@
-Copyright © 2017-2023 Lyra Network.
+Copyright © 2024 Lyra Network.
 
 Lyra Collect plugin for Odoo is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as

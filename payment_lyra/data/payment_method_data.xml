@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright © Lyra Network.
+# This file is part of Lyra Collect plugin for Odoo. See COPYING.md for license details.
+#
+# Author:    Lyra Network (https://www.lyra.com)
+# Copyright: Copyright © Lyra Network
+# License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
+-->
+
+<odoo noupdate="1">
+    <record id="payment_method_lyra" model="payment.method">
+        <field name="name"><![CDATA[Lyra Collect]]></field>
+        <field name="code">lyra</field>
+        <field name="sequence">1000</field>
+        <field name="image" type="base64" file="payment/static/img/card.png" />
+        <field name="support_tokenization">False</field>
+        <field name="support_express_checkout">False</field>
+        <field name="support_refund"></field>
+    </record>
+
+    <record id="payment_method_lyramulti" model="payment.method">
+        <field name="name"><![CDATA[Lyra Collect Multi]]></field>
+        <field name="code">lyramulti</field>
+        <field name="sequence">1000</field>
+        <field name="image" type="base64" file="payment/static/img/card.png" />
+        <field name="support_tokenization">False</field>
+        <field name="support_express_checkout">False</field>
+        <field name="support_refund"></field>
+    </record>
+
+    <record id="payment_method_lyracb" model="payment.method">
+        <field name="name">CB</field>
+        <field name="code">lyracb</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyra')" />
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment_lyra/static/src/img/cb.png" />
+    </record>
+
+    <record id="payment_method_lyravisa" model="payment.method">
+        <field name="name">Visa</field>
+        <field name="code">lyravisa</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyra')" />
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment/static/img/visa.png" />
+    </record>
+
+    <record id="payment_method_lyramastercard" model="payment.method">
+        <field name="name">Mastercard</field>
+        <field name="code">lyramastercard</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyra')" />
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment/static/img/mastercard.png" />
+    </record>
+
+    <record id="payment_method_lyraamex" model="payment.method">
+        <field name="name">American Express</field>
+        <field name="code">lyraamex</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyra')" />
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment/static/img/amex.png" />
+    </record>
+
+     <record id="payment_method_lyraecardtebleue" model="payment.method">
+        <field name="name">e-Carte Bleue</field>
+        <field name="code">lyraecartebleue</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyra')" />
+        <field name="sequence">1000</field>
+        <field name="active">False</field>
+        <field name="image" type="base64" file="payment_lyra/static/src/img/e-cartebleue.png" />
+    </record>
+
+    <record id="payment_method_lyravisaelectron" model="payment.method">
+        <field name="name">Visa Electron</field>
+        <field name="code">lyravisaelectron</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyra')" />
+        <field name="sequence">1000</field>
+        <field name="active">False</field>
+        <field name="image" type="base64" file="payment_lyra/static/src/img/visa_electron.png" />
+    </record>
+
+    <record id="payment_method_lyravpay" model="payment.method">
+        <field name="name">V PAY</field>
+        <field name="code">lyravpay</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyra')" />
+        <field name="sequence">1000</field>
+        <field name="active">False</field>
+        <field name="image" type="base64" file="payment/static/img/vpay.png" />
+    </record>
+
+    <record id="payment_method_lyraapplepay" model="payment.method">
+        <field name="name">Apple Pay</field>
+        <field name="code">lyraapplepay</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyra')" />
+        <field name="sequence">1000</field>
+        <field name="active">False</field>
+        <field name="image" type="base64" file="payment/static/img/apple_pay.png" />
+    </record>
+
+     <record id="payment_method_lyrapaypal" model="payment.method">
+        <field name="name">PayPal</field>
+        <field name="code">lyrapaypal</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyra')" />
+        <field name="sequence">1000</field>
+        <field name="active">False</field>
+        <field name="image" type="base64" file="payment/static/img/paypal.png" />
+    </record>
+
+    <record id="payment_method_lyramulticb" model="payment.method">
+        <field name="name">CB</field>
+        <field name="code">lyramulticb</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyramulti')" />
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment_lyra/static/src/img/cb.png" />
+    </record>
+
+    <record id="payment_method_lyramultivisa" model="payment.method">
+        <field name="name">Visa</field>
+        <field name="code">lyramultivisa</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyramulti')" />
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment/static/img/visa.png" />
+    </record>
+
+    <record id="payment_method_lyramultimastercard" model="payment.method">
+        <field name="name">Mastercard</field>
+        <field name="code">lyramultimastercard</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyramulti')" />
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment/static/img/mastercard.png" />
+    </record>
+
+    <record id="payment_method_lyramultiamex" model="payment.method">
+        <field name="name">American Express</field>
+        <field name="code">lyramultiamex</field>
+        <field name="primary_payment_method_id" eval="ref('payment_method_lyramulti')" />
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment/static/img/amex.png" />
+    </record>
+</odoo>

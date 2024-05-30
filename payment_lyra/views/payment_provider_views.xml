@@ -16,35 +16,35 @@
             <field name="inherit_id" ref="payment.payment_provider_form" />
             <field name="arch" type="xml">
                 <group name="provider_credentials" position='after'>
-                    <div attrs="{'invisible': [('code','not in',('lyra','lyramulti'))]}">
+                    <div invisible="code not in ('lyra', 'lyramulti')">
                         <group name="lyra_module_information" string="MODULE INFORMATION">
                             <field name="lyra_doc" />
                         </group>
                         <group name="lyra_gateway_access" string="PAYMENT GATEWAY ACCESS">
-                            <field name="lyra_site_id" autocomplete="off" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_key_test" autocomplete="off" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_key_prod" autocomplete="off" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_sign_algo" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
+                            <field name="lyra_site_id" autocomplete="off" required="code in ('lyra', 'lyramulti')" />
+                            <field name="lyra_key_test" autocomplete="off" required="code in ('lyra', 'lyramulti')" />
+                            <field name="lyra_key_prod" autocomplete="off" required="code in ('lyra', 'lyramulti')" />
+                            <field name="lyra_sign_algo" required="code in ('lyra', 'lyramulti')" />
                             <field name="lyra_notify_url" />
-                            <field name="lyra_gateway_url" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
+                            <field name="lyra_gateway_url" required="code in ('lyra', 'lyramulti')" />
                         </group>
                         <group string="PAYMENT PAGE">
-                            <field name="lyra_language" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
+                            <field name="lyra_language" required="code in ('lyra', 'lyramulti')" />
                             <field name="lyra_available_languages" widget="many2many_tags" options="{'no_create': True}" />
                             <field name="lyra_capture_delay" />
-                            <field name="lyra_validation_mode" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
+                            <field name="lyra_validation_mode" required="code in ('lyra', 'lyramulti')" />
                             <field name="lyra_payment_cards" widget="many2many_tags" options="{'no_create': True}" />
                         </group>
                         <group name="lyra_selective_3ds" string="CUSTOM 3DS">
                             <field name="lyra_threeds_min_amount" />
                         </group>
                         <group string="RETURN TO SHOP">
-                            <field name="lyra_redirect_enabled" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
+                            <field name="lyra_redirect_enabled" required="code in ('lyra', 'lyramulti')" />
                             <field name="lyra_redirect_success_timeout" />
                             <field name="lyra_redirect_success_message" />
                             <field name="lyra_redirect_error_timeout" />
                             <field name="lyra_redirect_error_message" />
-                            <field name="lyra_return_mode" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
+                            <field name="lyra_return_mode" required="code in ('lyra', 'lyramulti')" />
                         </group>
                     </div>
                 </group>
@@ -57,15 +57,15 @@
             <field name="inherit_id" ref="payment.payment_transaction_form" />
             <field name="arch" type="xml">
                 <field name="provider_reference" position="after">
-                    <field name="lyra_trans_status" attrs="{'invisible': [('provider_code','not in',('lyra','lyramulti'))]}" />
-                    <field name="lyra_card_brand" attrs="{'invisible': [('provider_code','not in',('lyra','lyramulti'))]}" />
-                    <field name="lyra_card_number" attrs="{'invisible': [('provider_code','not in',('lyra','lyramulti'))]}" />
-                    <field name="lyra_expiration_date" attrs="{'invisible': [('provider_code','not in',('lyra','lyramulti'))]}" />
-                    <field name="lyra_auth_result" attrs="{'invisible': [('provider_code','not in',('lyra','lyramulti'))]}" />
+                    <field name="lyra_trans_status" invisible="provider_code not in ('lyra', 'lyramulti')" />
+                    <field name="lyra_card_brand" invisible="provider_code not in ('lyra', 'lyramulti')" />
+                    <field name="lyra_card_number" invisible="provider_code not in ('lyra', 'lyramulti')" />
+                    <field name="lyra_expiration_date" invisible="provider_code not in ('lyra', 'lyramulti')" />
+                    <field name="lyra_auth_result" invisible="provider_code not in ('lyra', 'lyramulti')" />
                 </field>
 
                 <xpath expr="//form/sheet/group[last()]" position="after">
-                    <group string="Transaction log" attrs="{'invisible': [('provider_code','not in',('lyra','lyramulti'))]}">
+                    <group string="Transaction log" invisible="provider_code not in ('lyra', 'lyramulti')">
                         <field name="lyra_raw_data" nolabel="1" />
                     </group>
                 </xpath>
