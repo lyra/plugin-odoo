@@ -8,3 +8,4 @@
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
 from . import main
+from . import rest

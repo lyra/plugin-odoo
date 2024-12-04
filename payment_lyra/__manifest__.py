@@ -9,7 +9,7 @@
 
 {
     'name': 'Lyra Collect Payment Provider',
-    'version': '3.0.3',
+    'version': '3.1.0',
     'summary': 'Accept payments with Lyra Collect secure payment gateway.',
     'category': 'Accounting/Payment Providers',
     'author': 'Lyra Network',
@@ -23,6 +23,12 @@
         'data/payment_provider_data.xml',
         'security/ir.model.access.csv',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'payment_lyra/static/src/css/lyra_checkout_form.css',
+            'payment_lyra/static/src/js/lyra_checkout_form.js',
+        ],
+    },
     'images': ['static/description/icon.png'],
     'application': True,
     'installable': True

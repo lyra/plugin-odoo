@@ -22,15 +22,32 @@
                         </group>
                         <group name="lyra_gateway_access" string="PAYMENT GATEWAY ACCESS">
                             <field name="lyra_site_id" autocomplete="off" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_key_test" autocomplete="off" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_key_prod" autocomplete="off" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_sign_algo" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_notify_url" />
-                            <field name="lyra_gateway_url" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
+                            <field name="lyra_key_test" autocomplete="off" attrs="{'required': [('code','in',('lyra','lyramulti'))],'invisible': [('lyra_payment_data_entry_mode', '!=', 'redirect'), ('code','!=','lyramulti')]}" />
+                            <field name="lyra_key_prod" autocomplete="off" attrs="{'required': [('code','in',('lyra','lyramulti'))],'invisible': [('lyra_payment_data_entry_mode', '!=', 'redirect'), ('code','!=','lyramulti')]}" />
+                            <field name="lyra_sign_algo" attrs="{'required': [('code','in',('lyra','lyramulti'))],'invisible': [('lyra_payment_data_entry_mode', '!=', 'redirect'), ('code','!=','lyramulti')]}" />
+                            <field name="lyra_notify_url" attrs="{'invisible': [('lyra_payment_data_entry_mode', '!=', 'redirect'), ('code','!=','lyramulti')]}" />
                         </group>
+                        <div attrs="{'invisible':[('code','not in',('lyra'))]}">
+                            <group name="lyra_rest_api_keys" string="REST API KEYS" attrs="{'invisible': [('lyra_payment_data_entry_mode', '=', 'redirect')]}">
+                                <field name="lyra_test_password" autocomplete="off" password="True" />
+                                <field name="lyra_prod_password" autocomplete="off" password="True" />
+                                <field name="lyra_public_test_key" autocomplete="off" />
+                                <field name="lyra_public_production_key" autocomplete="off" />
+                                <field name="lyra_sha256_test_key" autocomplete="off" password="True" />
+                                <field name="lyra_sha256_prod_key" autocomplete="off" password="True" />
+                                <field name="lyra_rest_api_notify_url" />
+                            </group>
+                            <group name="lyra_advanced_options" string="ADVANCED OPTIONS" >
+                                <field name="lyra_payment_data_entry_mode" attrs="{'required': [('code','in',('lyra'))]}" />
+                                <field name="lyra_smartform_pop_in" attrs="{'invisible': [('lyra_payment_data_entry_mode', '=', 'redirect')]}" widget="radio" />
+                                <field name="lyra_smartform_theme" attrs="{'required': [('code','in',('lyra'))],'invisible':[('lyra_payment_data_entry_mode', '=', 'redirect')]}" />
+                                <field name="lyra_smartform_compact_mode" attrs="{'invisible': [('lyra_payment_data_entry_mode', '=', 'redirect')]}" widget="radio" />
+                                <field name="lyra_smartform_payment_attempts" attrs="{'invisible': [('lyra_payment_data_entry_mode', '=', 'redirect')]}" />
+                            </group>
+                        </div>
                         <group string="PAYMENT PAGE">
-                            <field name="lyra_language" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
-                            <field name="lyra_available_languages" widget="many2many_tags" options="{'no_create': True}" />
+                            <field name="lyra_language" attrs="{'required': [('code','in',('lyra','lyramulti'))],'invisible': [('lyra_payment_data_entry_mode', '!=', 'redirect'), ('code','!=','lyramulti')]}" />
+                            <field name="lyra_available_languages" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('lyra_payment_data_entry_mode', '!=', 'redirect'), ('code','!=','lyramulti')]}"/>
                             <field name="lyra_capture_delay" />
                             <field name="lyra_validation_mode" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_payment_cards" widget="many2many_tags" options="{'no_create': True}" />
@@ -38,7 +55,7 @@
                         <group name="lyra_selective_3ds" string="CUSTOM 3DS">
                             <field name="lyra_threeds_min_amount" />
                         </group>
-                        <group string="RETURN TO SHOP">
+                        <group string="RETURN TO SHOP" attrs="{'invisible': [('lyra_payment_data_entry_mode', '!=', 'redirect'), ('code','!=','lyramulti')]}">
                             <field name="lyra_redirect_enabled" attrs="{'required': [('code','in',('lyra','lyramulti'))]}" />
                             <field name="lyra_redirect_success_timeout" />
                             <field name="lyra_redirect_success_message" />
@@ -75,5 +92,6 @@
 
     <function model="payment.provider" name="multi_add">
         <value>/views/payment_provider_views_multi.xml</value>
+        <value>False</value>
     </function>
 </odoo>

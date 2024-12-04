@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* payment_lyra
+# * payment_lyra
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_multi_first
 #, python-format
 msgid "1st installment"
@@ -32,14 +31,12 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_transaction.py:0
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #, python-format
 msgid "3DS authentication: "
 msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #: code:addons/payment_lyra/models/payment_transaction.py:0
 #, python-format
 msgid "3DS certificate: "
@@ -55,7 +52,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_sign_algo
 #, python-format
 msgid ""
@@ -65,7 +61,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_threeds_min_amount
 #, python-format
@@ -78,7 +73,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_multi_first
 #, python-format
 msgid ""
@@ -89,7 +83,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_transaction.py:0
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_auth_result
 #, python-format
 msgid "Authorization result"
@@ -97,7 +90,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields.selection,name:payment_lyra.selection__payment_provider__lyra_validation_mode__0
 #, python-format
@@ -107,7 +99,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_redirect_enabled
 #, python-format
 msgid "Automatic redirection"
@@ -115,7 +106,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_available_languages
 #, python-format
@@ -130,15 +120,13 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_capture_delay
 #, python-format
-msgid "Capture delay"
+msgid "Capture delay (if applicable)"
 msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #: code:addons/payment_lyra/models/payment_transaction.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_card_number
 #, python-format
@@ -148,7 +136,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_payment_cards
 #, python-format
 msgid "Card types"
@@ -156,7 +143,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_doc
 #, python-format
@@ -172,7 +158,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_multi_count
 #, python-format
@@ -194,7 +179,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_language
 #, python-format
 msgid "Default language"
@@ -202,7 +186,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_language
 #, python-format
@@ -212,7 +195,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_multi_period
 #, python-format
 msgid "Delay (in days) between installments."
@@ -221,10 +203,19 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
-#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_provider__lyra_redirect_enabled__0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_provider__lyra_redirect_enabled_0
+#: model:ir.model.fields.selection,name:payment_lyra.selection_payment_provider__lyra_smartform_compact_mode_0
 #, python-format
 msgid "Disabled"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_provider__lyra_redirect_enabled_1
+#: model:ir.model.fields.selection,name:payment_lyra.selection_payment_provider__lyra_smartform_compact_mode_1
+#, python-format
+msgid "Enabled"
 msgstr ""
 
 #. module: payment_lyra
@@ -234,22 +225,12 @@ msgid "Display Name"
 msgstr ""
 
 #. module: payment_lyra
-#. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
-#: model:ir.model.fields.selection,name:payment_lyra.selection__payment_provider__lyra_redirect_enabled__1
-#, python-format
-msgid "Enabled"
-msgstr ""
-
-#. module: payment_lyra
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__environment
 msgid "Environment"
 msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #: code:addons/payment_lyra/models/payment_transaction.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_expiration_date
 #, python-format
@@ -275,7 +256,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_redirect_enabled
 #, python-format
 msgid ""
@@ -285,7 +265,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_validation_mode
 #, python-format
@@ -310,7 +289,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_multi_count
 #, python-format
 msgid "Installments number"
@@ -318,7 +296,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_notify_url
 #, python-format
@@ -328,7 +305,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_key_prod
 #, python-format
 msgid "Key in production mode"
@@ -337,7 +313,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_key_test
 #, python-format
 msgid "Key in test mode"
@@ -345,7 +320,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_key_prod
 #, python-format
@@ -356,7 +330,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_key_test
 #, python-format
@@ -373,7 +346,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_available_languages
 #, python-format
@@ -401,22 +373,12 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: payment_lyra
-#. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
-#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_gateway_url
-#, python-format
-msgid "Link to the payment page."
-msgstr ""
-
-#. module: payment_lyra
 #: model:account.payment.method,name:payment_lyra.payment_method_lyra
 msgid "Lyra Collect"
 msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields.selection,name:payment_lyra.selection__payment_provider__code__lyramulti
 #: model:payment.provider,name:payment_lyra.payment_provider_lyramulti
@@ -426,7 +388,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields.selection,name:payment_lyra.selection__payment_provider__code__lyra
 #: model:payment.provider,name:payment_lyra.payment_provider_lyra
@@ -452,7 +413,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields.selection,name:payment_lyra.selection__payment_provider__lyra_validation_mode__-1
 #, python-format
 msgid "Lyra Expert Back Office Configuration"
@@ -471,7 +431,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_threeds_min_amount
 #, python-format
 msgid "Manage 3DS"
@@ -479,7 +438,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields.selection,name:payment_lyra.selection__payment_provider__lyra_validation_mode__1
 #, python-format
@@ -489,7 +447,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_transaction.py:0
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_card_brand
 #, python-format
 msgid "Means of payment"
@@ -497,7 +454,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_redirect_error_message
 #, python-format
@@ -509,7 +465,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_redirect_success_message
 #, python-format
 msgid ""
@@ -519,7 +474,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_return_mode
 #, python-format
@@ -531,7 +485,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_transaction.py:0
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #, python-format
 msgid "NO"
 msgstr ""
@@ -539,6 +492,16 @@ msgstr ""
 #. module: payment_lyra
 #: model_terms:ir.ui.view,arch_db:payment_lyra.provider_form_lyra
 msgid "PAYMENT GATEWAY ACCESS"
+msgstr ""
+
+#. module: payment_lyra
+#: model_terms:ir.ui.view,arch_db:payment_lyra.provider_form_lyra
+msgid "REST API KEYS"
+msgstr ""
+
+#. module: payment_lyra
+#: model_terms:ir.ui.view,arch_db:payment_lyra.provider_form_lyra
+msgid "ADVANCED OPTIONS"
 msgstr ""
 
 #. module: payment_lyra
@@ -584,16 +547,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
-#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_gateway_url
-#, python-format
-msgid "Payment page URL"
-msgstr ""
-
-#. module: payment_lyra
-#. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_multi_period
 #, python-format
 msgid "Period"
@@ -607,7 +560,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_redirect_error_message
 #, python-format
 msgid "Redirection message on failure"
@@ -615,7 +567,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_redirect_success_message
 #, python-format
@@ -625,7 +576,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_redirect_error_timeout
 #, python-format
 msgid "Redirection timeout on failure"
@@ -633,7 +583,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_redirect_success_timeout
 #, python-format
@@ -643,16 +592,12 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #, python-format
 msgid "Redirection to shop in a few seconds..."
 msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_return_mode
 #, python-format
@@ -667,14 +612,12 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_transaction.py:0
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #, python-format
 msgid "See the transaction details for more information ({})."
 msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_site_id
 #, python-format
@@ -684,7 +627,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_sign_algo
 #, python-format
 msgid "Signature algorithm"
@@ -692,7 +634,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #, python-format
 msgid ""
@@ -704,7 +645,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_payment_cards
 #, python-format
 msgid ""
@@ -715,7 +655,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_site_id
 #, python-format
 msgid "The identifier provided by Lyra Collect."
@@ -723,7 +662,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_capture_delay
 #, python-format
@@ -734,7 +672,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #, python-format
 msgid "The shop currency {} is not supported."
@@ -748,7 +685,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_redirect_error_timeout
 #, python-format
 msgid ""
@@ -758,7 +694,6 @@ msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_redirect_success_timeout
 #, python-format
@@ -770,7 +705,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_transaction.py:0
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_raw_data
 #: model_terms:ir.ui.view,arch_db:payment_lyra.transaction_form_lyra
 #, python-format
@@ -780,7 +714,6 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_transaction.py:0
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_transaction__lyra_trans_status
 #, python-format
 msgid "Transaction status"
@@ -789,8 +722,8 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_notify_url
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_rest_api_notify_url
 #, python-format
 msgid ""
 "URL to copy into your Lyra Expert Back Office > Settings > Notification "
@@ -800,15 +733,13 @@ msgstr ""
 #. module: payment_lyra
 #. odoo-python
 #: code:addons/payment_lyra/models/payment_provider.py:0
-#: code:addons/payment_lyra/models/payment_provider.py:0
 #: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_validation_mode
 #, python-format
-msgid "Validation mode"
+msgid "Validation mode (if applicable)"
 msgstr ""
 
 #. module: payment_lyra
 #. odoo-python
-#: code:addons/payment_lyra/models/payment_transaction.py:0
 #: code:addons/payment_lyra/models/payment_transaction.py:0
 #, python-format
 msgid "YES"
@@ -820,6 +751,175 @@ msgstr ""
 msgid ""
 "You will be redirected to the Lyra Collect website after clicking on the "
 "payment button."
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_test_password
+msgid "Test password"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_prod_password
+msgid "Production password"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_public_test_key
+msgid "Public test key"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_public_production_key
+msgid "Public production key"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_sha256_test_key
+msgid "HMAC-SHA-256 test key"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_sha256_prod_key
+msgid "HMAC-SHA-256 production key"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_test_password
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_prod_password
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_public_test_key
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_public_production_key
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_sha256_test_key
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_sha256_prod_key
+msgid "REST API keys are available in your Lyra Expert Back Office (menu: Settings > Shops > REST API keys)."
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_rest_api_notify_url
+msgid "REST API Notification URL"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_payment_data_entry_mode
+msgid "Payment data entry mode"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_payment_data_entry_mode
+msgid "Select how the payment data will be entered. Attention, to use the Smartform, you must ensure that you have subscribed to this option with Lyra Collect."
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/helpers/tools.py:0
+msgid "Bank data acquisition on payment gateway"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/helpers/tools.py:0
+msgid "Embedded Smartform on merchant site (REST API)"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/helpers/tools.py:0
+msgid "Embedded Smartform extended on merchant site with logos (REST API)"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/helpers/tools.py:0
+msgid "Embedded Smartform extended on merchant site without logos (REST API)"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_smartform_pop_in
+msgid "Display in a pop-in"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_smartform_pop_in
+msgid "This option allows to display the Smartform in a pop-in."
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection_payment_provider__lyra_smartform_pop_in_no
+msgid "No"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields.selection,name:payment_lyra.selection_payment_provider__lyra_smartform_pop_in_yes
+msgid "Yes"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_smartform_theme
+msgid "Theme"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_smartform_theme
+msgid "Select a theme to use to display the Smartform."
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_smartform_compact_mode
+msgid "Compact mode"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_smartform_compact_mode
+msgid "This option allows to display the Smartform in a compact mode."
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,field_description:payment_lyra.field_payment_provider__lyra_smartform_payment_attempts
+msgid "Payment attempts number for cards"
+msgstr ""
+
+#. module: payment_lyra
+#. odoo-python
+#: code:addons/payment_lyra/models/payment_provider.py:0
+#: model:ir.model.fields,help:payment_lyra.field_payment_provider__lyra_smartform_payment_attempts
+msgid "Maximum number of payment by cards retries after a failed payment (between 0 and 2). If blank, the gateway default value is 2."
 msgstr ""
 
 #. module: payment_lyra
