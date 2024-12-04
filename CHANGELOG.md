@@ -1,3 +1,12 @@
+3.1.0, 2024-12-04
+=============
+- [smartform] Smartform integration.
+- Bug Fix: Fix warning on image field.
+- Bug fix: Fix error related to payment method duplication.
+- Set return mode to POST by default.
+- Update list of supported payment means.
+- Update list of supported currencies.
+
 3.0.3, 2023-09-14
 =============
 - Bug Fix: Fix client return to shop in case of multi-site.

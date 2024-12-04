@@ -9,14 +9,13 @@
 
 from datetime import datetime
 import logging
-import math
 
-from odoo import models, api, release, fields, _
+from odoo import models, fields, _
 from odoo.addons.payment import utils as payment_utils
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_compare
 
-from ..helpers import tools
+from ..helpers import constants, tools
 
 _logger = logging.getLogger(__name__)
 
@@ -45,7 +44,7 @@ class TransactionLyra(models.Model):
     def _get_specific_rendering_values(self, processing_values):
         """ Override of payment to return Lyra specific rendering values. """
         res = super()._get_specific_rendering_values(processing_values)
-        if self.provider_code not in ['lyra', 'lyramulti']:
+        if self.provider_code not in ['lyra', 'lyramulti'] and not processing_values.get("provider_code") == "lyra":
             return res
 
         values = self.provider_id.lyra_form_generate_values(processing_values)
@@ -54,19 +53,22 @@ class TransactionLyra(models.Model):
             if key.startswith('vads_') and values[key] != '':
                values[key] = values[key].decode('utf-8')
 
-        partner_first_name, partner_last_name = payment_utils.split_partner_name(self.partner_name)
+        # Retrieval of context to set up the customer information when using the smartform.
+        cust_info = self if self.provider_id.lyra_payment_data_entry_mode == "redirect" else self.env['payment.transaction'].search([('partner_name', '!=', False)], limit=1)
+
+        partner_first_name, partner_last_name = payment_utils.split_partner_name(cust_info.partner_name)
 
         values.update({
-            'vads_cust_id': str(self.partner_id.id) or '',
+            'vads_cust_id': str(cust_info.partner_id.id) or '',
             'vads_cust_first_name': partner_first_name and partner_first_name[0:62] or '',
             'vads_cust_last_name': partner_last_name and partner_last_name[0:62] or '',
-            'vads_cust_address': self.partner_address and self.partner_address[0:254] or '',
-            'vads_cust_zip': self.partner_zip and self.partner_zip[0:62] or '',
-            'vads_cust_city': self.partner_city and self.partner_city[0:62] or '',
-            'vads_cust_state': self.partner_state_id.code and self.partner_state_id.code[0:62] or '',
-            'vads_cust_country': self.partner_country_id.code and self.partner_country_id.code.upper() or '',
-            'vads_cust_email': self.partner_email and self.partner_email[0:126] or '',
-            'vads_cust_phone': self.partner_phone and self.partner_phone[0:31] or '',
+            'vads_cust_address': cust_info.partner_address and cust_info.partner_address[0:254] or '',
+            'vads_cust_zip': cust_info.partner_zip and cust_info.partner_zip[0:62] or '',
+            'vads_cust_city': cust_info.partner_city and cust_info.partner_city[0:62] or '',
+            'vads_cust_state': cust_info.partner_state_id.code and cust_info.partner_state_id.code[0:62] or '',
+            'vads_cust_country': cust_info.partner_country_id.code and cust_info.partner_country_id.code.upper() or '',
+            'vads_cust_email': cust_info.partner_email and cust_info.partner_email[0:126] or '',
+            'vads_cust_phone': cust_info.partner_phone and cust_info.partner_phone[0:31] or '',
         })
 
         # Set shipping info.
@@ -103,13 +105,14 @@ class TransactionLyra(models.Model):
         })
 
         values['lyra_signature'] = self.provider_id._lyra_generate_sign(self, values)
-        values['api_url'] = self.provider_id.lyra_get_form_action_url()
+        values['api_url'] = constants.LYRA_PARAMS.get('GATEWAY_URL')
+
         return values
 
     def _lyra_get_tx_from_notification_data(self, notification_data):
-        shasign, status, reference = notification_data.get('signature'), notification_data.get('vads_trans_status'), notification_data.get('vads_ext_info_order_ref') or notification_data.get('vads_order_id')
+        is_rest, shasign, status, reference = notification_data.get('is_rest'), notification_data.get('signature'), notification_data.get('vads_trans_status'), notification_data.get('vads_ext_info_order_ref') or notification_data.get('vads_order_id')
 
-        if not reference or not shasign or not status:
+        if not reference or not status or (not shasign and not is_rest):
             error_msg = 'Lyra Collect : received bad data {}'.format(notification_data)
             _logger.error(error_msg)
             raise ValidationError(error_msg)
@@ -125,12 +128,13 @@ class TransactionLyra(models.Model):
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
-        # Verify shasign.
-        shasign_check = tx.provider_id._lyra_generate_sign('out', notification_data)
-        if shasign_check.upper() != shasign.upper():
-            error_msg = 'Lyra Collect: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, notification_data)
-            _logger.info(error_msg)
-            raise ValidationError(error_msg)
+        # Verify signature
+        if shasign:
+            shasign_check = tx.provider_id._lyra_generate_sign('out', notification_data)
+            if shasign_check.upper() != shasign.upper():
+                error_msg = 'Lyra Collect: invalid signature, received {}, computed {}, for data {}'.format(shasign, shasign_check, notification_data)
+                _logger.info(error_msg)
+                raise ValidationError(error_msg)
 
         return tx
 

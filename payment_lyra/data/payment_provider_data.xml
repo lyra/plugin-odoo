@@ -19,12 +19,12 @@
                     ref('payment_lyra.payment_icon_cc_lyravisa'),
                     ref('payment_lyra.payment_icon_cc_lyramastercard'),
                 ])]"/>
-            <field name="image" type="base64" file="payment_lyra/static/src/img/logo.png" />
             <field name="image_128" type="base64" file="payment_lyra/static/src/img/logo.png" />
             <field name="code">lyra</field>
             <field name="state">test</field>
             <field name="company_id" ref="base.main_company" />
             <field name="redirect_form_view_id" ref="lyra_provider_button" />
+            <field name="inline_form_view_id" ref="lyra_inline_smartform" />
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
 
@@ -34,7 +34,7 @@
             <field name="lyra_redirect_enabled">0</field>
             <field name="lyra_redirect_success_timeout">5</field>
             <field name="lyra_redirect_error_timeout">5</field>
-            <field name="lyra_return_mode">GET</field>
+            <field name="lyra_return_mode">POST</field>
         </record>
 
         <record id="payment_method_lyra" model="account.payment.method">
@@ -46,5 +46,6 @@
 
     <function model="payment.provider" name="multi_add">
         <value>/data/payment_provider_data_multi.xml</value>
+        <value>True</value>
     </function>
 </odoo>

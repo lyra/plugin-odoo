@@ -68,4 +68,23 @@
             <input type="hidden" name="vads_url_return" t-att-value="vads_url_return" />
         </form>
     </template>
+
+    <template id="lyra_inline_smartform">
+        <t t-set="payment_provider_model" t-value="request.env['payment.provider'].search([('code', '=', 'lyra')])[0]" />
+        <head>
+            <script t-att-src="payment_provider_model._lyra_get_javascript_server_url()"
+                t-att-kr-public-key="payment_provider_model._lyra_get_rest_public_key()"
+                t-att-kr-post-url-success="payment_provider_model._lyra_get_return_url()"
+                t-att-kr-post-url-refused="payment_provider_model._lyra_get_return_url()"
+                t-att-kr-language="payment_provider_model._lyra_get_smartform_language()">
+            </script>
+            <link rel="stylesheet" t-att-href="payment_provider_model._lyra_get_smartform_stylesheet_url()" />
+            <script t-att-src="payment_provider_model._lyra_get_smartform_stylesheet_script_url()"></script>
+            <script type="text/javascript" src="/payment_lyra/static/src/js/lyra_checkout_form.js"></script>
+            <link rel="stylesheet" src="/payment_lyra/static/src/css/lyra_checkout_form.css" />
+        </head>
+        <body>
+            <div id="kr-smart-form-parent"></div>
+        </body>
+    </template>
 </odoo>

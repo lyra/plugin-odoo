@@ -10,12 +10,10 @@
 import logging
 import pprint
 
-from pkg_resources import parse_version
-import werkzeug
-
-from odoo import http, release
+from odoo import http
 from odoo.http import request
 from odoo.exceptions import ValidationError
+from ..helpers import tools
 
 _logger = logging.getLogger(__name__)
 
@@ -41,10 +39,27 @@ class LyraController(http.Controller):
 
         try:
             # Check the origin of the notification
-            tx_sudo = request.env['payment.transaction'].sudo()._get_tx_from_notification_data('lyra', pdt_data)
+            is_rest = False
+            data = pdt_data
+
+            if tools.check_rest_response(pdt_data):
+                data = tools.convert_rest_result(pdt_data)
+                data['is_rest'] = '1'
+                is_rest = True
+
+            tx_sudo = request.env['payment.transaction'].sudo()._get_tx_from_notification_data('lyra', data)
+
+            # Verify hash.
+            if is_rest:
+                hmac256_key = tx_sudo.provider_id._lyra_get_rest_sha256_key()
+                hash_checked = tools.check_hash(pdt_data, hmac256_key)
+                if not hash_checked:
+                    error_msg = 'Lyra Collect: invalid signature for data {}'.format(pdt_data)
+                    _logger.info(error_msg)
+                    raise ValidationError(error_msg)
 
             # Handle the notification data
-            tx_sudo._handle_notification_data('lyra', pdt_data)
+            tx_sudo._handle_notification_data('lyra', data)
         except ValidationError:
             _logger.exception("Lyra Collect: Unable to handle the return notification data; skipping to acknowledge.")
 
@@ -58,12 +73,31 @@ class LyraController(http.Controller):
         _logger.info('Lyra Collect: entering IPN _get_tx_from_notification with post data %s', pprint.pformat(post))
 
         try:
-            result = request.env['payment.transaction'].sudo()._get_tx_from_notification_data('lyra', post)
+            is_rest = False
+            data = post
+
+            if tools.check_rest_response(post):
+                if not tools.order_cycle_closed(post):
+                    return 'Payment failure.'
+
+                data = tools.convert_rest_result(post)
+                data['is_rest'] = '1'
+                is_rest = True
+
+            result = request.env['payment.transaction'].sudo()._get_tx_from_notification_data('lyra', data)
+
+            if is_rest:
+                rest_password = result.provider_id._lyra_get_rest_password()
+                hash_checked = tools.check_hash(post, rest_password)
+                if not hash_checked:
+                    error_msg = 'Lyra Collect: invalid signature for data {}'.format(post)
+                    _logger.info(error_msg)
+                    raise ValidationError(error_msg)
 
             # Handle the notification data
-            result._handle_notification_data('lyra', post)
+            result._handle_notification_data('lyra', data)
         except ValidationError: #Acknowledge the notification to avoid getting spammed
             _logger.exception("Lyra Collect: Unable to handle the IPN notification data; skipping to acknowledge.")
             return 'Bad request received.'
 
-        return 'Accepted payment, order has been updated.' if result else 'Payment failure, order has been cancelled.'
+        return 'Payment processed, order has been updated.' if result else 'An error occurred while processing payment.'
