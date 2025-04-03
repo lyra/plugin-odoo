@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0-20221206\n"
+"Project-Id-Version: Odoo Server 17.0-20221206\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-06 15:03+0100\n"
 "PO-Revision-Date: 2022-12-06 15:03+0100\n"
@@ -355,13 +355,6 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: payment_lyra
-#: code:addons/payment_lyra/models/payment_acquirer.py:0
-#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_gateway_url
-#, python-format
-msgid "Link to the payment page."
-msgstr ""
-
-#. module: payment_lyra
 #: model:account.payment.method,name:payment_lyra.payment_method_lyra
 msgid "Lyra Collect"
 msgstr ""
@@ -508,13 +501,6 @@ msgstr ""
 #: model:ir.model,name:payment_lyra.model_payment_transaction
 msgid "Payment Transaction"
 msgstr "Payment Transaction"
-
-#. module: payment_lyra
-#: code:addons/payment_lyra/models/payment_acquirer.py:0
-#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_gateway_url
-#, python-format
-msgid "Payment page URL"
-msgstr "Payment page URL"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment_acquirer.py:0
