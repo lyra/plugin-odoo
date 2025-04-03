@@ -54,7 +54,7 @@ class ProviderLyra(models.Model):
         docs_uri = constants.LYRA_ONLINE_DOC_URI
         doc_field_html = ''
         for lang, doc_uri in docs_uri.items():
-            html = '<a href="%s%s">%s</a> '%(doc_uri,'odoo16/sitemap.html', constants.LYRA_DOCUMENTATION.get(lang))
+            html = '<a href="%s%s">%s</a> '%(doc_uri,'odoo17/sitemap.html', constants.LYRA_DOCUMENTATION.get(lang))
             doc_field_html += html
 
         return doc_field_html
@@ -79,7 +79,6 @@ class ProviderLyra(models.Model):
     lyra_key_prod = fields.Char(string=_('Key in production mode'), help=_('Key provided by Lyra Collect (available in Lyra Expert Back Office after enabling production mode).'), default=constants.LYRA_PARAMS.get('KEY_PROD'))
     lyra_sign_algo = fields.Selection(string=_('Signature algorithm'), help=sign_algo_help, selection=[('SHA-1', 'SHA-1'), ('SHA-256', 'HMAC-SHA-256')], default=constants.LYRA_PARAMS.get('SIGN_ALGO'))
     lyra_notify_url = fields.Char(string=_('Instant Payment Notification URL'), help=_('URL to copy into your Lyra Expert Back Office > Settings > Notification rules.'), default=_get_notify_url, readonly=True)
-    lyra_gateway_url = fields.Char(string=_('Payment page URL'), help=_('Link to the payment page.'), default=constants.LYRA_PARAMS.get('GATEWAY_URL'))
     lyra_language = fields.Selection(string=_('Default language'), help=_('Default language on the payment page.'), default=constants.LYRA_PARAMS.get('LANGUAGE'), selection=_get_languages)
     lyra_available_languages = fields.Many2many('lyra.language', string=_('Available languages'), column1='code', column2='label', help=_('Languages available on the payment page. If you do not select any, all the supported languages will be available.'))
     lyra_capture_delay = fields.Char(string=_('Capture delay'), help=_('The number of days before the bank capture (adjustable in your Lyra Expert Back Office).'))
@@ -251,7 +250,7 @@ class ProviderLyra(models.Model):
         return lyra_tx_values
 
     def lyra_get_form_action_url(self):
-        return self.lyra_gateway_url
+        return constants.LYRA_PARAMS.get('GATEWAY_URL')
 
     def _get_default_payment_method_codes(self):
         if self.code != 'lyra' and self.code != 'lyramulti':

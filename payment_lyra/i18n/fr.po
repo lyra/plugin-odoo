@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0-20221206\n"
+"Project-Id-Version: Odoo Server 17.0-20221206\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-06 15:03+0100\n"
 "PO-Revision-Date: 2022-12-06 15:03+0100\n"
@@ -310,7 +310,7 @@ msgid ""
 "Key provided by Lyra Collect for test mode (available in Lyra Expert Back "
 "Office)."
 msgstr ""
-"Clé fourni par Lyra Collect pour le mode test (disponible sur le Back Office"
+"Clé fournie par Lyra Collect pour le mode test (disponible sur le Back Office"
 " Lyra Expert)."
 
 #. module: payment_lyra
@@ -347,13 +347,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment_lyra.field_lyra_language__write_date
 msgid "Last Updated on"
 msgstr ""
-
-#. module: payment_lyra
-#: code:addons/payment_lyra/models/payment_acquirer.py:0
-#: model:ir.model.fields,help:payment_lyra.field_payment_acquirer__lyra_gateway_url
-#, python-format
-msgid "Link to the payment page."
-msgstr "URL vers laquelle l'acheteur sera redirigé pour le paiement."
 
 #. module: payment_lyra
 #: model:account.payment.method,name:payment_lyra.payment_method_lyra
@@ -502,13 +495,6 @@ msgstr "Méthodes de paiements"
 #: model:ir.model,name:payment_lyra.model_payment_transaction
 msgid "Payment Transaction"
 msgstr "Transaction"
-
-#. module: payment_lyra
-#: code:addons/payment_lyra/models/payment_acquirer.py:0
-#: model:ir.model.fields,field_description:payment_lyra.field_payment_acquirer__lyra_gateway_url
-#, python-format
-msgid "Payment page URL"
-msgstr "URL de la page de paiement"
 
 #. module: payment_lyra
 #: code:addons/payment_lyra/models/payment_acquirer.py:0
