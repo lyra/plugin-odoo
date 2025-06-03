@@ -23,12 +23,12 @@ _logger = logging.getLogger(__name__)
 class TransactionLyra(models.Model):
     _inherit = 'payment.transaction'
 
-    lyra_trans_status = fields.Char(_('Transaction status'))
-    lyra_card_brand = fields.Char(_('Means of payment'))
-    lyra_card_number = fields.Char(_('Card number'))
-    lyra_expiration_date = fields.Char(_('Expiration date'))
-    lyra_auth_result = fields.Char(_('Authorization result'))
-    lyra_raw_data = fields.Text(string=_('Transaction log'), readonly=True)
+    lyra_trans_status = fields.Char('Transaction status')
+    lyra_card_brand = fields.Char('Means of payment')
+    lyra_card_number = fields.Char('Card number')
+    lyra_expiration_date = fields.Char('Expiration date')
+    lyra_auth_result = fields.Char('Authorization result')
+    lyra_raw_data = fields.Text(string='Transaction log', readonly=True)
 
     lyra_html_3ds = fields.Char('3D Secure HTML')
 

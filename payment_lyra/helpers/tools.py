@@ -19,4 +19,4 @@ def find_currency(iso):
     return None
 
 def lang_translate(callback, v):
-    return _(v)
+    return v
