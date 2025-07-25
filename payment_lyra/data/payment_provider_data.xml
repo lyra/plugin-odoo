@@ -18,6 +18,7 @@
             <field name="state">test</field>
             <field name="company_id" ref="base.main_company" />
             <field name="redirect_form_view_id" ref="lyra_provider_button" />
+            <field name="inline_form_view_id" ref="lyra_inline_embedded" />
             <field name="environment">test</field>
             <field name="pre_msg"><![CDATA[<p>You will be redirected to the Lyra Collect website after clicking on the payment button.</p>]]></field>
 
@@ -38,5 +39,6 @@
 
     <function model="payment.provider" name="multi_add">
         <value>/data/payment_provider_data_multi.xml</value>
+        <value>True</value>
     </function>
 </odoo>

@@ -7,5 +7,14 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
-from . import main
-from . import rest
+from odoo.http import request
+from odoo.addons.payment_lyra.helpers import constants
+
+def migrate(cr, version):
+    cr.execute("""
+        UPDATE payment_provider
+        SET inline_form_view_id = (SELECT id
+        FROM ir_ui_view
+        WHERE name = 'lyra_inline_embedded')
+        WHERE code = 'lyra';
+    """)

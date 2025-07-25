@@ -9,9 +9,8 @@
 
 from datetime import datetime
 import logging
-import math
 
-from odoo import models, api, release, fields, _
+from odoo import models, api, fields, _
 from odoo.addons.payment import utils as payment_utils
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_compare
@@ -23,19 +22,19 @@ _logger = logging.getLogger(__name__)
 class TransactionLyra(models.Model):
     _inherit = 'payment.transaction'
 
-    lyra_trans_status = fields.Char(_('Transaction status'))
-    lyra_card_brand = fields.Char(_('Means of payment'))
-    lyra_card_number = fields.Char(_('Card number'))
-    lyra_expiration_date = fields.Char(_('Expiration date'))
-    lyra_auth_result = fields.Char(_('Authorization result'))
-    lyra_raw_data = fields.Text(string=_('Transaction log'), readonly=True)
+    lyra_trans_status = fields.Char('Transaction status')
+    lyra_card_brand = fields.Char('Means of payment')
+    lyra_card_number = fields.Char('Card number')
+    lyra_expiration_date = fields.Char('Expiration date')
+    lyra_auth_result = fields.Char('Authorization result')
+    lyra_raw_data = fields.Text(string='Transaction log', readonly=True)
 
     lyra_html_3ds = fields.Char('3D Secure HTML')
 
     lyra_statuses = {
-        'success': ['AUTHORISED', 'CAPTURED', 'ACCEPTED'],
-        'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION', 'WAITING_FOR_PAYMENT', 'PRE_AUTHORISED'],
-        'cancel': ['ABANDONED']
+        'success': ['AUTHORISED', 'CAPTURED', 'ACCEPTED', 'PARTIALLY_AUTHORISED'],
+        'pending': ['AUTHORISED_TO_VALIDATE', 'WAITING_AUTHORISATION', 'WAITING_AUTHORISATION_TO_VALIDATE', 'INITIAL', 'UNDER_VERIFICATION', 'WAITING_FOR_PAYMENT', 'PRE_AUTHORISED', 'SUSPENDED', 'PENDING', 'REFUND_TO_RETRY'],
+        'cancel': ['ABANDONED', 'NOT_CREATED', 'CANCELLED']
     }
 
     # --------------------------------------------------
@@ -107,14 +106,20 @@ class TransactionLyra(models.Model):
         return values
 
     def _lyra_get_tx_from_notification_data(self, notification_data):
-        shasign, status, reference = notification_data.get('signature'), notification_data.get('vads_trans_status'), notification_data.get('vads_ext_info_order_ref') or notification_data.get('vads_order_id')
+        is_rest, shasign, status, reference = notification_data.get('is_rest'), notification_data.get('signature'), notification_data.get('vads_trans_status'), notification_data.get('vads_ext_info_order_ref') or notification_data.get('vads_order_id')
 
-        if not reference or not shasign or not status:
-            error_msg = 'Lyra Collect : received bad data {}'.format(notification_data)
-            _logger.error(error_msg)
-            raise ValidationError(error_msg)
+        if is_rest and not notification_data.get('vads_ext_info_order_ref'):
+            sale_order = self.env['sale.order'].sudo().search([('name', '=', notification_data.get('vads_order_id'))]).exists()
+            tx = sale_order.transaction_ids[0]
+            reference = tx.reference
+        else:
+            if not reference or not status or (not shasign and not is_rest):
+                error_msg = 'Lyra Collect : received bad data'
+                _logger.error(error_msg)
+                raise ValidationError(error_msg)
 
-        tx = self.search([('reference', '=', reference)])
+            tx = self.search([('reference', '=', reference)])
+
         if not tx or len(tx) > 1:
             error_msg = 'Lyra Collect: received data for reference {}'.format(reference)
             if not tx:
@@ -125,13 +130,14 @@ class TransactionLyra(models.Model):
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
-        # Verify shasign.
-        shasign_check = tx.provider_id._lyra_generate_sign('out', notification_data)
-        if shasign_check.upper() != shasign.upper():
-            error_msg = 'Lyra Collect: invalid shasign, received {}, computed {}, for data {}'.format(shasign, shasign_check, notification_data)
-            _logger.info(error_msg)
-            raise ValidationError(error_msg)
+         # Verify signature.
+        if shasign:
+            shasign_check = tx.provider_id._lyra_generate_sign('out', notification_data)
+            if shasign_check.upper() != shasign.upper():
+                error_msg = 'Lyra Collect: invalid signature, received {}, computed {}, for data {}'.format(shasign, shasign_check, notification_data)
+                _logger.info(error_msg)
 
+                raise ValidationError(error_msg)
         return tx
 
     def _get_tx_from_notification_data(self, provider_code, notification_data):
@@ -194,4 +200,4 @@ class TransactionLyra(models.Model):
             })
 
             self.write(values)
-            self._set_error('Payment for transaction #%s is refused (%s).' % (self.reference, notification_data.get('vads_result')))
+            self._set_error('Payment for transaction #%s is refused.' % (self.reference))

@@ -1,3 +1,7 @@
+4.2.0, 2025-07-25
+=============
+- Embedded payment fields integration.
+
 4.1.0, 2025-04-03
 =============
 - Compatibility with Odoo 18.

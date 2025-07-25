@@ -17,7 +17,7 @@ class LyraLanguage(models.Model):
     _order = 'label'
 
     code = fields.Char()
-    label = fields.Char(translate=tools.lang_translate)
+    label = fields.Char()
 
     def init(self):
         languages = constants.LYRA_LANGUAGES
