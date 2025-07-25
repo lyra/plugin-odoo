@@ -7,7 +7,7 @@
 # Copyright: Copyright © Lyra Network
 # License:   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
 
-from odoo import _
+from odoo.tools.translate import _lt
 
 # WARN: Do not modify code format here. This is managed by build files.
 LYRA_PLUGIN_FEATURES = {
@@ -21,7 +21,7 @@ LYRA_PARAMS = {
     'GATEWAY_CODE': 'Lyra',
     'GATEWAY_NAME': 'Lyra Collect',
     'BACKOFFICE_NAME': 'Lyra Expert',
-    'SUPPORT_EMAIL': 'support-ecommerce@lyra-collect.com',
+    'SUPPORT_EMAIL': 'https://support.lyra.com/hc/fr/requests/new',
     'GATEWAY_URL': 'https://secure.lyra.com/vads-payment/',
     'SITE_ID': '12345678',
     'KEY_TEST': '1111111111111111',
@@ -31,24 +31,26 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '4.1.0',
+    'PLUGIN_VERSION': '4.2.0',
     'CMS_IDENTIFIER': 'Odoo_17-18',
+    'REST_URL': 'https://api.lyra.com/api-payment/',
+    'STATIC_URL': 'https://static.lyra.com/static/'
 }
 
 LYRA_LANGUAGES = {
-    'cn': 'Chinese',
-    'de': 'German',
-    'es': 'Spanish',
-    'en': 'English',
-    'fr': 'French',
-    'it': 'Italian',
-    'jp': 'Japanese',
-    'nl': 'Dutch',
-    'pl': 'Polish',
-    'pt': 'Portuguese',
-    'ru': 'Russian',
-    'sv': 'Swedish',
-    'tr': 'Turkish',
+    'cn': _lt("Chinese"),
+    'de': _lt("German"),
+    'es': _lt("Spanish"),
+    'en': _lt("English"),
+    'fr': _lt("French"),
+    'it': _lt("Italian"),
+    'jp': _lt("Japanese"),
+    'nl': _lt("Dutch"),
+    'pl': _lt("Polish"),
+    'pt': _lt("Portuguese"),
+    'ru': _lt("Russian"),
+    'sv': _lt("Swedish"),
+    'tr': _lt("Turkish"),
 }
 
 LYRA_CARDS = {
@@ -62,7 +64,7 @@ LYRA_CARDS = {
     'AMEX': u'American Express',
     'ACCORD_STORE': u'Cartes Enseignes Partenaires',
     'ACCORD_STORE_SB': u'Cartes Enseignes Partenaires (sandbox)',
-    'AKULAKU_ID': u'Akulaku PayLater',
+    'AKULAKU_ID': u'Akulaku PayLater ID',
     'AKULAKU_PH': u'Akulaku PayLater PH',
     'ALINEA': u'Carte myalinea',
     'ALINEA_CDX': u'Carte Cadeau Alinéa',
@@ -237,3 +239,12 @@ LYRA_DOCUMENTATION = {
     'de': 'Deutsch',
     'pt': 'Português',
 }
+
+LYRA_PAYMENT_DATA_ENTRY_MODE = {
+    'redirect': _lt("Bank data acquisition on payment gateway"),
+    'embedded': _lt("Embedded payment fields on merchant site (REST API)"),
+    'embedded_extended_with_logos': _lt("Embedded payment fields extended on merchant site with logos (REST API)"),
+    'embedded_extended_without_logos': _lt("Embedded payment fields extended on merchant site without logos (REST API)"),
+}
+
+LYRA_REST_API_KEYS_DESC = 'REST API keys are available in your Lyra Expert Back Office (menu: Settings > Shops > REST API keys).'
