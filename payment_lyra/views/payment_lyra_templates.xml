@@ -70,7 +70,7 @@
     </template>
 
     <template id="lyra_inline_embedded">
-        <t t-set="payment_provider_model" t-value="request.env['payment.provider'].search([('code', '=', 'lyra')])[0]" />
+        <t t-set="payment_provider_model" t-value="env['payment.provider'].sudo().search([('code', '=', 'lyra')])[0]" />
         <t t-set="inline_form_values"
            t-value="payment_provider_model._lyra_get_inline_form_values(
                amount,
