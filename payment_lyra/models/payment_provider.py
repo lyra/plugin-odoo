@@ -123,7 +123,7 @@ class ProviderLyra(models.Model):
     lyra_embedded_compact_mode = fields.Selection(string='Compact mode', help='This option allows to display the embedded payment fields in a compact mode.', selection=[('0', 'Disabled'), ('1', 'Enabled')], default='0')
     lyra_embedded_payment_attempts = fields.Char(string='Payment attempts number for cards', help='Maximum number of payment by cards retries after a failed payment (between 0 and 2). If blank, the gateway default value is 2.')
 
-    image = fields.Char()
+    image = fields.Char("Image (OSB)")
     environment = fields.Char()
 
     lyra_redirect = False
