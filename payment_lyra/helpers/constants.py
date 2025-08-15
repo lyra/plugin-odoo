@@ -38,19 +38,19 @@ LYRA_PARAMS = {
 }
 
 LYRA_LANGUAGES = {
-    'cn': _lt("Chinese"),
-    'de': _lt("German"),
-    'es': _lt("Spanish"),
-    'en': _lt("English"),
-    'fr': _lt("French"),
-    'it': _lt("Italian"),
-    'jp': _lt("Japanese"),
-    'nl': _lt("Dutch"),
-    'pl': _lt("Polish"),
-    'pt': _lt("Portuguese"),
-    'ru': _lt("Russian"),
-    'sv': _lt("Swedish"),
-    'tr': _lt("Turkish"),
+    'cn': "Chinese",
+    'de': "German",
+    'es': "Spanish",
+    'en': "English",
+    'fr': "French",
+    'it': "Italian",
+    'jp': "Japanese",
+    'nl': "Dutch",
+    'pl': "Polish",
+    'pt': "Portuguese",
+    'ru': "Russian",
+    'sv': "Swedish",
+    'tr': "Turkish",
 }
 
 LYRA_CARDS = {
