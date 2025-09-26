@@ -9,13 +9,13 @@
 
 {
     'name': 'Lyra Collect Payment Provider',
-    'version': '4.2.0',
+    'version': '18.0.4.2.2',
     'summary': 'Accept payments with Lyra Collect secure payment gateway.',
     'category': 'Accounting/Payment Providers',
     'author': 'Lyra Network',
     'website': 'https://www.lyra.com/',
     'license': 'AGPL-3',
-    'depends': ['payment'],
+    'depends': ['payment','sale'],
     'data': [
         'views/payment_provider_views.xml',
         'views/payment_lyra_templates.xml',

@@ -51,6 +51,7 @@ class ProviderLyra(models.Model):
         for provider in self:
             provider.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (provider.code == 'lyramulti') else False
 
+    @staticmethod
     def lyra_get_doc_field_value():
         docs_uri = constants.LYRA_ONLINE_DOC_URI
         doc_field_html = ''
@@ -65,7 +66,7 @@ class ProviderLyra(models.Model):
         return [(c, l) for c, l in modes.items()]
 
     def _get_default_entry_mode(self):
-        module_upgrade = request.env['ir.module.module'].search([('state', '=', 'to upgrade'), ('name', '=', 'payment_lyra')])
+        module_upgrade = self.env['ir.module.module'].search([('state', '=', 'to upgrade'), ('name', '=', 'payment_lyra')])
         if module_upgrade:
             return ("redirect")
 
@@ -123,7 +124,7 @@ class ProviderLyra(models.Model):
     lyra_embedded_compact_mode = fields.Selection(string='Compact mode', help='This option allows to display the embedded payment fields in a compact mode.', selection=[('0', 'Disabled'), ('1', 'Enabled')], default='0')
     lyra_embedded_payment_attempts = fields.Char(string='Payment attempts number for cards', help='Maximum number of payment by cards retries after a failed payment (between 0 and 2). If blank, the gateway default value is 2.')
 
-    image = fields.Char()
+    image = fields.Char("Image (OSB)")
     environment = fields.Char()
 
     lyra_redirect = False
@@ -144,7 +145,7 @@ class ProviderLyra(models.Model):
     @api.model
     def multi_add(self, filename, noupdate):
         if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
-            module_upgrade = request.env['ir.module.module'].search([('state', '=', 'to upgrade'), ('name', '=', 'payment_lyra')])
+            module_upgrade = self.env['ir.module.module'].search([('state', '=', 'to upgrade'), ('name', '=', 'payment_lyra')])
             file = path.join(path.dirname(path.dirname(path.abspath(__file__)))) + filename
             mode = 'update' if module_upgrade else 'init'
             convert_xml_import(self.env, 'payment_lyra', file, None, mode, noupdate)
@@ -272,7 +273,7 @@ class ProviderLyra(models.Model):
         return lyra_tx_values
 
     def lyra_generate_values_from_order(self, data):
-        sale_order = request.env['sale.order'].sudo().search([('id', '=', data['order_id'])]).exists()
+        sale_order = self.env['sale.order'].sudo().search([('id', '=', data['order_id'])]).exists()
 
         currency = self._lyra_get_currency(data['currency_id'])
         amount = float(sale_order.amount_total)
@@ -420,7 +421,7 @@ class ProviderLyra(models.Model):
     def _lyra_get_inline_form_values(
         self, amount, currency, partner_id, is_validation, payment_method_sudo, sale_order_id, **kwargs
     ):
-        sale_order = request.env['sale.order'].sudo().search([('id', '=', sale_order_id)]).exists()
+        sale_order = self.env['sale.order'].sudo().search([('id', '=', sale_order_id)]).exists()
         values = {
             "provider_id": self.id,
             "provider_code" : "lyra",

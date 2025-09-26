@@ -38,7 +38,7 @@ def generate_trans_id():
     return str(delta).rjust(6, '0')
 
 def lang_translate(callback, v):
-    return _(v)
+    return v
 
 def check_hash(post, key):
     return hmac.new(key.encode("utf-8"), eval(json.dumps(post, ensure_ascii=False)).get("kr-answer").encode("utf-8"), hashlib.sha256).hexdigest() == eval(json.dumps(post, ensure_ascii=False)).get("kr-hash")
