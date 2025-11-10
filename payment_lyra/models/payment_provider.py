@@ -272,7 +272,7 @@ class ProviderLyra(models.Model):
         return lyra_tx_values
 
     def lyra_generate_values_from_order(self, data):
-        sale_order = request.env['sale.order'].sudo().search([('id', '=', data['order_id'])]).exists()
+        sale_order = self.env['sale.order'].sudo().search([('id', '=', data['order_id'])]).exists()
 
         currency = self._lyra_get_currency(data['currency_id'])
         amount = float(sale_order.amount_total)
@@ -410,7 +410,7 @@ class ProviderLyra(models.Model):
 
     def _lyra_get_currency(self, currency_id):
         # Give the iso and the number of decimal toward the smallest monetary unit from the id of the currency.
-        currency_name = tools.find_currency(self.env['res.currency'].search([('id', '=', currency_id)]).exists().name) 
+        currency_name = tools.find_currency(self.env['res.currency'].search([('id', '=', currency_id)]).exists().name)
         for currency in constants.LYRA_CURRENCIES:
             if currency[1] == str(currency_name):
                 return (currency[0], currency[2])
@@ -420,7 +420,7 @@ class ProviderLyra(models.Model):
     def _lyra_get_inline_form_values(
         self, amount, currency, partner_id, is_validation, payment_method_sudo, sale_order_id, **kwargs
     ):
-        sale_order = request.env['sale.order'].sudo().search([('id', '=', sale_order_id)]).exists()
+        sale_order = self.env['sale.order'].sudo().search([('id', '=', sale_order_id)]).exists()
         values = {
             "provider_id": self.id,
             "provider_code" : "lyra",
