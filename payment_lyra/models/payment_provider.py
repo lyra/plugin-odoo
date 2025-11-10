@@ -65,7 +65,7 @@ class ProviderLyra(models.Model):
         return [(c, l) for c, l in modes.items()]
 
     def _get_default_entry_mode(self):
-        module_upgrade = request.env['ir.module.module'].search([('state', '=', 'to upgrade'), ('name', '=', 'payment_lyra')])
+        module_upgrade = self.env['ir.module.module'].search([('state', '=', 'to upgrade'), ('name', '=', 'payment_lyra')])
         if module_upgrade:
             return ("redirect")
 
@@ -144,7 +144,7 @@ class ProviderLyra(models.Model):
     @api.model
     def multi_add(self, filename, noupdate):
         if (constants.LYRA_PLUGIN_FEATURES.get('multi') == True):
-            module_upgrade = request.env['ir.module.module'].search([('state', '=', 'to upgrade'), ('name', '=', 'payment_lyra')])
+            module_upgrade = self.env['ir.module.module'].search([('state', '=', 'to upgrade'), ('name', '=', 'payment_lyra')])
             file = path.join(path.dirname(path.dirname(path.abspath(__file__)))) + filename
             mode = 'update' if module_upgrade else 'init'
             convert_xml_import(self.env, 'payment_lyra', file, None, mode, noupdate)

@@ -31,7 +31,7 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '4.2.0',
+    'PLUGIN_VERSION': '4.2.1',
     'CMS_IDENTIFIER': 'Odoo_17-18',
     'REST_URL': 'https://api.lyra.com/api-payment/',
     'STATIC_URL': 'https://static.lyra.com/static/'
