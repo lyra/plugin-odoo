@@ -1,3 +1,7 @@
+4.2.1, 2025-11-10
+=============
+- Bug fix: Fix authorization issue while displaying embedded payment fields.
+
 4.2.0, 2025-07-25
 =============
 - Embedded payment fields integration.
