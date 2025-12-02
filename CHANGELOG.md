@@ -1,3 +1,9 @@
+3.1.1, 2025-12-02
+=============
+- Bug fix: Fix authorization issue while displaying embedded payment fields.
+- Update list of supported payment means.
+- Update list of supported currencies.
+
 3.1.0, 2024-12-04
 =============
 - [smartform] Smartform integration.
