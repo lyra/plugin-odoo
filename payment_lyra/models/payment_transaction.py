@@ -130,7 +130,7 @@ class TransactionLyra(models.Model):
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
-         # Verify signature.
+        # Verify signature.
         if shasign:
             shasign_check = tx.provider_id._lyra_generate_sign('out', notification_data)
             if shasign_check.upper() != shasign.upper():
@@ -138,18 +138,55 @@ class TransactionLyra(models.Model):
                 _logger.info(error_msg)
 
                 raise ValidationError(error_msg)
+
         return tx
 
     def _get_tx_from_notification_data(self, provider_code, notification_data):
-        tx = super()._get_tx_from_notification_data(provider_code, notification_data)
-        if provider_code != 'lyra' and self.provider_code != 'lyramulti':
-            return tx
+        if provider_code in ['lyra', 'lyramulti']:
+            return self._lyra_get_tx_from_notification_data(notification_data)
+        elif hasattr(self, '_search_by_reference') and callable(getattr(self, '_search_by_reference')):
+            return super()._search_by_reference(provider_code, notification_data)
+        else:
+            return super()._get_tx_from_notification_data(provider_code, notification_data)
 
-        return self._lyra_get_tx_from_notification_data(notification_data)
+    def _handle_notification_data(self, provider_code, notification_data):
+        if hasattr(super(), '_handle_notification_data') and callable(getattr(super(), '_handle_notification_data')):
+            return super()._handle_notification_data(provider_code, notification_data)
+
+        return super()._process(provider_code, notification_data)
+
+    def _apply_updates(self, payment_data):
+        """Override of `payment` to update the transaction based on the payment data."""
+        if self.provider_code not in ['lyra', 'lyramulti']:
+            return super()._apply_updates(payment_data)
+
+        self._process_notification_data(payment_data)
+
+    def _extract_amount_data(self, payment_data):
+        """Override of payment to extract the amount and currency from the payment data."""
+        if self.provider_code not in ['lyra', 'lyramulti']:
+            return super()._extract_amount_data(payment_data)
+
+        currency_num = payment_data['vads_currency']
+        currency = tools.find_currency_by_num(currency_num)
+        if currency is None:
+            _logger.error('Unsupported currency with numeric code {}.'.format(currency_num))
+            raise ValidationError(_('Currency with numeric code {} is not supported.').format(currency_num))
+
+        # Amount in cents.
+        k = int(currency[2])
+        amount = round(int(payment_data['vads_amount']) / (10 ** k), 2)
+
+        return {
+            'amount': amount,
+            'currency_code': currency[0]
+        }
 
     def _process_notification_data(self, notification_data):
-        super()._process_notification_data(notification_data)
-        if self.provider_code != 'lyra' and self.provider_code != 'lyramulti':
+        if hasattr(super(), '_process_notification_data') and callable(getattr(super(), '_process_notification_data')):
+            super()._process_notification_data(notification_data)
+
+        if self.provider_code not in ['lyra', 'lyramulti']:
             return
 
         self.provider_reference = notification_data.get('vads_ext_info_order_ref') or notification_data.get('vads_order_id')
