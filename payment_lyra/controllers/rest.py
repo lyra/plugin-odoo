@@ -42,7 +42,15 @@ class LyraRestController(http.Controller):
                 return json.dumps({ "formToken": "NO_UPDATE" })
 
             processed_values = payment_transaction._get_specific_rendering_values(processing_values)
-            processed_values["vads_order_id"] = processing_values["reference"].rpartition('-')[0]
+
+            reference = processing_values["reference"]
+            index = s.find("-")
+            if index < 0:
+                order_id = reference
+            else:
+                order_id = s[:index]
+
+            processed_values["vads_order_id"] = order_id;
 
         currency = payment_provider._lyra_get_currency(processing_values["currency_id"])[0]
 

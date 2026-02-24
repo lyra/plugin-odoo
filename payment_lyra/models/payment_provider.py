@@ -16,12 +16,11 @@ from os import path
 
 from pkg_resources import parse_version
 
-from odoo import models, api, fields, _
+from odoo import models, api, fields, _, release
 from odoo.exceptions import ValidationError
 from odoo.tools import convert_xml_import
 from odoo.tools import float_round
 from odoo.tools import get_lang
-from odoo.tools.float_utils import float_compare
 from odoo.http import request
 
 from ..controllers.main import LyraController
@@ -40,8 +39,7 @@ class ProviderLyra(models.Model):
     _inherit = 'payment.provider'
 
     def _get_notify_url(self):
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-        return urlparse.urljoin(base_url, LyraController._notify_url)
+        return urlparse.urljoin(self.get_base_url(), LyraController._notify_url)
 
     def _get_languages(self):
         languages = constants.LYRA_LANGUAGES
@@ -93,8 +91,8 @@ class ProviderLyra(models.Model):
     lyra_notify_url = fields.Char(string='Instant Payment Notification URL', help='URL to copy into your Lyra Expert Back Office > Settings > Notification rules.', default=_get_notify_url, readonly=True)
     lyra_language = fields.Selection(string='Default language', help='Default language on the payment page.', default=constants.LYRA_PARAMS.get('LANGUAGE'), selection=_get_languages)
     lyra_available_languages = fields.Many2many('lyra.language', string='Available languages', column1='code', column2='label', help='Languages available on the payment page. If you do not select any, all the supported languages will be available.')
-    lyra_capture_delay = fields.Char(string='Capture delay', help='The number of days before the bank capture (adjustable in your Lyra Expert Back Office).')
-    lyra_validation_mode = fields.Selection(string='Validation mode', help='If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office.', selection=[('-1', 'Lyra Expert Back Office Configuration'), ('0', 'Automatic'), ('1', 'Manual')])
+    lyra_capture_delay = fields.Char(string='Capture delay (if applicable)', help='The number of days before the bank capture (adjustable in your Lyra Expert Back Office).')
+    lyra_validation_mode = fields.Selection(string='Validation mode (if applicable)', help='If manual is selected, you will have to confirm payments manually in your Lyra Expert Back Office.', selection=[('-1', 'Lyra Expert Back Office Configuration'), ('0', 'Automatic'), ('1', 'Manual')])
     lyra_payment_cards = fields.Many2many('lyra.card', string='Card types', column1='code', column2='label', help='The card type(s) that can be used for the payment. Select none to use gateway configuration.')
     lyra_threeds_min_amount = fields.Char(string='Manage 3DS', help='Amount below which customer could be exempt from strong authentication. Needs subscription to «Selective 3DS1» or «Frictionless 3DS2» options. For more information, refer to the module documentation.')
     lyra_redirect_enabled = fields.Selection(string='Automatic redirection', help='If enabled, the buyer is automatically redirected to your site at the end of the payment.', selection=[('0', 'Disabled'), ('1', 'Enabled')])
@@ -134,7 +132,7 @@ class ProviderLyra(models.Model):
         providers = super()._get_compatible_providers(*args, currency_id=currency_id, **kwargs)
 
         currency = self.env['res.currency'].browse(currency_id).exists()
-        if currency and currency.name and tools.find_currency(currency.name) is None:
+        if currency and currency.name and tools.find_currency_by_code(currency.name) is None:
             providers = providers.filtered(
                 lambda p: p.code not in ['lyra', 'lyramulti']
             )
@@ -148,6 +146,21 @@ class ProviderLyra(models.Model):
             file = path.join(path.dirname(path.dirname(path.abspath(__file__)))) + filename
             mode = 'update' if module_upgrade else 'init'
             convert_xml_import(self.env, 'payment_lyra', file, None, mode, noupdate)
+
+        return None
+
+    @api.model
+    def create_lyra_asset(self):
+        if parse_version(release.version) >= parse_version('19'):
+            filename = 'payment_lyra/static/src/interactions/payment_form.js'
+        else:
+            filename = 'payment_lyra/static/src/js/payment_form.js'
+
+        self.env['ir.asset'].create({
+            'name': 'Frontend Web Assets for Lyra',
+            'bundle': 'web.assets_frontend',
+            'path': filename
+        })
 
         return None
 
@@ -188,8 +201,6 @@ class ProviderLyra(models.Model):
         return payment_config
 
     def lyra_form_generate_values(self, values):
-        base_url = request.httprequest.host_url
-
         threeds_mpi = u''
         if self.lyra_threeds_min_amount and float(self.lyra_threeds_min_amount) > values['amount']:
             threeds_mpi = u'2'
@@ -200,7 +211,7 @@ class ProviderLyra(models.Model):
         else:
             currency = self.env['res.currency'].browse(values['currency_id']).exists()
 
-        currency_num = tools.find_currency(currency.name)
+        currency_num = tools.find_currency_by_code(currency.name)
         if currency_num is None:
             _logger.error('The plugin cannot find a numeric code for the current shop currency {}.'.format(currency.name))
             raise ValidationError(_('The shop currency {} is not supported.').format(currency.name))
@@ -239,7 +250,7 @@ class ProviderLyra(models.Model):
             'vads_action_mode': u'INTERACTIVE',
             'vads_payment_config': self._lyra_payment_config(amount),
             'vads_version': constants.LYRA_PARAMS.get('GATEWAY_VERSION'),
-            'vads_url_return': urlparse.urljoin(base_url, LyraController._return_url),
+            'vads_url_return': self._lyra_get_return_url(),
             'vads_order_id': str(order_id),
             'vads_ext_info_order_ref': str(values.get('reference')),
             'vads_contrib': tools._lyra_get_contrib(),
@@ -345,7 +356,7 @@ class ProviderLyra(models.Model):
         return constants.LYRA_PARAMS.get('GATEWAY_URL')
 
     def _get_default_payment_method_codes(self):
-        if self.code != 'lyra' and self.code != 'lyramulti':
+        if self.code not in ['lyra', 'lyramulti']:
             return super()._get_default_payment_method_codes()
 
         return self.code
@@ -396,7 +407,7 @@ class ProviderLyra(models.Model):
         return constants.LYRA_PARAMS.get('STATIC_URL') + "js/krypton-client/V4.0/ext/" + self.lyra_embedded_theme + ".js"
 
     def _lyra_get_return_url(self):
-        return urlparse.urljoin(self.env['ir.config_parameter'].get_param('web.base.url'), LyraController._return_url)
+        return urlparse.urljoin(request.httprequest.host_url, LyraController._return_url)
 
     def _lyra_get_embedded_language(self):
         return get_lang(self.env).code[:2]
@@ -410,7 +421,7 @@ class ProviderLyra(models.Model):
 
     def _lyra_get_currency(self, currency_id):
         # Give the iso and the number of decimal toward the smallest monetary unit from the id of the currency.
-        currency_name = tools.find_currency(self.env['res.currency'].search([('id', '=', currency_id)]).exists().name) 
+        currency_name = tools.find_currency_by_code(self.env['res.currency'].search([('id', '=', currency_id)]).exists().name)
         for currency in constants.LYRA_CURRENCIES:
             if currency[1] == str(currency_name):
                 return (currency[0], currency[2])

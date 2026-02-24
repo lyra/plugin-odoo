@@ -1,3 +1,9 @@
+4.3.0, 2026-02-24
+=============
+- Compatibility with Odoo 19.
+- Update list of supported payment means.
+- Update list of supported currencies.
+
 4.2.1, 2025-11-10
 =============
 - Bug fix: Fix authorization issue while displaying embedded payment fields.

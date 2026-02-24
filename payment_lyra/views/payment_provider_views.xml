@@ -94,4 +94,6 @@
         <value>/views/payment_provider_views_multi.xml</value>
         <value>False</value>
     </function>
+
+    <function model="payment.provider" name="create_lyra_asset" />
 </odoo>

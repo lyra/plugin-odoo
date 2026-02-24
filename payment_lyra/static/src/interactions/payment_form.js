@@ -9,7 +9,8 @@
  * @license   http://www.gnu.org/licenses/agpl.html GNU Affero General Public License (AGPL v3)
  */
 
-import paymentForm from '@payment/js/payment_form';
+import { patch } from '@web/core/utils/patch';
+import { PaymentForm } from '@payment/interactions/payment_form';
 
 import { lyraCheckAmount,
          lyraHidePreMessage,
@@ -20,9 +21,9 @@ import { lyraCheckAmount,
 
 let can_process_payment = true;
 
-paymentForm.include({
-    init() {
-        this._super(...arguments);
+patch(PaymentForm.prototype, {
+    setup() {
+        super.setup();
 
         // Update form token on amount update.
         $(document).ready(function() {
@@ -47,7 +48,7 @@ paymentForm.include({
 
     async _prepareInlineForm(providerId, providerCode, paymentOptionId, paymentMethodCode, flow) {
         if ((typeof (KR) == "undefined") || (paymentMethodCode != "lyra")) {
-            await this._super(...arguments);
+            await super._prepareInlineForm(...arguments);
             return;
         }
 
@@ -65,7 +66,7 @@ paymentForm.include({
 
     async _processDirectFlow(providerCode, paymentOptionId, paymentMethodCode, processingValues) {
         if (providerCode !== 'lyra') {
-            await this._super(...arguments);
+            await super._processDirectFlow(...arguments);
             return;
         }
 
@@ -89,6 +90,6 @@ paymentForm.include({
             return;
         }
 
-        await this._super(...arguments);
+        await super._initiatePaymentFlow(...arguments);
     }
 });

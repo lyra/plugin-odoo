@@ -35,7 +35,7 @@ class LyraController(http.Controller):
     )
     def lyra_return_from_checkout(self, **pdt_data):
         # Check payment result and create transaction.
-        _logger.info('Lyra Collect: entering _from_notification with data %s', pprint.pformat(pdt_data))
+        _logger.info('Lyra Collect: customer returns to shop with data %s', pprint.pformat(pdt_data))
 
         try:
             is_rest = False
@@ -64,6 +64,7 @@ class LyraController(http.Controller):
         except ValidationError:
             _logger.exception("Lyra Collect: Unable to handle the return notification data; skipping to acknowledge.")
 
+        # Redirect the user to the status page.
         return request.redirect('/payment/status')
 
     @http.route(_notify_url, type='http', auth='public', methods=['POST'], csrf=False,
