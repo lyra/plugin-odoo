@@ -1,3 +1,10 @@
+4.3.1, 2026-05-04
+=============
+- Bug fix: Fix undefined variable error.
+- Bug fix: Fix payment of invoices with embedded payment.
+- Update list of supported payment means.
+- Update list of supported currencies.
+
 4.3.0, 2026-02-24
 =============
 - Compatibility with Odoo 19.

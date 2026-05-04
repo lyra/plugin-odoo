@@ -109,9 +109,21 @@ class TransactionLyra(models.Model):
         is_rest, shasign, status, reference = notification_data.get('is_rest'), notification_data.get('signature'), notification_data.get('vads_trans_status'), notification_data.get('vads_ext_info_order_ref') or notification_data.get('vads_order_id')
 
         if is_rest and not notification_data.get('vads_ext_info_order_ref'):
-            sale_order = self.env['sale.order'].sudo().search([('name', '=', notification_data.get('vads_order_id'))]).exists()
-            tx = sale_order.transaction_ids[0]
-            reference = tx.reference
+            is_invoice = notification_data.get('vads_ext_info_is_invoice')
+            if is_invoice and is_invoice == 'true':
+                invoice = self.env['account.move'].sudo().search([('payment_reference', '=', notification_data.get('vads_order_id'))]).exists()
+                if invoice and len(invoice.transaction_ids) > 0:
+                    tx = invoice.transaction_ids[0]
+                    reference = tx.reference
+                else:
+                    tx = self.search([('reference', '=', reference)])
+            else:
+                sale_order = self.env['sale.order'].sudo().search([('name', '=', notification_data.get('vads_order_id'))]).exists()
+                if sale_order and len(sale_order.transaction_ids) > 0:
+                    tx = sale_order.transaction_ids[0]
+                    reference = tx.reference
+                else:
+                    tx = self.search([('reference', '=', reference)])
         else:
             if not reference or not status or (not shasign and not is_rest):
                 error_msg = 'Lyra Collect : received bad data'

@@ -79,6 +79,7 @@
                mode == 'validation',
                payment_method_sudo=pm_sudo,
                sale_order_id=sale_order_id,
+               invoice_id=invoice_id,
            )"
         />
         <div name="o_lyra_element_container"

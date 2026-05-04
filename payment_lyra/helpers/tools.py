@@ -131,7 +131,7 @@ def convert_rest_transaction(response, transaction, prefix = 'vads_'):
 
     metadata = transaction.get("metadata", False)
     if metadata:
-        for key, value in metadata:
+        for key, value in metadata.items():
             response[prefix + "ext_info_" + key] = value
 
     transaction_details = transaction.get("transactionDetails", False)

@@ -25,40 +25,46 @@ class LyraRestController(http.Controller):
         processing_values = json.loads(request.httprequest.data.decode('utf-8'))
         provider_id = processing_values["provider_id"]
         payment_provider = request.env['payment.provider'].sudo().browse(provider_id).exists()
+        is_invoice = False
 
         # On payment method selection, we have only order ID.
-        if "order_id" in processing_values:
-            processed_values = payment_provider.lyra_generate_values_from_order(processing_values)
+        if "order_id" in processing_values or "invoice_id" in processing_values:
+            is_invoice = True if "invoice_id" in processing_values else False
+            processed_values = payment_provider.lyra_generate_values(processing_values)
         else:
             # On payment submit, we have transaction data.
             payment_transaction = request.env['payment.transaction'].sudo().search([('reference', '=', processing_values["reference"])]).exists()
 
-            sale_order = payment_transaction.sale_order_ids[0]
-            sale_order._check_cart_is_ready_to_be_paid()
+            if payment_transaction and len(payment_transaction.sale_order_ids) > 0:
+                sale_order = payment_transaction.sale_order_ids[0]
+                sale_order._check_cart_is_ready_to_be_paid()
 
-            # Check amount coherence.
-            compare_amounts = sale_order.currency_id.compare_amounts
-            if (compare_amounts(float(processing_values['amount']), sale_order.amount_total)):
-                return json.dumps({ "formToken": "NO_UPDATE" })
+                # Check amount coherence.
+                compare_amounts = sale_order.currency_id.compare_amounts
+                if (compare_amounts(float(processing_values['amount']), sale_order.amount_total)):
+                    return json.dumps({ "formToken": "NO_UPDATE" })
 
             processed_values = payment_transaction._get_specific_rendering_values(processing_values)
 
             reference = processing_values["reference"]
-            index = s.find("-")
+            index = reference.find("-")
             if index < 0:
                 order_id = reference
             else:
-                order_id = s[:index]
+                order_id = reference[:index]
 
             processed_values["vads_order_id"] = order_id;
 
         currency = payment_provider._lyra_get_currency(processing_values["currency_id"])[0]
 
-        params = self.generate_form_token_data(processed_values, payment_provider, currency)
-        form_token =  self.lyra_create_form_token(params, payment_provider)
+        params = self.generate_form_token_data(processed_values, payment_provider, currency, is_invoice)
+        form_token = self.lyra_create_form_token(params, payment_provider)
         return json.dumps({ "formToken": form_token })
 
-    def generate_form_token_data(self, values, payment_provider, currency):
+    def generate_form_token_data(self, values, payment_provider, currency, is_invoice):
+        if not values:
+            return {}
+
         params = {
             "amount": values["vads_amount"],
             "currency": currency,
@@ -94,6 +100,9 @@ class LyraRestController(http.Controller):
                 }
             },
             "contrib": values["vads_contrib"],
+            "metadata": {
+                "is_invoice": is_invoice
+            }
         }
 
         validation_mode = payment_provider.lyra_validation_mode
@@ -117,6 +126,9 @@ class LyraRestController(http.Controller):
         return params
 
     def lyra_create_form_token(self, values, payment_provider):
+        if not values:
+            return False
+
         try:
             identification = payment_provider.lyra_site_id + ":" + payment_provider._lyra_get_rest_password()
             headers = {

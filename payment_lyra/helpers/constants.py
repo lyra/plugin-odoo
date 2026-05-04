@@ -31,7 +31,7 @@ LYRA_PARAMS = {
     'LANGUAGE': 'en',
 
     'GATEWAY_VERSION': 'V2',
-    'PLUGIN_VERSION': '4.3.0',
+    'PLUGIN_VERSION': '4.3.1',
     'CMS_IDENTIFIER': 'Odoo_17-19',
     'REST_URL': 'https://api.lyra.com/api-payment/',
     'STATIC_URL': 'https://static.lyra.com/static/'
@@ -176,6 +176,7 @@ LYRA_CARDS = {
     'NARANJA': u'Naranja',
     'NORAUTO': u'Carte Norauto option Financement',
     'NORAUTO_SB': u'Carte Norauto option Financement (sandbox)',
+    'OG_TEST': u'Ogloba Test',
     'ONEY_10X_12X': u'Paiement en 10 ou 12 fois Oney',
     'ONEY_3X_4X': u'Paiement en 3 ou 4 fois Oney',
     'ONEY_ENSEIGNE': u'Cartes enseignes Oney',
