@@ -282,25 +282,41 @@ class ProviderLyra(models.Model):
 
         return lyra_tx_values
 
-    def lyra_generate_values_from_order(self, data):
-        sale_order = request.env['sale.order'].sudo().search([('id', '=', data['order_id'])]).exists()
+    def lyra_generate_values(self, data):
+        values = dict()
+
+        if "order_id" in data:
+            entity = request.env['sale.order'].sudo().search([('id', '=', data['order_id'])]).exists()
+            entity_id = entity.name
+        else:
+            if "invoice_id" in data:
+                entity = request.env['account.move'].sudo().search([('id', '=', data['invoice_id'])]).exists()
+                entity_id = entity.payment_reference
+            else:
+                return values
+
+        if not entity or not entity_id:
+            return values
 
         currency = self._lyra_get_currency(data['currency_id'])
-        amount = float(sale_order.amount_total)
+        amount = float(entity.amount_total)
         amount = int(float_round(float_round(amount, int(currency[1])) * (10 ** int(currency[1])), 0))
 
         partner_id = data['partner_id']
         partner = self.env['res.partner'].browse(partner_id)
 
-        invoice_address = sale_order.partner_invoice_id
+        if hasattr(entity, 'partner_invoice_id'):
+            invoice_address = entity.partner_invoice_id
+        else:
+            invoice_address = entity.partner_id
+
         partner_name = invoice_address.name or partner.name
         partner_first_name, partner_last_name = payment_utils.split_partner_name(partner_name)
 
-        values = dict() # Values to sign in unicode.
         values.update({
             'invoice_address_id': invoice_address.id,
             'vads_amount': amount,
-            'vads_order_id': sale_order.name,
+            'vads_order_id': entity_id,
             'vads_contrib': tools._lyra_get_contrib(),
             'vads_language': self.lyra_language or '',
             'vads_cust_id': str(partner_id) or '',
@@ -316,7 +332,7 @@ class ProviderLyra(models.Model):
         })
 
         try:
-            shipping_address = sale_order.partner_shipping_id
+            shipping_address = entity.partner_shipping_id
 
             partner_shipping_first_name, partner_shipping_last_name = payment_utils.split_partner_name(shipping_address.name) or ('', '')
             partner_ship_to_street = shipping_address.street and shipping_address.street[0:62] or ''
@@ -429,22 +445,38 @@ class ProviderLyra(models.Model):
         return None
 
     def _lyra_get_inline_form_values(
-        self, amount, currency, partner_id, is_validation, payment_method_sudo, sale_order_id, **kwargs
+        self, amount, currency, partner_id, is_validation, payment_method_sudo, sale_order_id, invoice_id, **kwargs
     ):
-        sale_order = request.env['sale.order'].sudo().search([('id', '=', sale_order_id)]).exists()
         values = {
             "provider_id": self.id,
             "provider_code" : "lyra",
-            "order_id": str(sale_order_id),
             "amount": amount,
             "currency_id": currency.id,
             "partner_id": partner_id,
-            "invoice_address_id": sale_order.partner_invoice_id.id,
-            "shipping_address_id": sale_order.partner_shipping_id.id,
             "entry_mode": self.lyra_payment_data_entry_mode,
+            "invoice_address_id": "",
+            "shipping_address_id": "",
             "pop_in": self.lyra_embedded_pop_in,
             "compact": self.lyra_embedded_compact_mode
         }
+
+        if sale_order_id is not None:
+            sale_order = request.env['sale.order'].sudo().search([('id', '=', sale_order_id)]).exists()
+
+            values.update({
+                "order_id": sale_order_id,
+                "invoice_address_id": sale_order.partner_invoice_id.id,
+                "shipping_address_id": sale_order.partner_shipping_id.id,
+            })
+        else:
+            if invoice_id is not None:
+                invoice = request.env['account.move'].sudo().search([('id', '=', invoice_id)]).exists()
+
+                values.update({
+                    "invoice_id": invoice_id,
+                    "invoice_address_id": invoice.partner_id.id,
+                    "shipping_address_id": invoice.partner_shipping_id.id,
+                })
 
         return json.dumps(values)
 

@@ -12,6 +12,10 @@
 let popin = false;
 
 export function lyraCheckAmount() {
+    if ($('#amount_total_summary').length === 0) {
+        return;
+    }
+
     var observer = new MutationObserver( function(mutations) {
         mutations.forEach((mutation) => {
             const checkedRadio = document.querySelectorAll("[data-payment-method-code='lyra']")[0];
