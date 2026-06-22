@@ -1,3 +1,8 @@
+4.3.2, 2026-06-22
+=============
+- Bug fix: Fix error related to multiple companies management with embedded payment.
+- Added new transaction status CAPTURE_PENDING.
+
 4.3.1, 2026-05-04
 =============
 - Bug fix: Fix undefined variable error.
