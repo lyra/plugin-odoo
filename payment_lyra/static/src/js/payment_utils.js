@@ -20,7 +20,7 @@ export function lyraCheckAmount() {
         mutations.forEach((mutation) => {
             const checkedRadio = document.querySelectorAll("[data-payment-method-code='lyra']")[0];
             if (checkedRadio && checkedRadio.checked) {
-                console.log("Amount total sumary has changed. We may have to re-create form token.");
+                console.log("Amount total summary has changed. We may have to re-create the form token.");
                 checkedRadio.click();
             }
         });
@@ -31,6 +31,21 @@ export function lyraCheckAmount() {
 
     var amount_total_summary = document.querySelector('#amount_total_summary');
     observer.observe(amount_total_summary, config);
+}
+
+export function lyraCheckInstallmentPayment() {
+    if ($('#o_payment_installments_tab').length === 0) {
+        return;
+    }
+
+    const checkedRadio = document.querySelectorAll("[data-payment-method-code='lyra']")[0];
+    $("#o_payment_installments_tab").on("click", function() {
+        updateInlineForm(checkedRadio);
+    })
+
+    $("#o_payment_full_tab").on("click", function() {
+        updateInlineForm(checkedRadio);
+    })
 }
 
 export function lyraHidePreMessage() {
@@ -152,6 +167,23 @@ export function lyraSubmitPayment() {
     }
 }
 
+export function lyraGetAmountToPay(paymentForm) {
+    const paymentDialog = paymentForm.el.closest("#pay_with");
+    const chosenPaymentDetails = paymentDialog
+        ? paymentDialog.querySelector(".o_btn_payment_tab.active")
+        : null;
+
+    if (chosenPaymentDetails) {
+        if (chosenPaymentDetails.id === "o_payment_installments_tab") {
+            return parseFloat(paymentForm.paymentContext.invoiceNextAmountToPay);
+        } else {
+            return parseFloat(paymentForm.paymentContext.invoiceAmountDue);
+        }
+    }
+
+    return null;
+}
+
 function setLyraItem(key, value, ttl) {
     let item = {
         value: value,
@@ -183,4 +215,12 @@ function getLyraItem(key) {
     }
 
     return item.value;
+}
+
+function updateInlineForm(checkedRadio) {
+    if (checkedRadio && checkedRadio.checked) {
+        console.log("Amount to pay has changed. We may have to re-create the form token.");
+        checkedRadio.checked = false;
+        checkedRadio.click();
+    }
 }
