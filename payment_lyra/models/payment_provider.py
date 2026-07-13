@@ -299,7 +299,12 @@ class ProviderLyra(models.Model):
             return values
 
         currency = self._lyra_get_currency(data['currency_id'])
-        amount = float(entity.amount_total)
+
+        if "amount" in data: 
+            amount = float(data['amount'])
+        else:
+            amount = float(entity.amount_total)
+
         amount = int(float_round(float_round(amount, int(currency[1])) * (10 ** int(currency[1])), 0))
 
         partner_id = data['partner_id']
