@@ -16,7 +16,9 @@ import { lyraCheckAmount,
          lyraHidePreMessage,
          lyraPrepareInlineForm,
          lyraProcessDirectFlow,
-         lyraSubmitPayment
+         lyraSubmitPayment,
+         lyraGetAmountToPay,
+         lyraCheckInstallmentPayment
 } from '@payment_lyra/js/payment_utils';
 
 let can_process_payment = true;
@@ -32,6 +34,7 @@ patch(PaymentForm.prototype, {
             }
 
             lyraCheckAmount();
+            lyraCheckInstallmentPayment();
             lyraHidePreMessage();
         });
     },
@@ -55,6 +58,11 @@ patch(PaymentForm.prototype, {
         const inlineValues = this._lyraGetInlineValues();
         if (inlineValues.length == 0) {
             return;
+        }
+
+        let amountToPay = lyraGetAmountToPay(this);
+        if (amountToPay) {
+            inlineValues.amount = amountToPay;
         }
 
         // Set the flow to direct to avoid redirection to payment page on Odoo payment button clic.

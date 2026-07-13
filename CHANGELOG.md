@@ -1,3 +1,7 @@
+4.3.3, 2026-07-13
+=============
+- Bug fix: Retrieve the correct amount to pay in case of installment payment with embedded form.
+
 4.3.2, 2026-06-22
 =============
 - Bug fix: Fix error related to multiple companies management with embedded payment.
