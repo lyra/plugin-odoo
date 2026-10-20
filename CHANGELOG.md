@@ -1,3 +1,11 @@
+4.3.4, 2026-10-20
+=============
+- Bug fix: Fix security vulnerability caused by the use of eval.
+- Bug fix: Fix error missing required argument invoice_id with Odoo 17 versions.
+- Improve signature check for REST IPN and return to shop requests.
+- Update list of supported payment means.
+- Update list of supported currencies.
+
 4.3.3, 2026-07-13
 =============
 - Bug fix: Retrieve the correct amount to pay in case of installment payment with embedded form.

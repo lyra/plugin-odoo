@@ -15,9 +15,7 @@ import hashlib
 import hmac
 import json
 
-null = None
-true = True
-false = False
+EXPECTED_REST_HASH_ALGORITHM = 'sha256_hmac'
 
 def find_currency_by_code(iso):
     for currency in LYRA_CURRENCIES:
@@ -48,14 +46,32 @@ def lang_translate(callback, v):
     return _(v)
 
 def check_hash(post, key):
-    return hmac.new(key.encode("utf-8"), eval(json.dumps(post, ensure_ascii=False)).get("kr-answer").encode("utf-8"), hashlib.sha256).hexdigest() == eval(json.dumps(post, ensure_ascii=False)).get("kr-hash")
+    hash_algorithm = post.get("kr-hash-algorithm")
+    if not isinstance(hash_algorithm, str) or hash_algorithm.lower() != EXPECTED_REST_HASH_ALGORITHM:
+        return False
+
+    expected = hmac.new(key.encode("utf-8"), post.get("kr-answer").encode("utf-8"), hashlib.sha256).hexdigest()
+
+    return hmac.compare_digest(expected, post.get("kr-hash") or "")
 
 def check_rest_response(post):
-    return 'kr-hash' in post and 'kr-hash-algorithm' in post and 'kr-answer' in post
+    if 'kr-hash' not in post or 'kr-hash-algorithm' not in post or 'kr-answer' not in post:
+        return False
+
+    hash_algorithm = post.get("kr-hash-algorithm")
+    return isinstance(hash_algorithm, str) and hash_algorithm.lower() == EXPECTED_REST_HASH_ALGORITHM
 
 def order_cycle_closed(post):
-    answer = eval(json.dumps(post, ensure_ascii=False)).get("kr-answer")
-    order_cycle = eval(answer).get('orderCycle')
+    answer = post.get("kr-answer")
+    try:
+        parsed_answer = json.loads(answer)
+    except (TypeError, json.JSONDecodeError):
+        return False
+
+    if not isinstance(parsed_answer, dict):
+        return False
+
+    order_cycle = parsed_answer.get('orderCycle')
 
     return order_cycle and (order_cycle == 'CLOSED')
 
@@ -63,14 +79,24 @@ def convert_rest_result(post):
     if (not post):
         return {}
 
-    answer = eval(json.dumps(post, ensure_ascii=False)).get("kr-answer")
+    answer_str = post.get("kr-answer")
+    if not answer_str:
+        return {}
+
+    try:
+        answer = json.loads(answer_str)
+    except (TypeError, json.JSONDecodeError):
+        return {}
+
+    if not isinstance(answer, dict):
+        return {}
 
     response = {}
-    response['vads_url_check_src'] = eval(answer).get('kr-src')
-    response['vads_order_cycle'] = eval(answer).get('orderCycle')
-    response['vads_order_status'] = eval(answer).get('orderStatus')
+    response['vads_url_check_src'] = answer.get('kr-src')
+    response['vads_order_cycle'] = answer.get('orderCycle')
+    response['vads_order_status'] = answer.get('orderStatus')
 
-    customer = eval(answer).get("customer", False)
+    customer = answer.get("customer", False)
     if customer:
         billing_details = customer.get("billingDetails", False)
         if billing_details:
@@ -78,7 +104,7 @@ def convert_rest_result(post):
 
     multi_payment_mean = False
 
-    transactions = eval(answer).get("transactions")
+    transactions = answer.get("transactions")
     if (not transactions):
         transaction = answer
     else:
@@ -90,7 +116,7 @@ def convert_rest_result(post):
         except KeyError:
             multi_payment_mean = False
 
-    order_details = eval(answer).get("orderDetails", False)
+    order_details = answer.get("orderDetails", False)
     if order_details:
         response["vads_order_id"] = order_details["orderId"]
 

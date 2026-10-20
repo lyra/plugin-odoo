@@ -300,7 +300,7 @@ class ProviderLyra(models.Model):
 
         currency = self._lyra_get_currency(data['currency_id'])
 
-        if "amount" in data: 
+        if "amount" in data:
             amount = float(data['amount'])
         else:
             amount = float(entity.amount_total)
@@ -450,7 +450,7 @@ class ProviderLyra(models.Model):
         return None
 
     def _lyra_get_inline_form_values(
-        self, amount, currency, partner_id, is_validation, payment_method_sudo, sale_order_id, invoice_id, **kwargs
+        self, amount, currency, partner_id, is_validation, payment_method_sudo, sale_order_id, invoice_id=None, **kwargs
     ):
         values = {
             "provider_id": self.id,
